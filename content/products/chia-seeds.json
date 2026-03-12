@@ -1,0 +1,86 @@
+{
+  "slug": "chia-seeds",
+  "name": "Chia Seeds",
+  "category": "Seeds",
+  "badge": "Breakfast favourite",
+  "shortDescription": "Premium chia seeds for breakfast bowls, soaking jars, smoothies, and everyday pantry habits.",
+  "description": "Agree Superfoods Chia Seeds are a simple everyday staple for breakfast routines, soaking, blending, and easy healthy meals.",
+  "fullDescription": [
+    "Chia seeds are popular because they fit naturally into routines people already have. They work well in breakfast jars, smoothies, yogurt bowls, and simple soaked recipes without requiring complicated preparation.",
+    "Agree Superfoods presents chia seeds with a calm, premium pantry feel and clear usage guidance. The focus is on making them approachable for daily use rather than dressing them up with exaggerated claims."
+  ],
+  "benefits": [
+    "Easy to use in breakfast bowls, smoothies, and soaked recipes",
+    "Adds texture and pantry variety to everyday meals",
+    "Suitable for customers building simple healthy food habits"
+  ],
+  "ingredients": [
+    "100% chia seeds"
+  ],
+  "usageIdeas": [
+    "Soak overnight for puddings or breakfast jars",
+    "Blend into smoothies or stir into yogurt bowls",
+    "Add to oats, porridge, or baking mixes for easy everyday use"
+  ],
+  "bestFor": [
+    "Breakfast-focused routines and meal prep habits",
+    "Retail shelves centred on healthy pantry essentials",
+    "Customers looking for a simple and familiar seed product"
+  ],
+  "pricing": {
+    "amount": 1100,
+    "compareAtAmount": 1340,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole chia seeds" },
+    { "label": "Use moments", "value": "Breakfast, smoothies, snacks" },
+    { "label": "Texture", "value": "Tiny seeds with excellent soaking versatility" },
+    { "label": "Storage", "value": "Store airtight in a cool, dry pantry" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/chia-seeds.png",
+      "alt": "Agree Superfoods chia seeds product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Use case",
+      "value": "Breakfast-ready",
+      "description": "Ideal for bowls, puddings, overnight jars, and smoothies."
+    },
+    {
+      "title": "Texture",
+      "value": "Soak-friendly",
+      "description": "A versatile seed that suits quick prep and repeat daily use."
+    },
+    {
+      "title": "Range role",
+      "value": "Seed staple",
+      "description": "One of the easiest entry products in the Agree Superfoods collection."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How can chia seeds be used every day?",
+      "answer": "They are easy to add to overnight jars, smoothies, yogurt, oats, and simple snack recipes."
+    },
+    {
+      "question": "Do chia seeds need elaborate preparation?",
+      "answer": "No. They are often used soaked, stirred into breakfast recipes, or blended into drinks for quick pantry-friendly use."
+    }
+  ],
+  "relatedProducts": ["flax-seeds", "pumpkin-seeds", "green-tea"],
+  "relatedPosts": ["benefits-of-chia-seeds-in-everyday-diet"],
+  "featured": true,
+  "catalogPriority": 1,
+  "seo": {
+    "title": "Chia Seeds",
+    "description": "Discover Agree Superfoods Chia Seeds, a premium everyday seed for breakfast bowls, smoothies, and simple pantry routines.",
+    "canonicalPath": "/products/chia-seeds",
+    "ogImage": "/images/products/chia-seeds.png",
+    "keywords": ["chia seeds", "premium chia seeds", "chia seeds for breakfast", "Agree Superfoods"]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "slug": "green-tea",
+  "name": "Green Tea",
+  "category": "Tea",
+  "badge": "Daily tea ritual",
+  "shortDescription": "Premium green tea for calm daily routines, clean flavour, and simple tea moments.",
+  "description": "Agree Superfoods Green Tea is a refined daily tea choice for quiet routines, gifting, and premium pantry appeal.",
+  "fullDescription": [
+    "Green tea holds an important place in modern pantry routines because it feels light, familiar, and easy to return to every day. It suits quiet mornings, mid-day resets, and thoughtful gifting moments.",
+    "Agree Superfoods presents green tea with a clean, premium identity that keeps the ritual simple and inviting. The copy focuses on taste, routine, and quality presentation rather than overstated wellness claims."
+  ],
+  "benefits": [
+    "Supports calm, repeatable tea rituals through the day",
+    "Fits both daily household use and premium gifting",
+    "Brings a clean beverage category into the range"
+  ],
+  "ingredients": [
+    "Green tea"
+  ],
+  "usageIdeas": [
+    "Brew as part of a morning or afternoon tea routine",
+    "Serve in simple tea sets, gifting hampers, or office pantries",
+    "Pair with light snacks, fruit, or makhana for a balanced tea break"
+  ],
+  "bestFor": [
+    "Daily tea drinkers looking for a lighter routine",
+    "Premium pantry and gifting assortments",
+    "Customers who enjoy calm, simple beverage habits"
+  ],
+  "pricing": {
+    "amount": 860,
+    "compareAtAmount": 1040,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Type", "value": "Green tea" },
+    { "label": "Taste profile", "value": "Light, clean, and refreshing" },
+    { "label": "Use moments", "value": "Morning, afternoon, and quiet tea breaks" },
+    { "label": "Storage", "value": "Keep tightly sealed away from heat and moisture" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/green-tea.png",
+      "alt": "Agree Superfoods green tea product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Ritual",
+      "value": "Daily",
+      "description": "An easy tea choice for quiet and consistent everyday moments."
+    },
+    {
+      "title": "Taste",
+      "value": "Clean",
+      "description": "Presented as a fresh, light tea in the Agree collection."
+    },
+    {
+      "title": "Range role",
+      "value": "Tea staple",
+      "description": "A familiar anchor for customers exploring the tea category."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Who is green tea best suited for?",
+      "answer": "It suits customers looking for a light, premium daily tea routine without complexity."
+    },
+    {
+      "question": "Is this presented as a medicinal tea?",
+      "answer": "No. Agree Superfoods presents green tea as a premium daily beverage choice with careful, practical language."
+    }
+  ],
+  "relatedProducts": ["white-tea", "black-tea", "chia-seeds"],
+  "relatedPosts": ["green-tea-vs-black-tea-vs-white-tea"],
+  "featured": true,
+  "catalogPriority": 6,
+  "seo": {
+    "title": "Green Tea",
+    "description": "Discover Agree Superfoods Green Tea, a premium daily tea for calm routines, gifting, and simple everyday refreshment.",
+    "canonicalPath": "/products/green-tea",
+    "ogImage": "/images/products/green-tea.png",
+    "keywords": ["green tea", "premium green tea", "daily green tea", "Agree Superfoods"]
+  }
+}

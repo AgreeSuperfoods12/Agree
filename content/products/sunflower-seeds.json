@@ -1,0 +1,90 @@
+{
+  "slug": "sunflower-seeds",
+  "name": "Sunflower Seeds",
+  "category": "Seeds",
+  "badge": "Pantry crunch",
+  "shortDescription": "Premium sunflower seeds for snack mixes, salads, breakfast toppings, and easy everyday use.",
+  "description": "Agree Superfoods Sunflower Seeds are a simple, crunchy seed option for snacking, topping, and everyday pantry use.",
+  "fullDescription": [
+    "Sunflower seeds are easy to enjoy in snack mixes, topping routines, and pantry jars. Their mild flavour and familiar texture make them approachable for both regular seed users and first-time buyers.",
+    "Agree Superfoods presents sunflower seeds as a premium pantry ingredient that feels clean, versatile, and simple to revisit. The emphasis stays on kitchen usefulness, balanced messaging, and polished product presentation."
+  ],
+  "benefits": [
+    "Adds crunch to snack mixes, salads, bowls, and baked foods",
+    "Easy to use without changing existing meal habits",
+    "Supports a broad, approachable premium seed range"
+  ],
+  "ingredients": [
+    "100% sunflower seeds"
+  ],
+  "usageIdeas": [
+    "Mix into homemade trail mixes and snack jars",
+    "Sprinkle over salads, soups, or breakfast bowls",
+    "Use in crackers, granola, or everyday baking"
+  ],
+  "bestFor": [
+    "Customers looking for a mild, easy-to-use seed option",
+    "Premium pantry shelves with snack and topping appeal",
+    "Households building simple everyday food habits"
+  ],
+  "pricing": {
+    "amount": 1040,
+    "compareAtAmount": 1220,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole sunflower seeds" },
+    { "label": "Taste profile", "value": "Mild and nutty" },
+    { "label": "Use moments", "value": "Snacks, salads, bowls, baking" },
+    { "label": "Storage", "value": "Keep in a sealed pack in a cool, dry place" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/sunflower-seeds.png",
+      "alt": "Close-up photo of sunflower seeds for Agree Superfoods"
+    },
+    {
+      "src": "/images/products/sunflower-seeds.png",
+      "alt": "Close-up photo of sunflower seeds for Agree Superfoods"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Taste",
+      "value": "Mild and nutty",
+      "description": "Easy to pair with sweet or savoury everyday foods."
+    },
+    {
+      "title": "Use",
+      "value": "Snack and topping friendly",
+      "description": "Works across mixes, bowls, salads, and bakery recipes."
+    },
+    {
+      "title": "Range role",
+      "value": "Approachable seed",
+      "description": "A simple entry point into the premium seed collection."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Where do sunflower seeds fit best in daily use?",
+      "answer": "They are easy to use in snack mixes, breakfast bowls, salads, and simple baking recipes."
+    },
+    {
+      "question": "Do sunflower seeds work well with other seeds?",
+      "answer": "Yes. They pair naturally with pumpkin, chia, and flax seeds in pantry mixes and topping routines."
+    }
+  ],
+  "relatedProducts": ["pumpkin-seeds", "flax-seeds", "chia-seeds"],
+  "relatedPosts": ["pumpkin-and-sunflower-seeds-for-everyday-snacking"],
+  "featured": false,
+  "catalogPriority": 4,
+  "seo": {
+    "title": "Sunflower Seeds",
+    "description": "Discover Agree Superfoods Sunflower Seeds, a premium pantry ingredient for snack mixes, salads, breakfast bowls, and baking.",
+    "canonicalPath": "/products/sunflower-seeds",
+    "ogImage": "/images/products/sunflower-seeds.png",
+    "keywords": ["sunflower seeds", "premium sunflower seeds", "sunflower seeds for snacking", "Agree Superfoods"]
+  }
+}

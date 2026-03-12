@@ -1,0 +1,86 @@
+{
+  "slug": "white-tea",
+  "name": "White Tea",
+  "category": "Tea",
+  "badge": "Delicate premium tea",
+  "shortDescription": "Refined white tea for elevated tea moments, gifting, and a softer everyday ritual.",
+  "description": "Agree Superfoods White Tea is a delicate premium tea for quiet routines and a more elevated tea shelf.",
+  "fullDescription": [
+    "White tea brings a lighter, more refined feel to the Agree Superfoods tea collection. It is well suited to customers who enjoy a quieter tea ritual and want something that feels slightly more special than an everyday staple.",
+    "The product is presented with restrained, premium language focused on taste, ritual, and product character. That makes it a strong fit for gifting, curated tea sets, and a premium brand impression."
+  ],
+  "benefits": [
+    "Adds a refined tea option to the collection",
+    "Suitable for quieter routines and premium gifting",
+    "Broadens the tea category with a softer taste profile"
+  ],
+  "ingredients": [
+    "White tea"
+  ],
+  "usageIdeas": [
+    "Enjoy during quiet morning or afternoon tea moments",
+    "Add to gifting hampers and curated tea selections",
+    "Serve when you want a lighter, more delicate tea experience"
+  ],
+  "bestFor": [
+    "Customers looking for a refined tea option",
+    "Premium gift sets and curated tea assortments",
+    "Tea shelves that need an elevated category expression"
+  ],
+  "pricing": {
+    "amount": 1160,
+    "compareAtAmount": 1340,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Type", "value": "White tea" },
+    { "label": "Taste profile", "value": "Delicate, light, and refined" },
+    { "label": "Use moments", "value": "Quiet routines and premium gifting" },
+    { "label": "Storage", "value": "Keep sealed in a cool, dry place away from odours" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/white-tea.png",
+      "alt": "Photo of Darjeeling white tea leaves for Agree Superfoods"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Taste",
+      "value": "Delicate",
+      "description": "A lighter tea profile for customers who prefer gentle everyday rituals."
+    },
+    {
+      "title": "Use",
+      "value": "Premium moments",
+      "description": "A natural fit for gifting, curated tea sets, and quiet breaks."
+    },
+    {
+      "title": "Range role",
+      "value": "Refined tea choice",
+      "description": "Adds depth and elevation to the Agree tea collection."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How is white tea positioned in the range?",
+      "answer": "It is presented as the most refined tea in the collection, suited to lighter and more elevated tea moments."
+    },
+    {
+      "question": "Is white tea suitable for gifting?",
+      "answer": "Yes. Its premium feel makes it a strong addition to gifting assortments and curated tea selections."
+    }
+  ],
+  "relatedProducts": ["green-tea", "black-tea", "makhana"],
+  "relatedPosts": ["green-tea-vs-black-tea-vs-white-tea"],
+  "featured": false,
+  "catalogPriority": 7,
+  "seo": {
+    "title": "White Tea",
+    "description": "Explore Agree Superfoods White Tea, a refined premium tea for quiet routines, gifting, and elevated tea moments.",
+    "canonicalPath": "/products/white-tea",
+    "ogImage": "/images/products/white-tea.png",
+    "keywords": ["white tea", "premium white tea", "delicate tea", "Agree Superfoods"]
+  }
+}

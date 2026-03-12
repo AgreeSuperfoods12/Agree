@@ -1,0 +1,86 @@
+{
+  "slug": "makhana",
+  "name": "Makhana",
+  "category": "Pantry Essentials",
+  "badge": "Everyday snack favourite",
+  "shortDescription": "Premium makhana for light snacking, tea-time bowls, gifting, and modern pantry presentation.",
+  "description": "Agree Superfoods Makhana is a clean, familiar snacking favourite presented with a premium everyday pantry feel.",
+  "fullDescription": [
+    "Makhana brings strong cultural familiarity to the Agree Superfoods range while still feeling modern and premium. It fits naturally into tea-time snacking, gifting moments, pantry jars, and light everyday munching.",
+    "Agree Superfoods positions makhana as a snack-led essential that feels easy to understand and easy to revisit. The copy focuses on simplicity, snack appeal, and polished presentation rather than hype."
+  ],
+  "benefits": [
+    "A familiar snack option with broad household appeal",
+    "Easy to enjoy as part of light snacking and gifting routines",
+    "Adds an Indian pantry favourite to a premium wellness range"
+  ],
+  "ingredients": [
+    "100% makhana"
+  ],
+  "usageIdeas": [
+    "Enjoy as a simple tea-time or evening snack",
+    "Use in snack bowls, gifting hampers, or pantry jars",
+    "Season lightly at home for different flavour preferences"
+  ],
+  "bestFor": [
+    "Customers looking for a familiar, lighter snack option",
+    "Retail shelves focused on modern Indian pantry favourites",
+    "Gifting and tea-time assortments"
+  ],
+  "pricing": {
+    "amount": 920,
+    "compareAtAmount": 1100,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole makhana" },
+    { "label": "Use moments", "value": "Snacking, tea time, gifting" },
+    { "label": "Texture", "value": "Light and crisp" },
+    { "label": "Storage", "value": "Keep airtight in a cool, dry place" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/makhana.png",
+      "alt": "Photo of dried lotus seeds snack for Agree Superfoods makhana product"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Snack appeal",
+      "value": "Light and familiar",
+      "description": "A product that feels easy to trust and easy to serve."
+    },
+    {
+      "title": "Use",
+      "value": "Tea-time ready",
+      "description": "Fits casual snacking, gifting, and simple pantry routines."
+    },
+    {
+      "title": "Range role",
+      "value": "Indian pantry favourite",
+      "description": "Keeps the collection rooted in recognisable everyday habits."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Is makhana positioned as a snack or a pantry ingredient?",
+      "answer": "It is primarily presented as a premium snack favourite, while still fitting well into gifting and pantry jars."
+    },
+    {
+      "question": "Does makhana fit the premium tone of the brand?",
+      "answer": "Yes. It gives Agree Superfoods a recognisable Indian snack product with clean, modern presentation."
+    }
+  ],
+  "relatedProducts": ["black-pepper", "green-tea", "pumpkin-seeds"],
+  "relatedPosts": ["pumpkin-and-sunflower-seeds-for-everyday-snacking"],
+  "featured": true,
+  "catalogPriority": 5,
+  "seo": {
+    "title": "Makhana",
+    "description": "Explore Agree Superfoods Makhana, a premium everyday snack favourite for tea time, gifting, and pantry use.",
+    "canonicalPath": "/products/makhana",
+    "ogImage": "/images/products/makhana.png",
+    "keywords": ["makhana", "premium makhana", "fox nuts snack", "Agree Superfoods"]
+  }
+}

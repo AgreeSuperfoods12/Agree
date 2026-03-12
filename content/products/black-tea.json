@@ -1,0 +1,86 @@
+{
+  "slug": "black-tea",
+  "name": "Black Tea",
+  "category": "Tea",
+  "badge": "Classic daily tea",
+  "shortDescription": "A premium black tea choice for familiar everyday tea routines and dependable pantry appeal.",
+  "description": "Agree Superfoods Black Tea is a classic tea staple with broad familiarity, daily use appeal, and premium presentation.",
+  "fullDescription": [
+    "Black tea is one of the most familiar beverage choices in everyday routines, which makes it an important part of the Agree Superfoods range. It offers comfort, recognition, and broad household appeal.",
+    "Agree Superfoods presents black tea as a dependable daily favourite with a polished, premium identity. The focus stays on taste, routine, and simple product confidence rather than overstated claims."
+  ],
+  "benefits": [
+    "A familiar daily tea choice with broad household appeal",
+    "Suitable for regular tea routines, gifting, and hospitality use",
+    "Strengthens the tea collection with a dependable classic"
+  ],
+  "ingredients": [
+    "Black tea"
+  ],
+  "usageIdeas": [
+    "Brew as part of a familiar morning or evening tea routine",
+    "Serve in office, hospitality, or home pantry settings",
+    "Include in gifting assortments alongside makhana or pantry favourites"
+  ],
+  "bestFor": [
+    "Customers who enjoy classic daily tea habits",
+    "Retail assortments that need familiar and dependable staples",
+    "Hospitality and office tea setups"
+  ],
+  "pricing": {
+    "amount": 860,
+    "compareAtAmount": 980,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Type", "value": "Black tea" },
+    { "label": "Taste profile", "value": "Classic, rich, and familiar" },
+    { "label": "Use moments", "value": "Daily tea routines and serving moments" },
+    { "label": "Storage", "value": "Store tightly sealed away from light and moisture" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/black-tea.png",
+      "alt": "Photo of a cup of black tea for Agree Superfoods"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Familiarity",
+      "value": "Classic",
+      "description": "An easy tea choice for customers who want a dependable daily staple."
+    },
+    {
+      "title": "Use",
+      "value": "Everyday serving",
+      "description": "Works well at home, in hospitality, and in gifting assortments."
+    },
+    {
+      "title": "Range role",
+      "value": "Dependable tea anchor",
+      "description": "Keeps the tea collection broad, recognisable, and easy to trust."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Who is black tea best suited for?",
+      "answer": "It is well suited to customers who prefer familiar daily tea routines and broad, dependable appeal."
+    },
+    {
+      "question": "Is black tea presented differently from green or white tea?",
+      "answer": "Yes. It is positioned as the classic, everyday tea choice in the Agree Superfoods tea collection."
+    }
+  ],
+  "relatedProducts": ["green-tea", "white-tea", "black-pepper"],
+  "relatedPosts": ["green-tea-vs-black-tea-vs-white-tea"],
+  "featured": false,
+  "catalogPriority": 8,
+  "seo": {
+    "title": "Black Tea",
+    "description": "Learn about Agree Superfoods Black Tea, a premium daily tea staple for familiar routines, gifting, and hospitality use.",
+    "canonicalPath": "/products/black-tea",
+    "ogImage": "/images/products/black-tea.png",
+    "keywords": ["black tea", "premium black tea", "daily tea", "Agree Superfoods"]
+  }
+}

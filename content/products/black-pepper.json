@@ -1,0 +1,86 @@
+{
+  "slug": "black-pepper",
+  "name": "Black Pepper",
+  "category": "Pantry Essentials",
+  "badge": "Kitchen essential",
+  "shortDescription": "Whole black pepper for everyday seasoning, finishing, and flavourful home cooking.",
+  "description": "Agree Superfoods Black Pepper brings bold aroma, familiar kitchen value, and premium pantry presentation to everyday cooking.",
+  "fullDescription": [
+    "Black pepper is one of the most reliable ingredients in any kitchen. It adds warmth, aroma, and finishing character to everyday meals while staying easy to understand and easy to use.",
+    "Agree Superfoods presents black pepper as a clean pantry staple for households, gifting, and professional buying conversations. The emphasis stays on ingredient quality, freshness-minded storage, and practical daily use."
+  ],
+  "benefits": [
+    "Adds aroma and depth to everyday savoury cooking",
+    "Works across finishing, seasoning, marinades, and table use",
+    "Brings familiar kitchen utility to a premium pantry range"
+  ],
+  "ingredients": [
+    "100% whole black pepper"
+  ],
+  "usageIdeas": [
+    "Grind fresh over soups, salads, eggs, pasta, and grilled vegetables",
+    "Use in spice blends, marinades, soups, and curry preparations",
+    "Keep in a grinder or pepper mill for everyday table use"
+  ],
+  "bestFor": [
+    "Home kitchens looking for dependable daily seasoning",
+    "Premium pantry shelves and gifting assortments",
+    "Retail and hospitality buyers seeking a familiar staple"
+  ],
+  "pricing": {
+    "amount": 730,
+    "compareAtAmount": 860,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole peppercorns" },
+    { "label": "Taste profile", "value": "Warm, bold, and aromatic" },
+    { "label": "Best use", "value": "Daily cooking, finishing, and table seasoning" },
+    { "label": "Storage", "value": "Keep sealed in a cool, dry place away from moisture" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/black-pepper.png",
+      "alt": "Agree Superfoods black pepper product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Aroma",
+      "value": "Bold and warm",
+      "description": "Designed for fresh grinding and everyday cooking depth."
+    },
+    {
+      "title": "Use",
+      "value": "Daily kitchen staple",
+      "description": "Easy to keep on hand for table seasoning and regular meal prep."
+    },
+    {
+      "title": "Range role",
+      "value": "Pantry anchor",
+      "description": "Keeps the Agree range grounded in familiar kitchen essentials."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Is this black pepper suitable for everyday kitchen use?",
+      "answer": "Yes. It is positioned as an easy, dependable pantry staple for seasoning and cooking throughout the week."
+    },
+    {
+      "question": "How should black pepper be stored?",
+      "answer": "Store it airtight in a cool, dry place and grind fresh when possible for the best aroma."
+    }
+  ],
+  "relatedProducts": ["makhana", "black-tea", "chia-seeds"],
+  "relatedPosts": ["black-pepper-in-daily-food-use"],
+  "featured": false,
+  "catalogPriority": 20,
+  "seo": {
+    "title": "Black Pepper",
+    "description": "Explore Agree Superfoods Black Pepper, a premium kitchen essential for everyday cooking, seasoning, and fresh finishing.",
+    "canonicalPath": "/products/black-pepper",
+    "ogImage": "/images/products/black-pepper.png",
+    "keywords": ["black pepper", "whole black pepper", "premium pantry essential", "Agree Superfoods"]
+  }
+}

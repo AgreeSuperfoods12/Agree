@@ -1,0 +1,86 @@
+{
+  "slug": "pumpkin-seeds",
+  "name": "Pumpkin Seeds",
+  "category": "Seeds",
+  "badge": "Crunchy topping seed",
+  "shortDescription": "Premium pumpkin seeds for topping, snacking, salad bowls, and everyday pantry variety.",
+  "description": "Agree Superfoods Pumpkin Seeds are a versatile everyday seed for topping, snacking, and adding crunch to simple meals.",
+  "fullDescription": [
+    "Pumpkin seeds bring colour, crunch, and modern pantry appeal to the Agree Superfoods range. They are easy to use in salads, breakfast bowls, trail mixes, and snack jars, which makes them both practical and visually appealing.",
+    "The product is presented as a premium seed choice for people who want pantry variety without complexity. The page focuses on simple food use, clean presentation, and repeatable everyday habits."
+  ],
+  "benefits": [
+    "Adds crunch and texture to meals and snacks",
+    "Works well in bowls, salads, mixes, and pantry jars",
+    "Helps the range feel modern, visual, and snack friendly"
+  ],
+  "ingredients": [
+    "100% pumpkin seeds"
+  ],
+  "usageIdeas": [
+    "Sprinkle over breakfast bowls, salads, or soups",
+    "Use in trail mixes, seed blends, or snack jars",
+    "Add to granola, crackers, or baking recipes for extra crunch"
+  ],
+  "bestFor": [
+    "Households looking for a topping-friendly seed option",
+    "Retail selections centred on premium healthy snacking",
+    "Customers who enjoy texture-rich pantry ingredients"
+  ],
+  "pricing": {
+    "amount": 1280,
+    "compareAtAmount": 1460,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole pumpkin seeds" },
+    { "label": "Texture", "value": "Crunchy and topping friendly" },
+    { "label": "Use moments", "value": "Snacking, bowls, salads, baking" },
+    { "label": "Storage", "value": "Store sealed in a cool, dry pantry" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/pumpkin-seeds.png",
+      "alt": "Agree Superfoods pumpkin seeds product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Texture",
+      "value": "Crunchy",
+      "description": "A practical seed for adding bite to everyday meals."
+    },
+    {
+      "title": "Use",
+      "value": "Topping and snacking",
+      "description": "Works across bowls, salads, mixes, and pantry jars."
+    },
+    {
+      "title": "Range role",
+      "value": "Modern pantry appeal",
+      "description": "Adds freshness and visual variety to the seeds collection."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How are pumpkin seeds commonly used?",
+      "answer": "They are often used in salads, breakfast bowls, seed mixes, snack jars, and simple baking recipes."
+    },
+    {
+      "question": "Are pumpkin seeds more for snacking or topping?",
+      "answer": "They work well for both, which is part of what makes them such a flexible pantry ingredient."
+    }
+  ],
+  "relatedProducts": ["sunflower-seeds", "chia-seeds", "makhana"],
+  "relatedPosts": ["pumpkin-and-sunflower-seeds-for-everyday-snacking"],
+  "featured": true,
+  "catalogPriority": 3,
+  "seo": {
+    "title": "Pumpkin Seeds",
+    "description": "Explore Agree Superfoods Pumpkin Seeds, a premium seed for topping, snacking, salads, and everyday pantry variety.",
+    "canonicalPath": "/products/pumpkin-seeds",
+    "ogImage": "/images/products/pumpkin-seeds.png",
+    "keywords": ["pumpkin seeds", "premium pumpkin seeds", "pumpkin seeds snack", "Agree Superfoods"]
+  }
+}

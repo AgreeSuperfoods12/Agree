@@ -1,0 +1,63 @@
+.prose-content {
+  color: var(--color-olive-800);
+}
+
+.prose-content > * + * {
+  margin-top: 1.15rem;
+}
+
+.prose-content h2,
+.prose-content h3 {
+  color: var(--color-olive-950);
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.prose-content h2 {
+  margin-top: 2.8rem;
+  font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+}
+
+.prose-content h3 {
+  margin-top: 2rem;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+.prose-content p,
+.prose-content li {
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.prose-content ul,
+.prose-content ol {
+  padding-left: 1.4rem;
+}
+
+.prose-content ul {
+  list-style: disc;
+}
+
+.prose-content ol {
+  list-style: decimal;
+}
+
+.prose-content a {
+  color: var(--color-olive-950);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.prose-content strong {
+  color: var(--color-olive-950);
+}
+
+.prose-content blockquote {
+  border-left: 3px solid var(--color-gold-500);
+  padding-left: 1rem;
+  color: var(--color-olive-900);
+  font-style: italic;
+}
+

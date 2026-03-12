@@ -1,0 +1,86 @@
+{
+  "slug": "flax-seeds",
+  "name": "Flax Seeds",
+  "category": "Seeds",
+  "badge": "Daily pantry seed",
+  "shortDescription": "Nutty, versatile flax seeds for breakfast bowls, baking, smoothies, and simple everyday food routines.",
+  "description": "Agree Superfoods Flax Seeds are a practical pantry ingredient for breakfast, baking, and everyday recipe use.",
+  "fullDescription": [
+    "Flax seeds are a useful ingredient for households that enjoy building small, repeatable food habits. They work in oats, smoothies, baking, and topping routines while keeping the pantry feeling simple and versatile.",
+    "Agree Superfoods positions flax seeds as an everyday ingredient rather than a complicated wellness product. The emphasis is on steady kitchen use, approachable guidance, and a clean premium presentation."
+  ],
+  "benefits": [
+    "Works well in breakfast, baking, and smoothie routines",
+    "Adds nutty pantry variety to simple everyday recipes",
+    "Easy to pair with other seed and breakfast staples"
+  ],
+  "ingredients": [
+    "100% flax seeds"
+  ],
+  "usageIdeas": [
+    "Add to oats, yogurt bowls, or home baking mixes",
+    "Blend into smoothies or sprinkle over breakfast plates",
+    "Use in crackers, bars, and seed-forward snack recipes"
+  ],
+  "bestFor": [
+    "Customers building easy breakfast and baking routines",
+    "Pantry assortments focused on everyday seed use",
+    "Retailers looking for practical, familiar wellness foods"
+  ],
+  "pricing": {
+    "amount": 980,
+    "compareAtAmount": 1160,
+    "currencyCode": "INR",
+    "variantLabel": "100g"
+  },
+  "productDetails": [
+    { "label": "Format", "value": "Whole flax seeds" },
+    { "label": "Taste profile", "value": "Mild, nutty, and versatile" },
+    { "label": "Use moments", "value": "Breakfast, baking, smoothies" },
+    { "label": "Storage", "value": "Keep sealed in a cool, dry place" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/flax-seeds.png",
+      "alt": "Agree Superfoods flax seeds product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Taste",
+      "value": "Mild and nutty",
+      "description": "Easy to mix into both sweet and savoury everyday foods."
+    },
+    {
+      "title": "Use",
+      "value": "Recipe friendly",
+      "description": "Works across smoothies, oats, baking, and topping routines."
+    },
+    {
+      "title": "Range role",
+      "value": "Pantry versatility",
+      "description": "A practical seed that supports repeat use and simple meal ideas."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Where do flax seeds fit into a daily routine?",
+      "answer": "They are often used in breakfast bowls, smoothies, baking, and homemade snack recipes."
+    },
+    {
+      "question": "Are flax seeds hard to work with?",
+      "answer": "No. They are a flexible pantry ingredient that can be added to many familiar meals with very little effort."
+    }
+  ],
+  "relatedProducts": ["chia-seeds", "sunflower-seeds", "green-tea"],
+  "relatedPosts": ["how-to-use-flax-seeds-daily"],
+  "featured": true,
+  "catalogPriority": 2,
+  "seo": {
+    "title": "Flax Seeds",
+    "description": "Explore Agree Superfoods Flax Seeds, a premium pantry ingredient for breakfast, baking, smoothies, and everyday meals.",
+    "canonicalPath": "/products/flax-seeds",
+    "ogImage": "/images/products/flax-seeds.png",
+    "keywords": ["flax seeds", "premium flax seeds", "flax seeds daily use", "Agree Superfoods"]
+  }
+}

@@ -1,0 +1,129 @@
+import type { Metadata } from "next";
+
+import { siteConfig } from "@/lib/site-config";
+import { absoluteUrl, truncate } from "@/lib/utils";
+
+interface MetadataOptions {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  authors?: string[];
+}
+
+export function buildMetadata({
+  title,
+  description = siteConfig.description,
+  path = "/",
+  image = "/opengraph-image",
+  keywords = [],
+  noIndex = false,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  authors = [],
+}: MetadataOptions = {}): Metadata {
+  const canonicalUrl = absoluteUrl(path);
+  const shouldNoIndex = noIndex || siteConfig.isPreviewDeployment;
+  const pageTitle = title
+    ? `${title} | ${siteConfig.name}`
+    : `${siteConfig.name} | Premium Superfoods for Simple Everyday Wellness`;
+  const pageDescription = truncate(description, 160);
+  const imageUrl = absoluteUrl(image);
+  const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const yandexSiteVerification = process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION;
+  const bingSiteVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+  const openGraph: NonNullable<Metadata["openGraph"]> =
+    type === "article"
+      ? {
+          type: "article",
+          url: canonicalUrl,
+          title: pageTitle,
+          description: pageDescription,
+          siteName: siteConfig.name,
+          locale: "en_IN",
+          publishedTime,
+          modifiedTime: modifiedTime || publishedTime,
+          authors,
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: pageTitle,
+            },
+          ],
+        }
+      : {
+          type: "website",
+          url: canonicalUrl,
+          title: pageTitle,
+          description: pageDescription,
+          siteName: siteConfig.name,
+          locale: "en_IN",
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: pageTitle,
+            },
+          ],
+        };
+
+  return {
+    metadataBase: new URL(siteConfig.siteUrl),
+    applicationName: siteConfig.name,
+    title: pageTitle,
+    description: pageDescription,
+    keywords,
+    manifest: "/manifest.webmanifest",
+    icons: {
+      icon: "/icon.svg",
+      shortcut: "/icon.svg",
+    },
+    ...(authors.length > 0
+      ? {
+          authors: authors.map((name) => ({ name })),
+        }
+      : {}),
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    robots: {
+      index: !shouldNoIndex,
+      follow: !shouldNoIndex,
+      googleBot: {
+        index: !shouldNoIndex,
+        follow: !shouldNoIndex,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    ...(googleSiteVerification || yandexSiteVerification || bingSiteVerification
+      ? {
+          verification: {
+            ...(googleSiteVerification ? { google: googleSiteVerification } : {}),
+            ...(yandexSiteVerification ? { yandex: yandexSiteVerification } : {}),
+            ...(bingSiteVerification
+              ? { other: { "msvalidate.01": bingSiteVerification } }
+              : {}),
+          },
+        }
+      : {}),
+    openGraph,
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: pageDescription,
+      images: [imageUrl],
+    },
+    category: "food",
+  };
+}

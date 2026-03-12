@@ -1,0 +1,102 @@
+@import "tailwindcss";
+@import "../styles/prose.css";
+
+@theme {
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-fraunces);
+
+  --color-sand-50: #faf7f0;
+  --color-sand-100: #f3ecde;
+  --color-sand-200: #e8dcc2;
+  --color-sand-300: #dcc79c;
+
+  --color-olive-50: #eff5ed;
+  --color-olive-200: #c6d6bd;
+  --color-olive-300: #9bb293;
+  --color-olive-400: #6d876d;
+  --color-olive-500: #4e6652;
+  --color-olive-700: #274033;
+  --color-olive-800: #21352a;
+  --color-olive-900: #1c2d23;
+  --color-olive-950: #132018;
+
+  --color-gold-300: #ecd79b;
+  --color-gold-400: #dfbd68;
+  --color-gold-500: #c99f3a;
+
+  --shadow-soft: 0 24px 60px -32px rgba(19, 32, 24, 0.28);
+  --shadow-card: 0 28px 80px -42px rgba(19, 32, 24, 0.34);
+  --shadow-strong: 0 34px 110px -48px rgba(19, 32, 24, 0.54);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top right, rgba(223, 189, 104, 0.2), transparent 24%),
+      radial-gradient(circle at left 18%, rgba(39, 64, 51, 0.08), transparent 28%),
+      linear-gradient(180deg, #fbf7ef 0%, #f6f1e6 44%, #fbf7ef 100%);
+    color: var(--color-olive-900);
+    font-family: var(--font-manrope), Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-olive-950);
+    font-family: var(--font-fraunces), Georgia, serif;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgba(201, 159, 58, 0.25);
+  }
+}
+
+@utility section-shell {
+  @apply py-[4.5rem] md:py-24 lg:py-28;
+}
+
+@utility card-surface {
+  @apply rounded-[2rem] border border-white/70 bg-white/88 backdrop-blur-md;
+  box-shadow: var(--shadow-card);
+}
+
+@utility premium-panel {
+  @apply rounded-[2.25rem] border border-olive-950/8 bg-white/92 backdrop-blur-md;
+  box-shadow: var(--shadow-strong);
+}
+
+@utility dark-panel {
+  @apply rounded-[2.25rem] border border-white/10 bg-olive-950 text-sand-50;
+  box-shadow: var(--shadow-strong);
+}
+
+@utility image-stage {
+  @apply overflow-hidden rounded-[2rem] border border-white/60 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(243,236,222,0.85)_42%,rgba(239,245,237,0.92)_100%)];
+  box-shadow: var(--shadow-card);
+}
+
+@utility subdued-grid {
+  background-image:
+    linear-gradient(rgba(39, 64, 51, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(39, 64, 51, 0.06) 1px, transparent 1px);
+  background-position: center;
+  background-size: 36px 36px;
+}
