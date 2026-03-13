@@ -6,6 +6,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { BlogCard } from "@/components/blog/blog-card";
 import { mdxComponents } from "@/components/blog/mdx-components";
 import { PortableTextContent } from "@/components/blog/portable-text-components";
@@ -155,19 +156,32 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 Continue from article reading into product pages, FAQs, and direct support if you want to know more.
               </p>
               <div className="mt-5 flex flex-col gap-3">
-                <Link href="/products" className={buttonStyles({ size: "lg" })}>
+                <TrackedLink
+                  href="/products"
+                  className={buttonStyles({ size: "lg" })}
+                  eventData={{
+                    location: "blog_sidebar",
+                    label: "Explore products",
+                    article_slug: post.slug,
+                  }}
+                >
                   Explore products
-                </Link>
-                <Link
+                </TrackedLink>
+                <TrackedLink
                   href="/contact"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
                     className: "bg-white text-olive-950",
                   })}
+                  eventData={{
+                    location: "blog_sidebar",
+                    label: "Contact support",
+                    article_slug: post.slug,
+                  }}
                 >
                   Contact Us
-                </Link>
+                </TrackedLink>
               </div>
             </div>
           </div>

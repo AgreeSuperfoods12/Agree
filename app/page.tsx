@@ -1,7 +1,7 @@
 import { getFeaturedPosts } from "@/lib/content/blog";
 import { getHomePageContent } from "@/lib/content/home";
 import { getAllProducts } from "@/lib/content/products";
-import { getBreadcrumbSchema, getOrganizationSchema, getWebsiteSchema } from "@/lib/seo/schema";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
 import { BlogPreviewSection } from "@/components/home/blog-preview-section";
 import { CollectionBrowseSection } from "@/components/home/collection-browse-section";
 import { ComplianceStrip } from "@/components/home/compliance-strip";
@@ -42,8 +42,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd data={getOrganizationSchema()} />
-      <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getBreadcrumbSchema([{ name: "Home", href: "/" }])} />
 
       <HeroSection />
@@ -54,8 +52,8 @@ export default async function HomePage() {
       />
       <CollectionBrowseSection
         eyebrow="Browse collections"
-        title="Shop by category."
-        description="Browse seeds, teas, pantry staples, snack-ready picks, and wholesale-friendly assortments."
+        title="Browse by category."
+        description="Explore seeds, teas, pantry staples, snack-ready picks, and wholesale-friendly assortments."
         items={homeContent.collectionTiles.slice(0, 4)}
       />
       <FeaturedProductsSection products={featuredGridProducts} />

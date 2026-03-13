@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Agree Superfoods";
 export const size = {
   width: 1200,
@@ -38,6 +37,8 @@ export default function OpenGraphImage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
             <div
               style={{
+                display: "flex",
+                flexDirection: "column",
                 fontSize: 78,
                 lineHeight: 1.04,
                 fontWeight: 600,

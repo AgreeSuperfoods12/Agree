@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Container } from "@/components/layout/container";
 import { buttonStyles } from "@/components/ui/button";
 import { getSiteContent } from "@/lib/content/site";
@@ -149,13 +149,14 @@ export async function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link
+              <TrackedLink
                 href={siteContent.hero.primaryCta.href}
                 className={buttonStyles({
                   size: "lg",
                   className:
                     "min-w-[10rem] bg-olive-950 text-sand-50 shadow-[0_16px_38px_-24px_rgba(19,32,24,0.32)] hover:bg-olive-900",
                 })}
+                eventData={{ location: "hero", label: siteContent.hero.primaryCta.label }}
               >
                 {siteContent.hero.primaryCta.label}
                 <span
@@ -164,14 +165,15 @@ export async function HeroSection() {
                 >
                   &gt;
                 </span>
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href={siteContent.hero.secondaryCta.href}
                 className="inline-flex items-center gap-2 rounded-full border border-olive-950/10 bg-white/78 px-5 py-3 text-sm font-semibold text-olive-950 shadow-[0_18px_36px_-28px_rgba(19,32,24,0.25)] transition hover:bg-white"
+                eventData={{ location: "hero", label: siteContent.hero.secondaryCta.label }}
               >
                 {siteContent.hero.secondaryCta.label}
                 <span aria-hidden="true">+</span>
-              </Link>
+              </TrackedLink>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-olive-700">

@@ -6,6 +6,14 @@ import { Container } from "@/components/layout/container";
 import { footerNavigation, navigation, siteConfig } from "@/lib/site-config";
 
 export function Footer() {
+  const supportPhone = siteConfig.business.records.phone;
+  const socialLinks = [
+    { label: "Facebook", href: siteConfig.social.facebook },
+    { label: "Instagram", href: siteConfig.social.instagram },
+    { label: "LinkedIn", href: siteConfig.social.linkedin },
+    { label: "YouTube", href: siteConfig.social.youtube },
+  ].filter((item) => Boolean(item.href));
+
   return (
     <footer className="mt-10 border-t border-white/8 bg-olive-950 text-sand-50">
       <Container className="grid gap-10 py-14 xl:grid-cols-[1.05fr_0.7fr_0.7fr_0.75fr_1fr]">
@@ -28,9 +36,45 @@ export function Footer() {
           </div>
           <div className="space-y-1 text-sm text-sand-100/80">
             <p>{siteConfig.location}</p>
-            <p>{siteConfig.email}</p>
-            <p>{siteConfig.siteUrl.replace(/^https?:\/\//, "")}</p>
+            <p>
+              <Link href={`mailto:${siteConfig.email}`} className="transition-colors hover:text-sand-50">
+                {siteConfig.email}
+              </Link>
+            </p>
+            {supportPhone ? (
+              <p>
+                <Link
+                  href={`tel:${supportPhone.replace(/\s+/g, "")}`}
+                  className="transition-colors hover:text-sand-50"
+                >
+                  {supportPhone}
+                </Link>
+              </p>
+            ) : null}
+            <p>
+              <Link href={siteConfig.siteUrl} className="transition-colors hover:text-sand-50">
+                {siteConfig.siteUrl.replace(/^https?:\/\//, "")}
+              </Link>
+            </p>
+            {siteConfig.business.records.gstNumber ? (
+              <p>GSTIN / UIN: {siteConfig.business.records.gstNumber}</p>
+            ) : null}
           </div>
+          {socialLinks.length > 0 ? (
+            <div className="flex flex-wrap gap-3 pt-1 text-sm text-sand-100/80">
+              {socialLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition-colors hover:text-sand-50"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div>
@@ -47,7 +91,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-base text-sand-50">Shop by type</h2>
+          <h2 className="text-base text-sand-50">Browse by type</h2>
           <ul className="mt-4 space-y-3 text-sm text-sand-100/80">
             <li>
               <Link href="/products?category=Seeds" className="transition-colors hover:text-sand-50">

@@ -7,11 +7,14 @@ export default function manifest(): MetadataRoute.Manifest {
     name: siteConfig.name,
     short_name: siteConfig.shortName,
     description: siteConfig.description,
+    lang: "en-IN",
+    id: "/",
     start_url: "/",
     scope: "/",
     display: "standalone",
     background_color: "#faf7f0",
     theme_color: "#243A2D",
+    categories: ["food", "shopping", "lifestyle"],
     icons: [
       {
         src: "/icon.svg",

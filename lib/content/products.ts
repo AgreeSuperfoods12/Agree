@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
 import { z } from "zod";
@@ -90,6 +90,29 @@ function parseProductFile(fileName: string): Product {
   return normalizeProduct(productSchema.parse(JSON.parse(source)));
 }
 
+const getLocalProductFileNames = cache(() =>
+  readdirSync(productsDirectory).filter((fileName) => fileName.endsWith(".json")),
+);
+
+export const getProductLastModifiedMap = cache(async () => {
+  const sanityProducts = await getSanityProducts();
+
+  if (sanityProducts) {
+    return Object.fromEntries(
+      sanityProducts.map((product) => [product.slug, new Date().toISOString()]),
+    );
+  }
+
+  return Object.fromEntries(
+    getLocalProductFileNames().map((fileName) => {
+      const slug = fileName.replace(/\.json$/, "");
+      const filePath = path.join(productsDirectory, fileName);
+
+      return [slug, statSync(filePath).mtime.toISOString()];
+    }),
+  );
+});
+
 function sortProducts(products: Product[]) {
   return products.sort((left, right) => {
     if (left.featured !== right.featured) {
@@ -120,9 +143,7 @@ export const getAllProducts = cache(async () => {
     return sanityProducts;
   }
 
-  const productFiles = readdirSync(productsDirectory).filter((fileName) =>
-    fileName.endsWith(".json"),
-  );
+  const productFiles = getLocalProductFileNames();
 
   return sortProducts(productFiles.map(parseProductFile));
 });

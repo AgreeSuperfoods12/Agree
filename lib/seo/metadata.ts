@@ -16,6 +16,14 @@ interface MetadataOptions {
   authors?: string[];
 }
 
+function getPageTitle(title?: string) {
+  if (!title) {
+    return `${siteConfig.name} | Premium Indian Superfoods, Seeds, Tea & Pantry Essentials`;
+  }
+
+  return title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`;
+}
+
 export function buildMetadata({
   title,
   description = siteConfig.description,
@@ -30,15 +38,14 @@ export function buildMetadata({
 }: MetadataOptions = {}): Metadata {
   const canonicalUrl = absoluteUrl(path);
   const shouldNoIndex = noIndex || siteConfig.isPreviewDeployment;
-  const pageTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : `${siteConfig.name} | Premium Superfoods for Simple Everyday Wellness`;
+  const pageTitle = getPageTitle(title);
   const pageDescription = truncate(description, 160);
   const imageUrl = absoluteUrl(image);
   const googleSiteVerification =
     process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "EgAIl2GI0UGEmKpf66MTq1bxMgEHnsL48uOamOL_CO4";
   const yandexSiteVerification = process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION;
   const bingSiteVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+  const pageKeywords = Array.from(new Set([...siteConfig.defaultKeywords, ...keywords]));
   const openGraph: NonNullable<Metadata["openGraph"]> =
     type === "article"
       ? {
@@ -82,7 +89,15 @@ export function buildMetadata({
     applicationName: siteConfig.name,
     title: pageTitle,
     description: pageDescription,
-    keywords,
+    keywords: pageKeywords,
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    referrer: "origin-when-cross-origin",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
     manifest: "/manifest.webmanifest",
     icons: {
       icon: "/icon.svg",

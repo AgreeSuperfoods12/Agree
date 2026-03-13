@@ -2,22 +2,34 @@ import type { Metadata } from "next";
 
 import { filterPosts, getAllPosts } from "@/lib/content/blog";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBreadcrumbSchema } from "@/lib/seo/schema";
+import { getBlogListSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 import { BlogCard } from "@/components/blog/blog-card";
 import { BlogFilterForm } from "@/components/blog/blog-filter-form";
 import { Container } from "@/components/layout/container";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Blog",
-  description:
-    "Read Agree Superfoods articles on seeds, teas, simple pantry habits, and everyday wellness routines.",
-  path: "/blog",
-});
-
 interface BlogPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const query =
+    typeof resolvedSearchParams.query === "string" ? resolvedSearchParams.query : undefined;
+  const category =
+    typeof resolvedSearchParams.category === "string" ? resolvedSearchParams.category : undefined;
+  const tag = typeof resolvedSearchParams.tag === "string" ? resolvedSearchParams.tag : undefined;
+  const hasFilters = Boolean(query || category || tag);
+
+  return buildMetadata({
+    title: category ? `${category} Articles` : "Blog",
+    description: category
+      ? `Read Agree Superfoods articles about ${category.toLowerCase()}, product use, pantry habits, and everyday routines.`
+      : "Read Agree Superfoods articles on seeds, teas, simple pantry habits, and everyday wellness routines.",
+    path: "/blog",
+    noIndex: hasFilters,
+  });
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
@@ -38,6 +50,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           { name: "Blog", href: "/blog" },
         ])}
       />
+      <JsonLd data={getBlogListSchema("Agree Superfoods Journal", "/blog", posts)} />
       <PageHero
         eyebrow="Educational content"
         title="Helpful reading on seeds, teas, snacking, and simple food habits."

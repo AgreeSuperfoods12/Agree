@@ -7,7 +7,7 @@ export const defaultSiteContent: SiteContent = {
     description:
       "Explore premium seeds, teas, makhana, and pantry essentials designed for everyday routines, gifting, and serious wholesale enquiries.",
     primaryCta: {
-      label: "Shop Now",
+      label: "Explore Products",
       href: "/products",
     },
     secondaryCta: {

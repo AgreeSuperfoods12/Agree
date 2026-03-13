@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ProductViewTracker } from "@/components/analytics/product-view-tracker";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { BlogCard } from "@/components/blog/blog-card";
 import { Container } from "@/components/layout/container";
 import { ProductPriceGroup } from "@/components/pricing/product-price-group";
@@ -78,6 +80,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <JsonLd data={getBreadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={getProductSchema(product)} />
       {product.faqs.length > 0 ? <JsonLd data={getFaqSchema(product.faqs)} /> : null}
+      <ProductViewTracker
+        slug={product.slug}
+        name={product.name}
+        category={product.category}
+        pricing={product.pricing}
+      />
 
       <section className="section-shell">
         <Container className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
@@ -117,15 +125,28 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 ))}
               </div>
               <div className="mt-7 flex flex-col gap-3">
-                <Link href="/contact" className={buttonStyles({ size: "lg" })}>
-                  Enquire Now
-                </Link>
-                <Link
+                <TrackedLink
+                  href="/contact"
+                  className={buttonStyles({ size: "lg" })}
+                  eventData={{
+                    location: "product_hero",
+                    label: "Enquire to order",
+                    product_slug: product.slug,
+                  }}
+                >
+                  Enquire to Order
+                </TrackedLink>
+                <TrackedLink
                   href="/wholesale"
                   className={buttonStyles({ variant: "secondary", size: "lg" })}
+                  eventData={{
+                    location: "product_hero",
+                    label: "Bulk / Wholesale",
+                    product_slug: product.slug,
+                  }}
                 >
                   Bulk / Wholesale
-                </Link>
+                </TrackedLink>
               </div>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-olive-950/8 bg-sand-50 px-4 py-4">
@@ -133,15 +154,17 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     Pack size
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    {product.pricing.variantLabel} pricing is now managed through the shared product data model.
+                    This page shows pricing for the {product.pricing.variantLabel} pack so smaller
+                    orders and retail enquiries start with a clear reference point.
                   </p>
                 </div>
                 <div className="rounded-[1.5rem] border border-olive-950/8 bg-sand-50 px-4 py-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
-                    Purchase path
+                    How to order
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Use contact or wholesale routes for samples, gifting, or larger requirements.
+                    Use the contact route for product and retail enquiries, or the wholesale route
+                    for trade, gifting, and larger quantity requests.
                   </p>
                 </div>
               </div>
@@ -165,8 +188,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     Product support
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Use this page to review product context, then contact the team for gifting,
-                    trade, or specification requests.
+                    Review the product details here, then reach out for order support, gifting
+                    needs, samples, or specification requests.
                   </p>
                 </div>
                 <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
@@ -182,7 +205,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     Bulk route
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Retail, hospitality, distributor, and larger quantity enquiries are welcome.
+                    Retail, hospitality, distributor, and larger quantity enquiries are welcome
+                    through the dedicated business route.
                   </p>
                 </div>
               </div>
@@ -330,30 +354,48 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <Link href="/contact" className={buttonStyles({ size: "lg" })}>
-                Contact Us
-              </Link>
-              <Link
+              <TrackedLink
+                href="/contact"
+                className={buttonStyles({ size: "lg" })}
+                eventData={{
+                  location: "product_footer_cta",
+                  label: "Enquire to order",
+                  product_slug: product.slug,
+                }}
+              >
+                Enquire to Order
+              </TrackedLink>
+              <TrackedLink
                 href="/wholesale"
                 className={buttonStyles({
                   variant: "secondary",
                   size: "lg",
                   className: "bg-white text-olive-950",
                 })}
+                eventData={{
+                  location: "product_footer_cta",
+                  label: "Bulk / Wholesale",
+                  product_slug: product.slug,
+                }}
               >
                 Bulk / Wholesale
-              </Link>
+              </TrackedLink>
               {siteConfig.business.whatsappUrl ? (
-                <Link
+                <TrackedLink
                   href={siteConfig.business.whatsappUrl}
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
                     className: "bg-white text-olive-950",
                   })}
+                  eventData={{
+                    location: "product_footer_cta",
+                    label: siteConfig.business.whatsappLabel,
+                    product_slug: product.slug,
+                  }}
                 >
                   {siteConfig.business.whatsappLabel}
-                </Link>
+                </TrackedLink>
               ) : null}
             </div>
           </div>

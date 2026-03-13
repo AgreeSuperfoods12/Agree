@@ -119,6 +119,9 @@ Production-ready brand showcase website for Agree Superfoods, built with Next.js
 
    ```env
    NEXT_PUBLIC_SITE_URL=https://www.agreesuperfoods.in
+   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
+   NEXT_PUBLIC_GA_MEASUREMENT_ID=
+   NEXT_PUBLIC_META_PIXEL_ID=
    NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
    NEXT_PUBLIC_SANITY_DATASET=production
    NEXT_PUBLIC_SANITY_API_VERSION=2026-03-10

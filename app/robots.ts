@@ -11,8 +11,6 @@ export default function robots(): MetadataRoute.Robots {
           disallow: "/",
         },
       ],
-      sitemap: `${siteConfig.siteUrl}/sitemap.xml`,
-      host: siteConfig.siteUrl,
     };
   }
 
@@ -21,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/studio"],
+        disallow: ["/api/", "/studio", "/studio/"],
       },
     ],
     sitemap: `${siteConfig.siteUrl}/sitemap.xml`,

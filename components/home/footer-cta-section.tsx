@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import type { FooterCtaContent } from "@/types/home";
 import { Container } from "@/components/layout/container";
 import { buttonStyles } from "@/components/ui/button";
@@ -34,19 +34,24 @@ export function FooterCtaSection({ content }: FooterCtaSectionProps) {
               <p className="mt-5 max-w-3xl leading-8 text-sand-100/78">{content.description}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link href={content.primaryHref} className={buttonStyles({ size: "lg" })}>
+              <TrackedLink
+                href={content.primaryHref}
+                className={buttonStyles({ size: "lg" })}
+                eventData={{ location: "footer_cta", label: content.primaryLabel }}
+              >
                 {content.primaryLabel}
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href={content.secondaryHref}
                 className={buttonStyles({
                   variant: "secondary",
                   size: "lg",
                   className: "bg-white text-olive-950",
                 })}
+                eventData={{ location: "footer_cta", label: content.secondaryLabel }}
               >
                 {content.secondaryLabel}
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </div>

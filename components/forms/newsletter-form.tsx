@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { trackLeadSubmit } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type SubmissionState =
@@ -41,6 +42,7 @@ export function NewsletterForm({ inverse = false }: NewsletterFormProps) {
       }
 
       event.currentTarget.reset();
+      trackLeadSubmit("newsletter");
       setSubmissionState({
         status: "success",
         message:
@@ -61,7 +63,7 @@ export function NewsletterForm({ inverse = false }: NewsletterFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4">
+    <form onSubmit={handleSubmit} className="grid gap-4" aria-busy={isSubmitting}>
       <input
         type="text"
         name="website"

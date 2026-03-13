@@ -336,7 +336,7 @@ export const defaultHomePageContent: HomePageContent = {
     eyebrow: "Discover the power of clean pantry choices",
     title: "Bring Agree Superfoods into everyday routines, gifting plans, or serious business conversations.",
     description:
-      "Explore the range, browse ingredient-led content, or start a trade enquiry through a storefront that already feels ready for premium ecommerce.",
+      "Explore the range, browse ingredient-led content, or start a trade enquiry through a premium pantry experience built for clear product discovery and direct support.",
     primaryLabel: "Explore Products",
     primaryHref: "/products",
     secondaryLabel: "Bulk / Wholesale",

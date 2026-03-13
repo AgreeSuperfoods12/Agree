@@ -289,7 +289,7 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
             Bestsellers for everyday pantry routines.
           </h2>
           <p className="mt-5 text-base leading-7 text-olive-800 sm:text-lg">
-            Shop a focused edit of our most-requested seeds, spices, teas, and pantry staples.
+            Explore a focused edit of our most-requested seeds, spices, teas, and pantry staples.
           </p>
         </div>
 

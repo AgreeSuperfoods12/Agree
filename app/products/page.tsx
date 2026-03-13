@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getHomePageContent } from "@/lib/content/home";
 import { getAllProducts, getProductCategories } from "@/lib/content/products";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBreadcrumbSchema } from "@/lib/seo/schema";
+import { getBreadcrumbSchema, getProductListSchema } from "@/lib/seo/schema";
 import { ProductCard } from "@/components/products/product-card";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { Container } from "@/components/layout/container";
@@ -13,15 +13,26 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Our Products",
-  description:
-    "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials for everyday wellness.",
-  path: "/products",
-});
-
 interface ProductsPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export async function generateMetadata({ searchParams }: ProductsPageProps): Promise<Metadata> {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const selectedCategory =
+    typeof resolvedSearchParams.category === "string" ? resolvedSearchParams.category : undefined;
+  const selectedSort =
+    typeof resolvedSearchParams.sort === "string" ? resolvedSearchParams.sort : undefined;
+  const hasFilters = Boolean(selectedCategory || selectedSort);
+
+  return buildMetadata({
+    title: selectedCategory ? `${selectedCategory} Products` : "Our Products",
+    description: selectedCategory
+      ? `Browse ${selectedCategory.toLowerCase()} from Agree Superfoods, with pricing, product details, usage ideas, and enquiry support.`
+      : "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials for everyday wellness.",
+    path: "/products",
+    noIndex: hasFilters,
+  });
 }
 
 function mapCollectionImage(
@@ -87,10 +98,17 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           { name: "Our Products", href: "/products" },
         ])}
       />
+      <JsonLd
+        data={getProductListSchema(
+          selectedCategory ? `${selectedCategory} Products` : "Agree Superfoods Products",
+          "/products",
+          sortedProducts,
+        )}
+      />
       <PageHero
         eyebrow="Our products"
-        title="A premium collection page built to feel closer to a modern storefront."
-        description="Browse the Agree Superfoods range by category, sort the collection, and move into richer product detail pages with stronger enquiry and wholesale paths."
+        title="Premium pantry products for everyday use, gifting, and wholesale enquiries."
+        description="Browse the Agree Superfoods range by category, compare products clearly, and move into detailed product pages with direct enquiry and wholesale support."
       >
         <div className="space-y-4">
           <Breadcrumbs
@@ -116,10 +134,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </div>
             <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/80 px-4 py-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
-                Buying path
+                Order support
               </p>
               <p className="mt-2 text-sm leading-6 text-olive-900">
-                Enquiry-led for now, commerce-ready later
+                Product pages connect to direct contact and wholesale routes
               </p>
             </div>
           </div>
@@ -155,8 +173,9 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     Collection overview
                   </p>
                   <p className="mt-3">
-                    {sortedProducts.length} products matched this collection view. Use the refined
-                    filters below to keep the page behaving more like a real storefront collection.
+                    {sortedProducts.length} products matched this collection view. Use the filters
+                    below to compare categories quickly, then open product pages for ingredients,
+                    usage ideas, FAQs, and order support.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -165,7 +184,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                       Product pages
                     </p>
                     <p className="mt-2 text-sm leading-6 text-olive-900">
-                      Every page includes highlights, usage ideas, and FAQ content.
+                      Every page includes highlights, usage ideas, pricing, and FAQ content.
                     </p>
                   </div>
                   <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
@@ -173,7 +192,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                       Bulk enquiries
                     </p>
                     <p className="mt-2 text-sm leading-6 text-olive-900">
-                      Trade, gifting, and larger quantity support stays visible in the flow.
+                      Trade, gifting, and larger quantity support stays visible throughout the range.
                     </p>
                   </div>
                 </div>
@@ -233,11 +252,27 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </form>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {sortedProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
-          </div>
+          {sortedProducts.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {sortedProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="card-surface p-8">
+              <h2 className="text-2xl">No products matched this view.</h2>
+              <p className="mt-4 max-w-2xl leading-7 text-olive-800">
+                Try switching categories or resetting the filters to browse the full Agree
+                Superfoods range.
+              </p>
+              <Link
+                href="/products"
+                className="mt-6 inline-flex rounded-full bg-olive-950 px-5 py-3 text-sm font-medium text-sand-50"
+              >
+                Reset filters
+              </Link>
+            </div>
+          )}
         </Container>
       </section>
     </>

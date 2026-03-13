@@ -32,8 +32,8 @@ export default async function ContactPage() {
       />
       <PageHero
         eyebrow="Contact"
-        title="Reach Agree Superfoods through a cleaner, business-ready contact route."
-        description="Use this page for product questions, gifting interest, retail conversations, or support around the range. Trade and larger quantity requests can also be routed from here."
+        title="Speak with Agree Superfoods about products, gifting, retail, or wholesale enquiries."
+        description="Use this page for product questions, gifting interest, retail conversations, and support around the range. Trade and larger quantity requests can also be routed from here."
       >
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/78 px-4 py-4">

@@ -5,6 +5,9 @@ import type { BlogPost } from "@/types/blog";
 import type { Product } from "@/types/product";
 import type { BreadcrumbItem, FaqItem } from "@/types/site";
 
+const websiteId = absoluteUrl("/#website");
+const organizationId = absoluteUrl("/#organization");
+
 export function getOrganizationSchema() {
   const sameAs = [
     siteConfig.social.facebook,
@@ -28,6 +31,7 @@ export function getOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: siteConfig.name,
     ...(tradeName ? { legalName: tradeName } : {}),
     url: siteConfig.siteUrl,
@@ -53,12 +57,12 @@ export function getWebsiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": websiteId,
     name: siteConfig.name,
     url: siteConfig.siteUrl,
     description: siteConfig.description,
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
+      "@id": organizationId,
     },
     inLanguage: "en-IN",
   };
@@ -94,6 +98,7 @@ export function getFaqSchema(items: FaqItem[]) {
 
 export function getProductSchema(product: Product) {
   const pricing = resolveProductPricing(product.pricing);
+  const productUrl = absoluteUrl(product.seo.canonicalPath);
 
   return {
     "@context": "https://schema.org",
@@ -104,18 +109,21 @@ export function getProductSchema(product: Product) {
     brand: {
       "@type": "Brand",
       name: siteConfig.name,
+      url: siteConfig.siteUrl,
     },
     category: product.category,
     sku: product.slug,
-    url: absoluteUrl(product.seo.canonicalPath),
+    itemCondition: "https://schema.org/NewCondition",
+    keywords: product.seo.keywords,
+    url: productUrl,
     offers: {
       "@type": "Offer",
       priceCurrency: pricing.currencyCode,
       price: pricing.amount.toFixed(2),
-      url: absoluteUrl(product.seo.canonicalPath),
+      url: productUrl,
+      itemCondition: "https://schema.org/NewCondition",
       seller: {
-        "@type": "Organization",
-        name: siteConfig.name,
+        "@id": organizationId,
       },
     },
     additionalProperty: [
@@ -137,27 +145,77 @@ export function getProductSchema(product: Product) {
 export function getArticleSchema(post: BlogPost) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.seo.description,
     image: [absoluteUrl(post.coverImage.src)],
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     articleSection: post.category,
-    keywords: post.tags,
+    keywords: [...(post.seo.keywords || []), ...post.tags].join(", "),
     inLanguage: "en-IN",
     author: {
       "@type": "Person",
       name: post.author,
     },
+    isPartOf: {
+      "@id": websiteId,
+    },
+    url: absoluteUrl(post.seo.canonicalPath),
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
+      "@id": organizationId,
       logo: {
         "@type": "ImageObject",
         url: absoluteUrl("/images/logo/agreesuperfoods.png"),
       },
     },
-    mainEntityOfPage: absoluteUrl(post.seo.canonicalPath),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(post.seo.canonicalPath),
+    },
+  };
+}
+
+export function getProductListSchema(name: string, path: string, products: Product[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description: siteConfig.description,
+    url: absoluteUrl(path),
+    isPartOf: {
+      "@id": websiteId,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.name,
+        url: absoluteUrl(product.seo.canonicalPath),
+      })),
+    },
+  };
+}
+
+export function getBlogListSchema(name: string, path: string, posts: BlogPost[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description: siteConfig.description,
+    url: absoluteUrl(path),
+    isPartOf: {
+      "@id": websiteId,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: post.title,
+        url: absoluteUrl(post.seo.canonicalPath),
+      })),
+    },
   };
 }

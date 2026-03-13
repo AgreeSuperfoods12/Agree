@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { trackLeadSubmit } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type InquiryMode = "contact" | "wholesale";
@@ -68,6 +69,12 @@ export function InquiryForm({ mode }: InquiryFormProps) {
       }
 
       event.currentTarget.reset();
+      trackLeadSubmit(mode, {
+        interest:
+          mode === "contact"
+            ? String(payload.interest || "")
+            : String(payload.productInterest || ""),
+      });
       setSubmissionState({
         status: "success",
         message:

@@ -11,7 +11,7 @@ import { CtaBanner } from "@/components/shared/cta-banner";
 import { PageHero } from "@/components/shared/page-hero";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Bulk / Wholesale Inquiry",
+  title: "Bulk / Wholesale Enquiry",
   description:
     "Submit a bulk or wholesale enquiry for Agree Superfoods covering retail, gifting, hospitality, and distribution requirements.",
   path: "/wholesale",
@@ -25,12 +25,12 @@ export default async function WholesalePage() {
       <JsonLd
         data={getBreadcrumbSchema([
           { name: "Home", href: "/" },
-          { name: "Bulk / Wholesale Inquiry", href: "/wholesale" },
+          { name: "Bulk / Wholesale Enquiry", href: "/wholesale" },
         ])}
       />
       <PageHero
         eyebrow="Bulk / wholesale"
-        title="A stronger route for retail, gifting, hospitality, and wholesale enquiries."
+        title="Retail, gifting, hospitality, and wholesale support for the Agree Superfoods range."
         description="Use this form for serious business conversations around larger quantities, product interest, catalogue requests, and distributor or hospitality support."
       >
         <div className="grid gap-3 sm:grid-cols-3">

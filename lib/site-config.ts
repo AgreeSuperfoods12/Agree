@@ -40,6 +40,22 @@ export const siteConfig = {
   shortName: "Agree",
   description:
     "Premium seeds, teas, makhana, and pantry essentials for simple everyday wellness.",
+  defaultKeywords: [
+    "Agree Superfoods",
+    "premium superfoods India",
+    "chia seeds",
+    "flax seeds",
+    "pumpkin seeds",
+    "sunflower seeds",
+    "makhana",
+    "black pepper",
+    "green tea",
+    "black tea",
+    "white tea",
+    "healthy snacking",
+    "Indian wellness pantry",
+    "premium pantry essentials",
+  ],
   siteUrl,
   email: supportEmail,
   location: "India",
@@ -53,6 +69,10 @@ export const siteConfig = {
     linkedin: linkedinUrl,
     twitter: twitterUrl,
     youtube: youtubeUrl,
+  },
+  analytics: {
+    gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "",
+    metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID || "",
   },
   business: {
     records: {

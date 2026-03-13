@@ -154,7 +154,7 @@ export function CollectionBrowseSection({
               </div>
               <div className="rounded-[1.35rem] border border-olive-950/8 bg-olive-950 p-4 text-sand-50 shadow-[0_18px_38px_-24px_rgba(19,32,24,0.44)]">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-sand-100/68">
-                  Shopping route
+                  Browse route
                 </p>
                 <p className="mt-3 text-lg font-semibold tracking-[-0.03em] text-sand-50">
                   Visual collection browse

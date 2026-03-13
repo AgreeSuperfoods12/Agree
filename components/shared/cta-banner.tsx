@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Container } from "@/components/layout/container";
 import { buttonStyles } from "@/components/ui/button";
 
@@ -33,20 +32,25 @@ export function CtaBanner({
               <p className="mt-4 max-w-2xl text-base leading-7 text-sand-100/78">{description}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <Link href={primaryHref} className={buttonStyles({ size: "lg" })}>
+              <TrackedLink
+                href={primaryHref}
+                className={buttonStyles({ size: "lg" })}
+                eventData={{ location: "cta_banner", label: primaryLabel }}
+              >
                 {primaryLabel}
-              </Link>
+              </TrackedLink>
               {secondaryHref && secondaryLabel ? (
-                <Link
+                <TrackedLink
                   href={secondaryHref}
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
                     className: "bg-white text-olive-950",
                   })}
+                  eventData={{ location: "cta_banner", label: secondaryLabel }}
                 >
                   {secondaryLabel}
-                </Link>
+                </TrackedLink>
               ) : null}
             </div>
           </div>
