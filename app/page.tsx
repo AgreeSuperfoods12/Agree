@@ -4,6 +4,7 @@ import { getAllProducts } from "@/lib/content/products";
 import { getBreadcrumbSchema, getOrganizationSchema, getWebsiteSchema } from "@/lib/seo/schema";
 import { BlogPreviewSection } from "@/components/home/blog-preview-section";
 import { CollectionBrowseSection } from "@/components/home/collection-browse-section";
+import { ComplianceStrip } from "@/components/home/compliance-strip";
 import { FeaturedProductsSection } from "@/components/home/featured-products-section";
 import { FooterCtaSection } from "@/components/home/footer-cta-section";
 import { HeroProductStrip } from "@/components/home/hero-product-strip";
@@ -64,6 +65,7 @@ export default async function HomePage() {
         description="Premium ingredients, dependable service, and product ranges that fit households, gifting, and wholesale demand."
         items={homeContent.benefitsRow}
       />
+      <ComplianceStrip />
       {spotlightProduct ? (
         <ProductSpotlightSection content={homeContent.productSpotlight} product={spotlightProduct} />
       ) : null}

@@ -23,7 +23,7 @@ export function slugify(value: string) {
 export function absoluteUrl(path = "/") {
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://www.agreesuperfoods.com";
+    "https://www.agreesuperfoods.in";
 
   return path.startsWith("http") ? path : `${siteUrl}${path}`;
 }

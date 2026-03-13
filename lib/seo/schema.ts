@@ -6,8 +6,16 @@ import type { Product } from "@/types/product";
 import type { BreadcrumbItem, FaqItem } from "@/types/site";
 
 export function getOrganizationSchema() {
-  const sameAs = [siteConfig.social.instagram, siteConfig.social.linkedin].filter(Boolean);
+  const sameAs = [
+    siteConfig.social.facebook,
+    siteConfig.social.instagram,
+    siteConfig.social.linkedin,
+    siteConfig.social.twitter,
+    siteConfig.social.youtube,
+  ].filter(Boolean);
   const logoUrl = absoluteUrl("/images/logo/agreesuperfoods.png");
+  const gstin = siteConfig.business.registrations.gstin;
+  const tradeName = siteConfig.business.registrations.tradeName;
   const contactPoint = {
     "@type": "ContactPoint",
     contactType: "customer support",
@@ -21,10 +29,12 @@ export function getOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
+    ...(tradeName ? { legalName: tradeName } : {}),
     url: siteConfig.siteUrl,
     logo: logoUrl,
     image: logoUrl,
     description: siteConfig.description,
+    ...(gstin ? { taxID: gstin } : {}),
     ...(siteConfig.business.records.address
       ? {
           address: {

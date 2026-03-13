@@ -70,7 +70,7 @@ export const shippingReturnsSections: LongFormSection[] = [
 export const defaultCompliancePage: CompliancePageContent = {
   title: "Compliance & business information",
   intro:
-    "Agree Superfoods presents its products with careful public language, a premium food brand identity, and a structure ready for verified business details when they are available for publication.",
+    "Agree Superfoods presents its products with careful public language, a premium food brand identity, and verified business details published for customers, partners, and wholesale buyers who want official information.",
   sections: [
     {
       title: "Brand protection and trademark positioning",
@@ -83,14 +83,14 @@ export const defaultCompliancePage: CompliancePageContent = {
       title: "Food business communication",
       paragraphs: [
         "Product descriptions are written in an ingredient-first, food-focused tone that keeps wellness language careful and practical.",
-        "Licence or regulatory references should only be published once the relevant information is verified and approved for public display.",
+        "Licence and registration references should be published only from verified business records, with official documents made available where appropriate.",
       ],
     },
     {
       title: "GST and trade readiness",
       paragraphs: [
         "The website is structured to support business credibility for retail, wholesale, gifting, and distribution discussions.",
-        "Where GST or invoicing information is needed, it should be shared accurately and only through verified business channels.",
+        "GST, jurisdiction, and registration details should be presented accurately so invoicing and trade conversations start from verified information.",
       ],
     },
     {
@@ -101,5 +101,5 @@ export const defaultCompliancePage: CompliancePageContent = {
     },
   ],
   disclaimer:
-    "Regulatory, trademark, GST, and certification claims should always be updated with verified details before public launch or campaign use.",
+    "Regulatory, trademark, GST, and certification statements should always be reviewed against the latest verified business documents before public launch or campaign use.",
 };

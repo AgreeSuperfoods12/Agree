@@ -118,7 +118,7 @@ Production-ready brand showcase website for Agree Superfoods, built with Next.js
 3. Update `.env.local`:
 
    ```env
-   NEXT_PUBLIC_SITE_URL=https://www.agreesuperfoods.com
+   NEXT_PUBLIC_SITE_URL=https://www.agreesuperfoods.in
    NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
    NEXT_PUBLIC_SANITY_DATASET=production
    NEXT_PUBLIC_SANITY_API_VERSION=2026-03-10
@@ -275,7 +275,7 @@ The project is CMS-friendly by design.
 1. Push the repository to GitHub.
 2. Import the repo into Vercel.
 3. Add environment variables from `.env.example`.
-4. Set the production domain to `https://www.agreesuperfoods.com`.
+4. Set the production domain to `https://www.agreesuperfoods.in`.
 5. Deploy.
 6. Verify:
    - `/robots.txt`

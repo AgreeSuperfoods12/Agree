@@ -35,7 +35,8 @@ export function buildMetadata({
     : `${siteConfig.name} | Premium Superfoods for Simple Everyday Wellness`;
   const pageDescription = truncate(description, 160);
   const imageUrl = absoluteUrl(image);
-  const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const googleSiteVerification =
+    process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "EgAIl2GI0UGEmKpf66MTq1bxMgEHnsL48uOamOL_CO4";
   const yandexSiteVerification = process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION;
   const bingSiteVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
   const openGraph: NonNullable<Metadata["openGraph"]> =

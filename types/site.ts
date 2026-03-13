@@ -83,6 +83,24 @@ export interface ComplianceSignal {
   description: string;
 }
 
+export interface CertificationDocument {
+  title: string;
+  description: string;
+  href: string;
+  fileLabel?: string;
+  issuedOn?: string;
+}
+
+export interface BusinessRegistrationDetails {
+  gstin?: string;
+  tradeName?: string;
+  centreJurisdiction?: string;
+  stateJurisdiction?: string;
+  dateOfRegistration?: string;
+  businessActivities?: string[];
+  coreBusinessActivity?: string;
+}
+
 export interface ContactChannel {
   label: string;
   value: string;
@@ -101,6 +119,7 @@ export interface BusinessRecord {
 
 export interface BusinessConfig {
   records: BusinessRecord;
+  registrations: BusinessRegistrationDetails;
   responseTime: string;
   supportNote: string;
   wholesaleTopics: string[];
@@ -108,6 +127,7 @@ export interface BusinessConfig {
   whatsappUrl?: string;
   whatsappLabel?: string;
   complianceSignals: ComplianceSignal[];
+  certificationDocuments: CertificationDocument[];
   complianceDisclaimer: string;
 }
 

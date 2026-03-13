@@ -3,10 +3,37 @@ import type { BusinessConfig, HeaderMenuItem, NavItem } from "@/types/site";
 const supportEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "info@agreesuperfoods.com";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://www.agreesuperfoods.com";
+  "https://www.agreesuperfoods.in";
 const siteHostLabel = siteUrl.replace(/^https?:\/\//, "");
-const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "";
-const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
+const instagramUrl =
+  process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/agree_superfoods/";
+const facebookUrl =
+  process.env.NEXT_PUBLIC_FACEBOOK_URL ||
+  "https://www.facebook.com/profile.php?id=61576801018584";
+const linkedinUrl =
+  process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://www.linkedin.com/company/105653468/";
+const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "";
+const youtubeUrl =
+  process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://youtube.com/@agreesuperfoods";
+const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME || "Agree Superfoods";
+const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 80501 10271";
+const supportPhoneHref = supportPhone.replace(/\s+/g, "");
+const businessAddress = process.env.NEXT_PUBLIC_BUSINESS_ADDRESS || "";
+const gstNumber = process.env.NEXT_PUBLIC_GST_NUMBER || "29BTGPN0070F1ZS";
+const tradeName = process.env.NEXT_PUBLIC_TRADE_NAME || "Agree Superfoods";
+const centreJurisdiction =
+  process.env.NEXT_PUBLIC_CENTRE_JURISDICTION ||
+  "CBIC, Zone - BENGALURU, Commissionerate - BENGALURU EAST, Division - EAST DIVISION-1, Range - RANGE-DED1";
+const stateJurisdiction =
+  process.env.NEXT_PUBLIC_STATE_JURISDICTION ||
+  "State - Karnataka, Division - DGSTO-4, Bengaluru, LOCAL GST Office - LGSTO 015 - Bengaluru";
+const gstRegistrationDate = process.env.NEXT_PUBLIC_GST_REGISTRATION_DATE || "25/04/2025";
+const businessActivities = process.env.NEXT_PUBLIC_NATURE_OF_BUSINESS_ACTIVITIES
+  ? process.env.NEXT_PUBLIC_NATURE_OF_BUSINESS_ACTIVITIES.split("|").map((item) => item.trim()).filter(Boolean)
+  : [];
+const coreBusinessActivity = process.env.NEXT_PUBLIC_CORE_BUSINESS_ACTIVITY || "";
+const fssaiLicense = process.env.NEXT_PUBLIC_FSSAI_LICENSE || "";
+const trademarkStatus = process.env.NEXT_PUBLIC_TRADEMARK_STATUS || "";
 
 export const siteConfig = {
   name: "Agree Superfoods",
@@ -21,18 +48,30 @@ export const siteConfig = {
     process.env.VERCEL_ENV === "preview" ||
     Boolean(siteUrl.includes(".vercel.app")),
   social: {
+    facebook: facebookUrl,
     instagram: instagramUrl,
     linkedin: linkedinUrl,
+    twitter: twitterUrl,
+    youtube: youtubeUrl,
   },
   business: {
     records: {
-      businessName: process.env.NEXT_PUBLIC_BUSINESS_NAME || "Agree Superfoods",
-      address: process.env.NEXT_PUBLIC_BUSINESS_ADDRESS || "",
-      phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || "",
+      businessName,
+      address: businessAddress,
+      phone: supportPhone,
       supportEmail,
-      gstNumber: process.env.NEXT_PUBLIC_GST_NUMBER || "",
-      fssaiLicense: process.env.NEXT_PUBLIC_FSSAI_LICENSE || "",
-      trademarkStatus: process.env.NEXT_PUBLIC_TRADEMARK_STATUS || "",
+      gstNumber,
+      fssaiLicense,
+      trademarkStatus,
+    },
+    registrations: {
+      gstin: gstNumber,
+      tradeName,
+      centreJurisdiction,
+      stateJurisdiction,
+      dateOfRegistration: gstRegistrationDate,
+      businessActivities,
+      coreBusinessActivity,
     },
     responseTime: "Within 1 business day",
     supportNote:
@@ -54,20 +93,20 @@ export const siteConfig = {
         value: siteHostLabel,
         href: siteUrl,
       },
-      ...(process.env.NEXT_PUBLIC_SUPPORT_PHONE
+      ...(supportPhone
         ? [
             {
               label: "Phone",
-              value: process.env.NEXT_PUBLIC_SUPPORT_PHONE,
-              href: `tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE}`,
+              value: supportPhone,
+              href: `tel:${supportPhoneHref}`,
             },
           ]
         : []),
-      ...(process.env.NEXT_PUBLIC_BUSINESS_ADDRESS
+      ...(businessAddress
         ? [
             {
               label: "Address",
-              value: process.env.NEXT_PUBLIC_BUSINESS_ADDRESS,
+              value: businessAddress,
             },
           ]
         : [
@@ -81,37 +120,69 @@ export const siteConfig = {
     whatsappLabel: "WhatsApp Us",
     complianceSignals: [
       {
-        title: "Brand protection",
-        status:
-          process.env.NEXT_PUBLIC_TRADEMARK_STATUS || "Trademark information managed through official brand documentation",
+        title: "GST registered business",
+        status: `GSTIN / UIN: ${gstNumber}`,
         description:
-          "Agree Superfoods is presented with long-term brand consistency in mind across packaging, product naming, and public communication.",
+          "Official GST registration details are displayed to support verified business identity, invoicing confidence, and trade credibility.",
       },
       {
-        title: "Food business compliance",
-        status:
-          process.env.NEXT_PUBLIC_FSSAI_LICENSE
-            ? `FSSAI / food licence: ${process.env.NEXT_PUBLIC_FSSAI_LICENSE}`
-            : "Food business details are shared through verified documentation",
+        title: "Registered trade identity",
+        status: tradeName,
         description:
-          "Product language stays ingredient-first and restrained so public claims remain suitable for a food brand website.",
+          "The published trade name and registration date help the brand feel more official for customers, retailers, and wholesale buyers.",
       },
       {
-        title: "GST-ready business identity",
-        status:
-          process.env.NEXT_PUBLIC_GST_NUMBER
-            ? `GST: ${process.env.NEXT_PUBLIC_GST_NUMBER}`
-            : "GST and invoicing details are available through verified business communication",
+        title: "Food licence document",
+        status: fssaiLicense
+          ? `Food licence / FSSAI: ${fssaiLicense}`
+          : "Official food licence document available for review",
         description:
-          "The website is structured to support trade, invoicing, distribution, and catalogue discussions without making unverified public claims.",
+          "Food licence documentation can be linked directly from the public website to support trust without relying on vague claims.",
+      },
+      {
+        title: "Udyam and supporting records",
+        status: "Business registration documents published for verification",
+        description:
+          "MSME and supporting certificate files can be displayed as downloadable records for a more official business presentation.",
       },
       {
         title: "Reachable support",
-        status: process.env.NEXT_PUBLIC_SUPPORT_PHONE
-          ? `Support by email and phone: ${process.env.NEXT_PUBLIC_SUPPORT_PHONE}`
+        status: supportPhone
+          ? `Support by email and phone: ${supportPhone}`
           : `Customer and trade enquiries handled by email: ${supportEmail}`,
         description:
           "Support for product questions, retailer interest, and wholesale requests is available through a single contact route with a clear response target.",
+      },
+    ],
+    certificationDocuments: [
+      {
+        title: "GST Registration Certificate",
+        description:
+          "Official GST registration document showing GSTIN, trade name, registration date, and jurisdiction details.",
+        href: "/documents/agree-superfoods-gst-registration-certificate.pdf",
+        fileLabel: "PDF",
+        issuedOn: gstRegistrationDate,
+      },
+      {
+        title: "Udyam Registration Certificate",
+        description:
+          "Published MSME / Udyam registration certificate for business credibility and trust with trade buyers.",
+        href: "/documents/agree-superfoods-udyam-registration-certificate.pdf",
+        fileLabel: "PDF",
+      },
+      {
+        title: "Food Licence",
+        description:
+          "Official food licence document made available for business verification and trust-led communication.",
+        href: "/documents/agree-superfoods-food-license.pdf",
+        fileLabel: "PDF",
+      },
+      {
+        title: "Pledge Document",
+        description:
+          "Supporting business and trust document published alongside the core registrations for reference.",
+        href: "/documents/agree-superfoods-pledge.pdf",
+        fileLabel: "PDF",
       },
     ],
     complianceDisclaimer:
