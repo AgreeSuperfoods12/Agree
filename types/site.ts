@@ -84,6 +84,7 @@ export interface ComplianceSignal {
 }
 
 export interface CertificationDocument {
+  slug: string;
   title: string;
   description: string;
   href: string;

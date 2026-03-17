@@ -157,13 +157,13 @@ export const siteConfig = {
           ? `Food licence / FSSAI: ${fssaiLicense}`
           : "Official food licence document available for review",
         description:
-          "Food licence documentation can be linked directly from the public website to support trust without relying on vague claims.",
+          "Food licence documentation can be published in a view-only format from the public website to support trust without relying on vague claims.",
       },
       {
         title: "Udyam and supporting records",
         status: "Business registration documents published for verification",
         description:
-          "MSME and supporting certificate files can be displayed as downloadable records for a more official business presentation.",
+          "MSME and supporting certificate files can be presented in a view-only format for a more official business presentation.",
       },
       {
         title: "Reachable support",
@@ -176,32 +176,36 @@ export const siteConfig = {
     ],
     certificationDocuments: [
       {
+        slug: "gst-registration-certificate",
         title: "GST Registration Certificate",
         description:
           "Official GST registration document showing GSTIN, trade name, registration date, and jurisdiction details.",
-        href: "/documents/agree-superfoods-gst-registration-certificate.pdf",
+        href: "/compliance/documents/gst-registration-certificate",
         fileLabel: "PDF",
         issuedOn: gstRegistrationDate,
       },
       {
+        slug: "udyam-registration-certificate",
         title: "Udyam Registration Certificate",
         description:
           "Published MSME / Udyam registration certificate for business credibility and trust with trade buyers.",
-        href: "/documents/agree-superfoods-udyam-registration-certificate.pdf",
+        href: "/compliance/documents/udyam-registration-certificate",
         fileLabel: "PDF",
       },
       {
+        slug: "food-license",
         title: "Food Licence",
         description:
           "Official food licence document made available for business verification and trust-led communication.",
-        href: "/documents/agree-superfoods-food-license.pdf",
+        href: "/compliance/documents/food-license",
         fileLabel: "PDF",
       },
       {
+        slug: "pledge-document",
         title: "Pledge Document",
         description:
           "Supporting business and trust document published alongside the core registrations for reference.",
-        href: "/documents/agree-superfoods-pledge.pdf",
+        href: "/compliance/documents/pledge-document",
         fileLabel: "PDF",
       },
     ],

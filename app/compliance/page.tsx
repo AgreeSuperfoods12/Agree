@@ -88,7 +88,8 @@ export default async function CompliancePage() {
                 <p className="mt-5 text-base leading-8 text-olive-800 sm:text-lg">
                   Agree Superfoods now publishes its GST registration details, jurisdiction
                   information, and supporting certificate documents so customers and trade buyers
-                  can review a more official business profile from the website itself.
+                  can review a more official business profile from the website itself without
+                  relying on public file downloads.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -96,8 +97,6 @@ export default async function CompliancePage() {
                     <Link
                       key={item.title}
                       href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
                       className={buttonStyles({
                         variant: item.title.includes("GST") ? "primary" : "secondary",
                         className: item.title.includes("GST") ? "" : "bg-white",
@@ -174,11 +173,12 @@ export default async function CompliancePage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-olive-700">
                   Certificates & documents
                 </p>
-                <h2 className="mt-3 text-3xl">Downloadable supporting records</h2>
+                <h2 className="mt-3 text-3xl">View-only supporting records</h2>
               </div>
               <p className="max-w-[34rem] text-sm leading-7 text-olive-700">
-                These files are published to strengthen trust and help customers, trade buyers, and
-                wholesale partners review official records from the website.
+                These records are published to strengthen trust and help customers, trade buyers,
+                and wholesale partners review official documents from the website in a view-first
+                format.
               </p>
             </div>
 
@@ -200,11 +200,9 @@ export default async function CompliancePage() {
                   <p className="mt-3 flex-1 text-sm leading-7 text-olive-800">{item.description}</p>
                   <Link
                     href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
                     className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-olive-950 transition hover:text-olive-700"
                   >
-                    Open document
+                    View document
                     <span className="inline-flex size-8 items-center justify-center rounded-full border border-olive-950/10 bg-sand-50">
                       +
                     </span>

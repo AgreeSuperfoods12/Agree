@@ -37,7 +37,7 @@ export function ComplianceStrip() {
                 Verified registrations and certificates for trust-led buying.
               </h2>
               <p className="mt-5 text-base leading-8 text-sand-100/78 sm:text-lg">
-                Agree Superfoods now displays official registration details and downloadable
+                Agree Superfoods now displays official registration details and view-only
                 certificate documents for customers, trade buyers, and wholesale partners who want
                 a more formal business profile.
               </p>
@@ -53,7 +53,7 @@ export function ComplianceStrip() {
                     className: "bg-white text-olive-950",
                   })}
                 >
-                  Download GST certificate
+                  View GST certificate
                 </Link>
               </div>
             </div>
@@ -75,15 +75,13 @@ export function ComplianceStrip() {
 
               <div className="rounded-[1.7rem] border border-white/10 bg-white/6 p-4 sm:p-5">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-sand-100/62">
-                  Published documents
+                  View-only documents
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   {siteConfig.business.certificationDocuments.map((item) => (
                     <Link
                       key={item.title}
                       href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
                       className="rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm text-sand-50 transition hover:bg-white/16"
                     >
                       {item.title}
