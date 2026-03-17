@@ -6,8 +6,8 @@ import { buttonStyles } from "@/components/ui/button";
 import { getSiteContent } from "@/lib/content/site";
 import { siteConfig } from "@/lib/site-config";
 
-const heroDesktopImage = "/images/banners/tea-ingredients.jpg";
-const heroMobileImage = "/images/banners/tea-ingredients.jpg";
+const heroDesktopImage = "/images/reference/hero-desktop.png";
+const heroMobileImage = "/images/reference/hero-mobile.jpg";
 
 function SocialRail() {
   const items = [
@@ -110,22 +110,22 @@ export async function HeroSection() {
       <div className="absolute inset-0 hidden lg:block">
         <Image
           src={heroDesktopImage}
-          alt="Lifestyle banner image for Agree Superfoods"
+          alt="Wide healthy lifestyle banner for Agree Superfoods"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[62%_48%] brightness-[1.08] saturate-[0.92]"
+          className="object-cover object-[72%_50%] brightness-[1.04] saturate-[0.96]"
         />
       </div>
 
       <div className="absolute inset-0 lg:hidden">
         <Image
           src={heroMobileImage}
-          alt="Lifestyle banner image for Agree Superfoods on mobile"
+          alt="Healthy lifestyle banner for Agree Superfoods on mobile"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[64%_50%] brightness-[1.08] saturate-[0.92]"
+          className="object-cover object-[56%_42%] brightness-[1.04] saturate-[0.96]"
         />
       </div>
 
