@@ -81,12 +81,22 @@ function extractTableOfContentsFromPortableText(blocks: PortableTextNode[]): Tab
     .filter((item) => item.title.length > 0);
 }
 
+function getContentStats(content: string) {
+  const stats = readingTime(content);
+
+  return {
+    readingTimeText: stats.text,
+    wordCount: content.trim().length > 0 ? Math.max(1, Math.round(stats.words)) : 0,
+  };
+}
+
 function parseBlogFile(fileName: string): BlogPost {
   const filePath = path.join(blogDirectory, fileName);
   const source = readFileSync(filePath, "utf8");
   const { content, data } = matter(source);
   const slug = fileName.replace(/\.mdx$/, "");
   const frontmatter = frontmatterSchema.parse(data);
+  const contentStats = getContentStats(content);
 
   return {
     slug,
@@ -107,7 +117,8 @@ function parseBlogFile(fileName: string): BlogPost {
     seo: frontmatter.seo,
     bodyType: "markdown",
     markdown: content,
-    readingTimeText: readingTime(content).text,
+    readingTimeText: contentStats.readingTimeText,
+    wordCount: contentStats.wordCount,
     toc: extractTableOfContentsFromMarkdown(content),
   };
 }
@@ -115,7 +126,7 @@ function parseBlogFile(fileName: string): BlogPost {
 async function getSanityPosts() {
   const posts = await sanityFetch<
     Array<
-      Omit<BlogPost, "bodyType" | "readingTimeText" | "toc"> & {
+      Omit<BlogPost, "bodyType" | "readingTimeText" | "wordCount" | "toc"> & {
         body: PortableTextNode[];
       }
     >
@@ -130,12 +141,14 @@ async function getSanityPosts() {
 
   return posts.map((post) => {
     const plainText = getPortableTextPlainText(post.body);
+    const contentStats = getContentStats(plainText);
 
     return {
       ...post,
       bodyType: "portableText" as const,
       portableText: post.body,
-      readingTimeText: readingTime(plainText).text,
+      readingTimeText: contentStats.readingTimeText,
+      wordCount: contentStats.wordCount,
       toc: extractTableOfContentsFromPortableText(post.body),
     };
   });

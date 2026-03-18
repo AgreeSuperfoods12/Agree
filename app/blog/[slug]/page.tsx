@@ -21,10 +21,49 @@ import { getAllProducts } from "@/lib/content/products";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 import { formatDate } from "@/lib/utils";
+import type { TableOfContentsItem } from "@/types/blog";
 import type { Product } from "@/types/product";
 
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;
+}
+
+function ArticleStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.35rem] border border-olive-950/8 bg-white/78 px-4 py-4">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
+        {label}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-olive-900">{value}</p>
+    </div>
+  );
+}
+
+function MobileJumpLinks({ items }: { items: TableOfContentsItem[] }) {
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="card-surface p-4 sm:p-5 lg:hidden">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-olive-700">
+        Jump to section
+      </p>
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+        {items.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className={`whitespace-nowrap rounded-full border border-olive-950/8 px-4 py-2 text-sm font-medium text-olive-900 transition hover:bg-olive-50 ${
+              item.level === 3 ? "bg-sand-50" : "bg-white"
+            }`}
+          >
+            {item.title}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export const dynamicParams = false;
@@ -94,23 +133,29 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     { name: "Blog", href: "/blog" },
     { name: post.title, href: `/blog/${post.slug}` },
   ];
+  const primarySections = post.toc.filter((item) => item.level === 2).length;
+  const publishedOrUpdatedDate = formatDate(post.updatedAt || post.publishedAt);
 
   return (
     <>
       <JsonLd data={getBreadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={getArticleSchema(post)} />
 
-      <article className="section-shell">
+      <article id="article-top" className="section-shell pt-24 sm:pt-28 lg:pt-28">
         <Container className="grid gap-10 lg:grid-cols-[1fr_0.32fr]">
-          <div className="space-y-8">
+          <div className="min-w-0 space-y-8">
             <Breadcrumbs items={breadcrumbItems} />
-            <header className="premium-panel space-y-5 p-7 sm:p-8 lg:p-10">
+            <header className="premium-panel min-w-0 space-y-5 p-6 sm:p-8 lg:p-10">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-olive-700">
                 {post.category}
               </p>
-              <h1 className="max-w-4xl text-4xl sm:text-5xl lg:text-6xl">{post.title}</h1>
-              <p className="max-w-3xl text-lg leading-8 text-olive-800">{post.excerpt}</p>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-olive-700">
+              <h1 className="max-w-4xl break-words text-[2.45rem] leading-[0.98] sm:text-5xl lg:text-6xl">
+                {post.title}
+              </h1>
+              <p className="max-w-3xl text-[1.03rem] leading-7 text-olive-800 sm:text-lg sm:leading-8">
+                {post.excerpt}
+              </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-olive-700">
                 <span>{post.author}</span>
                 <span>{post.authorRole}</span>
                 <span>{formatDate(post.publishedAt)}</span>
@@ -128,6 +173,15 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 ))}
               </div>
             </header>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <ArticleStat label="Read time" value={post.readingTimeText} />
+              <ArticleStat
+                label={post.updatedAt ? "Updated" : "Published"}
+                value={publishedOrUpdatedDate}
+              />
+              <ArticleStat label="Sections" value={`${primarySections} sections`} />
+            </div>
+            <MobileJumpLinks items={post.toc} />
             <div className="image-stage relative aspect-[16/9] overflow-hidden">
               <Image
                 src={post.coverImage.src}

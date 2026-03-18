@@ -2,6 +2,7 @@ import type {
   AnchorHTMLAttributes,
   HTMLAttributes,
   ReactNode,
+  TableHTMLAttributes,
 } from "react";
 import Link from "next/link";
 
@@ -11,6 +12,10 @@ type InternalAnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
+  children?: ReactNode;
+};
+
+type TableProps = TableHTMLAttributes<HTMLTableElement> & {
   children?: ReactNode;
 };
 
@@ -39,5 +44,10 @@ export const mdxComponents = {
     <h3 id={id} {...props}>
       {children}
     </h3>
+  ),
+  table: ({ children, ...props }: TableProps) => (
+    <div className="prose-table-shell">
+      <table {...props}>{children}</table>
+    </div>
   ),
 };

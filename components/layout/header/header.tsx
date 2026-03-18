@@ -48,12 +48,12 @@ export function Header() {
     <header
       className={cn(
         "z-50 transition-all duration-300",
-        isHome ? "fixed inset-x-0 top-5" : "sticky top-5 py-4",
+        isHome ? "fixed inset-x-0 top-3 sm:top-5" : "sticky top-3 py-3 sm:top-5 sm:py-4",
       )}
     >
       <Container className="relative">
         <div className="relative" onMouseLeave={() => setActiveMenu(null)}>
-          <div className="premium-panel overflow-visible rounded-[1.2rem] border border-black/5 bg-white/96 px-4 py-1 shadow-[0_24px_70px_-40px_rgba(19,32,24,0.28)] sm:px-4">
+          <div className="premium-panel overflow-visible rounded-[1rem] border border-black/5 bg-white/96 px-3 py-1 shadow-[0_24px_70px_-40px_rgba(19,32,24,0.28)] sm:rounded-[1.2rem] sm:px-4">
             {isSearchOpen ? (
               <HeaderSearch
                 onClose={() => {
@@ -62,7 +62,7 @@ export function Header() {
               />
             ) : (
               <>
-                <div className="grid min-h-[3.3rem] grid-cols-[auto_1fr_auto] items-center gap-2 lg:hidden">
+                <div className="grid min-h-[3rem] grid-cols-[auto_1fr_auto] items-center gap-2 lg:hidden">
                   <button
                     type="button"
                     aria-expanded={isMobileOpen}
@@ -115,7 +115,7 @@ export function Header() {
         {!isSearchOpen && isMobileOpen ? (
           <div
             id="mobile-site-menu"
-            className="absolute inset-x-5 top-[calc(100%+0.8rem)] z-40 sm:inset-x-7 lg:inset-x-8 xl:inset-x-10"
+            className="absolute inset-x-4 top-[calc(100%+0.7rem)] z-40 sm:inset-x-7 sm:top-[calc(100%+0.8rem)] lg:inset-x-8 xl:inset-x-10"
           >
             <MobileHeaderDrawer items={headerNavigation} />
           </div>

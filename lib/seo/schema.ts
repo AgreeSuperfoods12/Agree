@@ -7,6 +7,8 @@ import type { BreadcrumbItem, FaqItem } from "@/types/site";
 
 const websiteId = absoluteUrl("/#website");
 const organizationId = absoluteUrl("/#organization");
+const aboutPageUrl = absoluteUrl("/about");
+const organizationLogoUrl = absoluteUrl("/images/logo/agreesuperfoods.png");
 
 export function getOrganizationSchema() {
   const sameAs = [
@@ -59,12 +61,43 @@ export function getWebsiteSchema() {
     "@type": "WebSite",
     "@id": websiteId,
     name: siteConfig.name,
+    alternateName: siteConfig.shortName,
     url: siteConfig.siteUrl,
     description: siteConfig.description,
     publisher: {
       "@id": organizationId,
     },
     inLanguage: "en-IN",
+  };
+}
+
+function getArticleAuthor(post: BlogPost) {
+  const normalizedAuthor = post.author.trim().toLowerCase();
+  const isOrganizationAuthor =
+    normalizedAuthor.includes("team") ||
+    normalizedAuthor.includes(siteConfig.name.toLowerCase()) ||
+    normalizedAuthor.includes(siteConfig.shortName.toLowerCase());
+
+  if (isOrganizationAuthor) {
+    const sameAs = [
+      siteConfig.social.facebook,
+      siteConfig.social.instagram,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter,
+      siteConfig.social.youtube,
+    ].filter(Boolean);
+
+    return {
+      "@type": "Organization",
+      name: post.author,
+      url: aboutPageUrl,
+      ...(sameAs.length > 0 ? { sameAs } : {}),
+    };
+  }
+
+  return {
+    "@type": "Person",
+    name: post.author,
   };
 }
 
@@ -143,35 +176,45 @@ export function getProductSchema(product: Product) {
 }
 
 export function getArticleSchema(post: BlogPost) {
+  const articleUrl = absoluteUrl(post.seo.canonicalPath);
+  const imageUrl = absoluteUrl(post.coverImage.src);
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.seo.description,
-    image: [absoluteUrl(post.coverImage.src)],
+    image: [imageUrl],
+    thumbnailUrl: imageUrl,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     articleSection: post.category,
+    genre: post.category,
     keywords: [...(post.seo.keywords || []), ...post.tags].join(", "),
     inLanguage: "en-IN",
-    author: {
-      "@type": "Person",
-      name: post.author,
-    },
+    isAccessibleForFree: true,
+    wordCount: post.wordCount,
+    author: getArticleAuthor(post),
     isPartOf: {
       "@id": websiteId,
     },
-    url: absoluteUrl(post.seo.canonicalPath),
+    about: [post.category, ...post.tags].map((item) => ({
+      "@type": "Thing",
+      name: item,
+    })),
+    url: articleUrl,
     publisher: {
       "@id": organizationId,
+      name: siteConfig.name,
+      url: siteConfig.siteUrl,
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/images/logo/agreesuperfoods.png"),
+        url: organizationLogoUrl,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": absoluteUrl(post.seo.canonicalPath),
+      "@id": articleUrl,
     },
   };
 }

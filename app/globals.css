@@ -36,6 +36,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
@@ -46,6 +47,7 @@
     color: var(--color-olive-900);
     font-family: var(--font-manrope), Arial, sans-serif;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   h1,

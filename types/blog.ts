@@ -51,5 +51,6 @@ export interface BlogPost extends BlogFrontmatter {
   markdown?: string;
   portableText?: PortableTextNode[];
   readingTimeText: string;
+  wordCount: number;
   toc: TableOfContentsItem[];
 }

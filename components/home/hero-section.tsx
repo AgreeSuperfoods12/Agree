@@ -136,15 +136,15 @@ export async function HeroSection() {
       <SocialRail />
 
       <Container className="relative">
-        <div className="grid min-h-[100svh] items-center pb-40 pt-28 sm:pb-44 sm:pt-32 lg:grid-cols-5 lg:pb-48 lg:pt-36 xl:pt-40">
+        <div className="grid min-h-[100svh] items-center pb-28 pt-44 sm:pb-44 sm:pt-32 lg:grid-cols-5 lg:pb-48 lg:pt-36 xl:pt-40">
           <div className="max-w-[42rem] lg:col-span-2">
             <p className="text-xs font-semibold uppercase tracking-[0.34em] text-olive-700">
               {siteContent.hero.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-[12ch] text-5xl font-semibold leading-[0.92] text-olive-950 sm:text-6xl lg:text-[5rem] xl:text-[5.6rem]">
+            <h1 className="mt-5 max-w-[10ch] break-words text-[3.6rem] font-semibold leading-[0.9] text-olive-950 sm:max-w-[12ch] sm:text-6xl lg:text-[5rem] xl:text-[5.6rem]">
               <HeroTitle title={siteContent.hero.title} />
             </h1>
-            <p className="mt-6 max-w-[35rem] text-lg leading-8 text-olive-800 lg:max-w-[31rem]">
+            <p className="mt-5 max-w-[35rem] text-[1.04rem] leading-7 text-olive-800 sm:mt-6 sm:text-lg sm:leading-8 lg:max-w-[31rem]">
               {siteContent.hero.description}
             </p>
 
@@ -154,7 +154,7 @@ export async function HeroSection() {
                 className={buttonStyles({
                   size: "lg",
                   className:
-                    "min-w-[10rem] bg-olive-950 text-sand-50 shadow-[0_16px_38px_-24px_rgba(19,32,24,0.32)] hover:bg-olive-900",
+                    "w-full justify-center min-w-[10rem] bg-olive-950 text-sand-50 shadow-[0_16px_38px_-24px_rgba(19,32,24,0.32)] hover:bg-olive-900 sm:w-auto",
                 })}
                 eventData={{ location: "hero", label: siteContent.hero.primaryCta.label }}
               >
@@ -168,7 +168,7 @@ export async function HeroSection() {
               </TrackedLink>
               <TrackedLink
                 href={siteContent.hero.secondaryCta.href}
-                className="inline-flex items-center gap-2 rounded-full border border-olive-950/10 bg-white/78 px-5 py-3 text-sm font-semibold text-olive-950 shadow-[0_18px_36px_-28px_rgba(19,32,24,0.25)] transition hover:bg-white"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-olive-950/10 bg-white/78 px-5 py-3 text-sm font-semibold text-olive-950 shadow-[0_18px_36px_-28px_rgba(19,32,24,0.25)] transition hover:bg-white sm:w-auto"
                 eventData={{ location: "hero", label: siteContent.hero.secondaryCta.label }}
               >
                 {siteContent.hero.secondaryCta.label}
@@ -176,7 +176,7 @@ export async function HeroSection() {
               </TrackedLink>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-olive-700">
+            <div className="mt-8 flex flex-col gap-2 text-sm font-medium text-olive-700 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
               {siteContent.hero.supportingPoints.map((point) => (
                 <span key={point} className="inline-flex items-center gap-2">
                   <span className="size-1.5 rounded-full bg-gold-400" />

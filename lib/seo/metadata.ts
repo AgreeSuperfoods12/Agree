@@ -38,6 +38,7 @@ export function buildMetadata({
 }: MetadataOptions = {}): Metadata {
   const canonicalUrl = absoluteUrl(path);
   const shouldNoIndex = noIndex || siteConfig.isPreviewDeployment;
+  const shouldFollow = !siteConfig.isPreviewDeployment;
   const pageTitle = getPageTitle(title);
   const pageDescription = truncate(description, 160);
   const imageUrl = absoluteUrl(image);
@@ -113,10 +114,10 @@ export function buildMetadata({
     },
     robots: {
       index: !shouldNoIndex,
-      follow: !shouldNoIndex,
+      follow: shouldFollow,
       googleBot: {
         index: !shouldNoIndex,
-        follow: !shouldNoIndex,
+        follow: shouldFollow,
         "max-image-preview": "large",
         "max-snippet": -1,
         "max-video-preview": -1,

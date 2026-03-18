@@ -25,7 +25,7 @@ function FeaturedCollections() {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid gap-3 sm:grid-cols-2">
       {collections.map((collection) => (
         <Link
           key={collection.title}
@@ -50,7 +50,7 @@ function FeaturedCollections() {
 
 export function MobileHeaderDrawer({ items }: MobileHeaderDrawerProps) {
   return (
-    <div className="premium-panel rounded-[1.2rem] border border-black/5 bg-white p-4 shadow-[0_30px_90px_-46px_rgba(19,32,24,0.32)]">
+    <div className="premium-panel max-h-[calc(100svh-6.25rem)] overflow-y-auto rounded-[1.2rem] border border-black/5 bg-white p-4 shadow-[0_30px_90px_-46px_rgba(19,32,24,0.32)]">
       <div className="grid gap-3">
         {items.map((item) => {
           const hasChildren = Boolean(item.sections?.length || item.cards?.length);
