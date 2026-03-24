@@ -10,6 +10,9 @@ interface FooterCtaSectionProps {
 }
 
 export function FooterCtaSection({ content }: FooterCtaSectionProps) {
+  const primaryIsExternal = content.primaryHref.startsWith("http");
+  const secondaryIsExternal = content.secondaryHref.startsWith("http");
+
   return (
     <section className="section-shell pb-10">
       <Container>
@@ -36,6 +39,8 @@ export function FooterCtaSection({ content }: FooterCtaSectionProps) {
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <TrackedLink
                 href={content.primaryHref}
+                target={primaryIsExternal ? "_blank" : undefined}
+                rel={primaryIsExternal ? "noreferrer" : undefined}
                 className={buttonStyles({ size: "lg" })}
                 eventData={{ location: "footer_cta", label: content.primaryLabel }}
               >
@@ -43,6 +48,8 @@ export function FooterCtaSection({ content }: FooterCtaSectionProps) {
               </TrackedLink>
               <TrackedLink
                 href={content.secondaryHref}
+                target={secondaryIsExternal ? "_blank" : undefined}
+                rel={secondaryIsExternal ? "noreferrer" : undefined}
                 className={buttonStyles({
                   variant: "secondary",
                   size: "lg",

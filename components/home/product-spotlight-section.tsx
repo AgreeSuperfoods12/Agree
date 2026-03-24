@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import type { SpotlightContent } from "@/types/home";
 import type { Product } from "@/types/product";
 import { Container } from "@/components/layout/container";
@@ -8,6 +9,7 @@ import { ProductPriceGroup } from "@/components/pricing/product-price-group";
 import { buttonStyles } from "@/components/ui/button";
 import { isPackshotImage } from "@/lib/product-images";
 import { cn } from "@/lib/utils";
+import { buildProductOrderWhatsAppUrl } from "@/lib/whatsapp";
 
 interface ProductSpotlightSectionProps {
   content: SpotlightContent;
@@ -20,6 +22,7 @@ export function ProductSpotlightSection({
 }: ProductSpotlightSectionProps) {
   const image = product.images[0];
   const packshot = isPackshotImage(image?.src);
+  const orderHref = buildProductOrderWhatsAppUrl(product.name, product.pricing.variantLabel);
 
   return (
     <section className="section-shell">
@@ -69,11 +72,17 @@ export function ProductSpotlightSection({
               </ul>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href={`/products/${product.slug}`} className={buttonStyles()}>
-                  Explore {product.name}
-                </Link>
-                <Link href="/wholesale" className={buttonStyles({ variant: "secondary" })}>
-                  Bulk / Wholesale
+                <TrackedLink
+                  href={orderHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={buttonStyles()}
+                  eventData={{ location: "home_spotlight", label: `Order ${product.name}` }}
+                >
+                  Order {product.name}
+                </TrackedLink>
+                <Link href={`/products/${product.slug}`} className={buttonStyles({ variant: "secondary" })}>
+                  View details
                 </Link>
               </div>
             </div>

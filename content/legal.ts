@@ -19,7 +19,7 @@ export const privacySections: LongFormSection[] = [
     title: "Retention and access",
     paragraphs: [
       "Information is retained only for as long as needed to manage communication, maintain internal records, or meet legal obligations.",
-      "Requests related to access, correction, or deletion can be sent to info@agreesuperfoods.com.",
+      "Requests related to access, correction, or deletion can be submitted through the contact page or official WhatsApp support.",
     ],
   },
 ];
@@ -28,7 +28,7 @@ export const termsSections: LongFormSection[] = [
   {
     title: "Website purpose",
     paragraphs: [
-      "This website is a brand and product information website for Agree Superfoods. It currently supports product discovery, enquiries, and wholesale conversations.",
+      "This website is a brand and product information website for Agree Superfoods. It currently supports product discovery, direct order requests through WhatsApp, and wholesale conversations.",
       "All content is intended for general food and brand information. It should not be treated as medical advice or as a substitute for professional guidance.",
     ],
   },
@@ -56,13 +56,13 @@ export const shippingReturnsSections: LongFormSection[] = [
   {
     title: "Current website status",
     paragraphs: [
-      "Agree Superfoods currently uses this website for product discovery, enquiries, and wholesale discussions. Direct online ordering is not active at this time.",
+      "Agree Superfoods currently uses this website for product discovery, WhatsApp-based order requests, and wholesale discussions. Cart checkout is not active at this time.",
     ],
   },
   {
-    title: "When ordering goes live",
+    title: "How ordering works today",
     paragraphs: [
-      "When online ordering becomes available, this page can be updated with dispatch timelines, service areas, packaging notes, return conditions, and customer support steps.",
+      "Customers can review products on the website and place an order through the published WhatsApp number. Final pricing, dispatch timelines, service areas, packaging notes, and support steps are confirmed during that order conversation.",
     ],
   },
 ];

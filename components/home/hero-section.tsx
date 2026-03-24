@@ -104,6 +104,7 @@ function HeroTitle({ title }: { title: string }) {
 
 export async function HeroSection() {
   const siteContent = await getSiteContent();
+  const primaryHref = siteConfig.business.whatsappUrl || siteContent.hero.primaryCta.href;
 
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#eee6d7]">
@@ -150,7 +151,9 @@ export async function HeroSection() {
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <TrackedLink
-                href={siteContent.hero.primaryCta.href}
+                href={primaryHref}
+                target={primaryHref.startsWith("http") ? "_blank" : undefined}
+                rel={primaryHref.startsWith("http") ? "noreferrer" : undefined}
                 className={buttonStyles({
                   size: "lg",
                   className:
@@ -184,6 +187,9 @@ export async function HeroSection() {
                 </span>
               ))}
             </div>
+            <p className="mt-5 text-sm font-medium text-olive-800">
+              Order support on WhatsApp: {siteConfig.business.records.phone}
+            </p>
           </div>
         </div>
       </Container>

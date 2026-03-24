@@ -35,8 +35,9 @@ export default async function CompliancePage() {
       value: siteConfig.business.records.businessName,
     },
     {
-      label: "Support email",
-      value: siteConfig.business.records.supportEmail,
+      label: "Order WhatsApp",
+      value:
+        siteConfig.business.records.phone || "Shared through the published WhatsApp order route",
     },
     {
       label: "GST",
@@ -262,9 +263,9 @@ export default async function CompliancePage() {
 
       <CtaBanner
         title="Need verified business details for a serious trade conversation?"
-        description="Contact the team if you need current support, product, or business information for retail, distribution, or wholesale discussions."
-        primaryHref="/contact"
-        primaryLabel="Contact Us"
+        description="Contact the team on WhatsApp if you need current support, product, or business information for retail, distribution, or wholesale discussions."
+        primaryHref={siteConfig.business.whatsappUrl || "/contact"}
+        primaryLabel="Order on WhatsApp"
         secondaryHref="/wholesale"
         secondaryLabel="Bulk / Wholesale"
       />

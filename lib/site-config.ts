@@ -1,6 +1,11 @@
 import type { BusinessConfig, HeaderMenuItem, NavItem } from "@/types/site";
+import {
+  buildGeneralOrderWhatsAppUrl,
+  buildWholesaleWhatsAppUrl,
+  whatsappDisplayNumber,
+} from "@/lib/whatsapp";
 
-const supportEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "info@agreesuperfoods.com";
+const supportEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://www.agreesuperfoods.in";
@@ -16,8 +21,9 @@ const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "";
 const youtubeUrl =
   process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://youtube.com/@agreesuperfoods";
 const businessName = process.env.NEXT_PUBLIC_BUSINESS_NAME || "Agree Superfoods";
-const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 80501 10271";
+const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || whatsappDisplayNumber;
 const supportPhoneHref = supportPhone.replace(/\s+/g, "");
+const defaultWhatsappUrl = buildGeneralOrderWhatsAppUrl();
 const businessAddress = process.env.NEXT_PUBLIC_BUSINESS_ADDRESS || "";
 const gstNumber = process.env.NEXT_PUBLIC_GST_NUMBER || "29BTGPN0070F1ZS";
 const tradeName = process.env.NEXT_PUBLIC_TRADE_NAME || "Agree Superfoods";
@@ -39,7 +45,7 @@ export const siteConfig = {
   name: "Agree Superfoods",
   shortName: "Agree",
   description:
-    "Premium seeds, teas, makhana, and pantry essentials for simple everyday wellness.",
+    "Premium seeds, teas, makhana, and pantry essentials with direct WhatsApp ordering.",
   defaultKeywords: [
     "Agree Superfoods",
     "premium superfoods India",
@@ -95,7 +101,7 @@ export const siteConfig = {
     },
     responseTime: "Within 1 business day",
     supportNote:
-      "For product questions, retail conversations, or wholesale requests, the team replies through the same support channel for a clear handover.",
+      "For product questions, direct orders, or bulk requests, the team handles support through WhatsApp for a faster and simpler handover.",
     wholesaleTopics: [
       "Retail placement and distributor enquiries",
       "Bulk packs, gifting, and hospitality requirements",
@@ -103,16 +109,29 @@ export const siteConfig = {
       "Verified compliance details for serious business conversations",
     ],
     contactChannels: [
-      {
-        label: "Support email",
-        value: supportEmail,
-        href: `mailto:${supportEmail}`,
-      },
+      ...(supportPhone
+        ? [
+            {
+              label: "Order WhatsApp",
+              value: supportPhone,
+              href: process.env.NEXT_PUBLIC_WHATSAPP_URL || defaultWhatsappUrl,
+            },
+          ]
+        : []),
       {
         label: "Website",
         value: siteHostLabel,
         href: siteUrl,
       },
+      ...(supportEmail
+        ? [
+            {
+              label: "Support email",
+              value: supportEmail,
+              href: `mailto:${supportEmail}`,
+            },
+          ]
+        : []),
       ...(supportPhone
         ? [
             {
@@ -136,8 +155,8 @@ export const siteConfig = {
             },
           ]),
     ],
-    whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL,
-    whatsappLabel: "WhatsApp Us",
+    whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || defaultWhatsappUrl,
+    whatsappLabel: "Order on WhatsApp",
     complianceSignals: [
       {
         title: "GST registered business",
@@ -168,10 +187,10 @@ export const siteConfig = {
       {
         title: "Reachable support",
         status: supportPhone
-          ? `Support by email and phone: ${supportPhone}`
-          : `Customer and trade enquiries handled by email: ${supportEmail}`,
+          ? `WhatsApp orders and support: ${supportPhone}`
+          : "Direct order support available through WhatsApp",
         description:
-          "Support for product questions, retailer interest, and wholesale requests is available through a single contact route with a clear response target.",
+          "Support for product questions, order confirmations, retailer interest, and wholesale requests is available through a single contact route with a clear response target.",
       },
     ],
     certificationDocuments: [
@@ -220,7 +239,7 @@ export const navigation: NavItem[] = [
   { label: "Compliance", href: "/compliance" },
   { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Order Now", href: "/contact" },
 ];
 
 export const headerNavigation: HeaderMenuItem[] = [
@@ -269,7 +288,7 @@ export const headerNavigation: HeaderMenuItem[] = [
         links: [
           { label: "Wholesale", href: "/wholesale" },
           { label: "Compliance", href: "/compliance" },
-          { label: "Contact support", href: "/contact" },
+          { label: "Order on WhatsApp", href: "/contact" },
           { label: "Shipping & Returns", href: "/shipping-returns" },
         ],
       },
@@ -307,7 +326,7 @@ export const headerNavigation: HeaderMenuItem[] = [
           { label: "Journal", href: "/blog" },
           { label: "Compliance", href: "/compliance" },
           { label: "FAQ", href: "/faq" },
-          { label: "Contact", href: "/contact" },
+          { label: "Order now", href: "/contact" },
         ],
       },
     ],
@@ -330,8 +349,8 @@ export const headerNavigation: HeaderMenuItem[] = [
       {
         eyebrow: "Trade",
         title: "Makhana and snack shelf",
-        description: "Snack-ready products presented for retail, gifting, and trade-led enquiries.",
-        href: "/wholesale",
+        description: "Snack-ready products presented for retail, gifting, and trade-led bulk orders.",
+        href: buildWholesaleWhatsAppUrl(),
         image: {
           src: "/images/products/makhana.png",
           alt: "Makhana banner image for Agree Superfoods specials navigation",
@@ -380,6 +399,7 @@ export const headerNavigation: HeaderMenuItem[] = [
 ];
 
 export const footerNavigation: NavItem[] = [
+  { label: "Order Now", href: "/contact" },
   { label: "Bulk / Wholesale", href: "/wholesale" },
   { label: "Shipping & Returns", href: "/shipping-returns" },
   { label: "Privacy Policy", href: "/privacy-policy" },

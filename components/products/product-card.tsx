@@ -3,10 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { buttonStyles } from "@/components/ui/button";
 import { useMarket } from "@/components/providers/market-provider";
 import { isPackshotImage } from "@/lib/product-images";
 import { getPricingDisplay } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
+import { buildProductOrderWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types/product";
 import type { ContentImage } from "@/types/site";
 
@@ -22,6 +25,7 @@ interface ProductCardCustomProps {
   badgeRight?: string;
   currency?: string;
   href?: string;
+  orderHref?: string;
   featured?: boolean;
   className?: string;
 }
@@ -43,6 +47,7 @@ interface ResolvedProductCardProps {
   badgeRight?: string;
   price: string;
   compareAtPrice?: string;
+  orderHref?: string;
   featured?: boolean;
   className?: string;
 }
@@ -77,6 +82,10 @@ function resolveProductCardProps(
       badgeRight: resolveBadgeRight(props.product, marketCode),
       price: pricing.current,
       compareAtPrice: pricing.compareAt ?? undefined,
+      orderHref: buildProductOrderWhatsAppUrl(
+        props.product.name,
+        props.product.pricing.variantLabel,
+      ),
       featured: props.featured,
       className: props.className,
     };
@@ -108,6 +117,7 @@ function resolveProductCardProps(
     badgeRight: props.badgeRight,
     price: convertedPrice?.current ?? currentPrice.formatted ?? "",
     compareAtPrice: convertedPrice?.compareAt ?? compareAtPrice?.formatted ?? undefined,
+    orderHref: props.orderHref,
     featured: props.featured,
     className: props.className,
   };
@@ -204,6 +214,28 @@ export function ProductCard(props: ProductCardProps) {
           <span className="font-medium text-olive-950">{card.price}</span>
           {card.compareAtPrice ? (
             <span className="text-sm text-olive-500 line-through">{card.compareAtPrice}</span>
+          ) : null}
+        </div>
+        <div className="mt-4 flex gap-2">
+          <Link
+            href={card.href}
+            className={buttonStyles({
+              variant: "secondary",
+              className: "min-h-10 flex-1 px-4 text-sm",
+            })}
+          >
+            Details
+          </Link>
+          {card.orderHref ? (
+            <TrackedLink
+              href={card.orderHref}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonStyles({ className: "min-h-10 flex-1 px-4 text-sm" })}
+              eventData={{ location: "product_card", label: `Order ${card.title}` }}
+            >
+              Order
+            </TrackedLink>
           ) : null}
         </div>
       </div>

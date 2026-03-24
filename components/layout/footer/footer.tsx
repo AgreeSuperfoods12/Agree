@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { Container } from "@/components/layout/container";
+import { buttonStyles } from "@/components/ui/button";
 import { footerNavigation, navigation, siteConfig } from "@/lib/site-config";
 
 export function Footer() {
@@ -43,11 +43,6 @@ export function Footer() {
               ))}
             </div>
             <div className="space-y-1 text-sm text-sand-100/78">
-              <p>
-                <Link href={`mailto:${siteConfig.email}`} className="transition-colors hover:text-sand-50">
-                  {siteConfig.email}
-                </Link>
-              </p>
               {supportPhone ? (
                 <p>
                   <Link
@@ -97,12 +92,24 @@ export function Footer() {
 
           <div className="space-y-4">
             <div>
-              <h2 className="text-sm uppercase tracking-[0.22em] text-sand-100/62">Newsletter</h2>
+              <h2 className="text-sm uppercase tracking-[0.22em] text-sand-100/62">Order support</h2>
               <p className="mt-3 text-sm leading-7 text-sand-100/78">
-                Product updates and educational content, sent occasionally.
+                Pick your products, message on WhatsApp, and confirm pricing and delivery directly
+                with the team.
               </p>
             </div>
-            <NewsletterForm inverse />
+            {siteConfig.business.whatsappUrl ? (
+              <Link
+                href={siteConfig.business.whatsappUrl}
+                className={buttonStyles({ size: "lg", className: "w-full" })}
+              >
+                {siteConfig.business.whatsappLabel}
+              </Link>
+            ) : null}
+            <p className="text-xs leading-6 text-sand-100/62">
+              For bulk and trade quantities, use the wholesale route or start on WhatsApp and share
+              your requirement.
+            </p>
           </div>
         </div>
 

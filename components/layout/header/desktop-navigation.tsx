@@ -88,11 +88,11 @@ export function DesktopNavigation({
         <span className="mx-1 h-5 w-px bg-olive-950/12" />
         <MarketSelector />
         <span className="h-5 w-px bg-olive-950/12" />
-        <HeaderIconButton href="/contact" label="Contact support" className="size-8">
+        <HeaderIconButton href="/contact" label="Order now" className="size-8">
           <UserIcon />
         </HeaderIconButton>
         <span className="h-5 w-px bg-olive-950/12" />
-        <HeaderIconButton href="/wholesale" label="Wholesale enquiries" className="size-8">
+        <HeaderIconButton href="/wholesale" label="Wholesale support" className="size-8">
           <BagIcon />
         </HeaderIconButton>
       </div>

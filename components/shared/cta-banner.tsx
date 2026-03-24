@@ -19,6 +19,9 @@ export function CtaBanner({
   secondaryHref,
   secondaryLabel,
 }: CtaBannerProps) {
+  const primaryIsExternal = primaryHref.startsWith("http");
+  const secondaryIsExternal = secondaryHref?.startsWith("http") ?? false;
+
   return (
     <section className="section-shell">
       <Container>
@@ -34,6 +37,8 @@ export function CtaBanner({
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <TrackedLink
                 href={primaryHref}
+                target={primaryIsExternal ? "_blank" : undefined}
+                rel={primaryIsExternal ? "noreferrer" : undefined}
                 className={buttonStyles({ size: "lg" })}
                 eventData={{ location: "cta_banner", label: primaryLabel }}
               >
@@ -42,6 +47,8 @@ export function CtaBanner({
               {secondaryHref && secondaryLabel ? (
                 <TrackedLink
                   href={secondaryHref}
+                  target={secondaryIsExternal ? "_blank" : undefined}
+                  rel={secondaryIsExternal ? "noreferrer" : undefined}
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",

@@ -1,11 +1,15 @@
 import type { HomePageContent } from "@/types/home";
+import {
+  buildGeneralOrderWhatsAppUrl,
+  buildWholesaleWhatsAppUrl,
+} from "@/lib/whatsapp";
 
 export const defaultHomePageContent: HomePageContent = {
   announcement: {
-    message: "Premium pantry staples for everyday routines",
-    secondaryMessage: "Wholesale and business enquiries welcome",
-    ctaLabel: "Contact Support",
-    ctaHref: "/contact",
+    message: "Order premium pantry staples directly on WhatsApp",
+    secondaryMessage: "Retail and wholesale support available",
+    ctaLabel: "Order Now",
+    ctaHref: buildGeneralOrderWhatsAppUrl(),
   },
   heroVisualCards: [
     {
@@ -129,8 +133,8 @@ export const defaultHomePageContent: HomePageContent = {
     },
     {
       iconText: "WS",
-      title: "Wholesale support",
-      description: "Retail, gifting, hospitality, and distributor enquiries welcome.",
+      title: "WhatsApp orders",
+      description: "Fast direct ordering with support for retail, gifting, and repeat purchases.",
     },
     {
       iconText: "TB",
@@ -253,9 +257,9 @@ export const defaultHomePageContent: HomePageContent = {
       eyebrow: "For retail and trade",
       title: "Wholesale supply conversations for stores, gifting, and hospitality.",
       description:
-        "Use the dedicated enquiry route for catalogues, larger quantities, and serious business discussions around the range.",
-      ctaLabel: "Start wholesale enquiry",
-      ctaHref: "/wholesale",
+        "Use the dedicated wholesale route for catalogues, larger quantities, and serious business discussions around the range.",
+      ctaLabel: "Bulk / Wholesale",
+      ctaHref: buildWholesaleWhatsAppUrl(),
       image: {
         src: "/images/blog/pumpkin-sunflower-seeds.jpg",
         alt: "Seeds image for Agree Superfoods wholesale banner",
@@ -274,12 +278,12 @@ export const defaultHomePageContent: HomePageContent = {
       },
     },
     {
-      eyebrow: "Support and enquiries",
-      title: "Need product details, gifting support, or a direct business response?",
+      eyebrow: "Simple ordering",
+      title: "Ready to place an order without waiting for a callback?",
       description:
-        "Contact the team for product questions, support, and trade-led conversations routed through a cleaner enquiry flow.",
-      ctaLabel: "Contact Us",
-      ctaHref: "/contact",
+        "Message Agree Superfoods on WhatsApp for current pricing, order confirmation, delivery details, and quick support.",
+      ctaLabel: "Order on WhatsApp",
+      ctaHref: buildGeneralOrderWhatsAppUrl(),
       image: {
         src: "/images/blog/black-pepper-daily-use.jpg",
         alt: "Black pepper image for Agree Superfoods support banner",
@@ -296,7 +300,7 @@ export const defaultHomePageContent: HomePageContent = {
       eyebrow: "Storefront note",
       title: "Seasonal pantry updates, gifting support, and bulk conversations can all live in the same retail system.",
       description:
-        "The current frontend stays enquiry-led, but the layout is ready for future pricing, stock, and cart logic when ecommerce is enabled.",
+        "The current frontend keeps the order flow simple through WhatsApp today while staying ready for future stock and cart logic.",
       ctaLabel: "See all products",
       ctaHref: "/products",
       image: {
@@ -333,14 +337,14 @@ export const defaultHomePageContent: HomePageContent = {
     },
   ],
   footerCta: {
-    eyebrow: "Discover the power of clean pantry choices",
-    title: "Bring Agree Superfoods into everyday routines, gifting plans, or serious business conversations.",
+    eyebrow: "Place your order today",
+    title: "Choose your products, confirm the price, and order directly on WhatsApp.",
     description:
-      "Explore the range, browse ingredient-led content, or start a trade enquiry through a premium pantry experience built for clear product discovery and direct support.",
-    primaryLabel: "Explore Products",
-    primaryHref: "/products",
-    secondaryLabel: "Bulk / Wholesale",
-    secondaryHref: "/wholesale",
+      "The site now guides customers toward ordering with clearer pricing, faster support, and a simple WhatsApp checkout conversation for both retail and repeat buyers.",
+    primaryLabel: "Order on WhatsApp",
+    primaryHref: buildGeneralOrderWhatsAppUrl(),
+    secondaryLabel: "Browse Products",
+    secondaryHref: "/products",
     image: {
       src: "/images/banners/spice-flat-lay.jpg",
       alt: "Black pepper background image for Agree Superfoods footer CTA",

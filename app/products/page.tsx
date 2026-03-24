@@ -6,11 +6,13 @@ import { getHomePageContent } from "@/lib/content/home";
 import { getAllProducts, getProductCategories } from "@/lib/content/products";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBreadcrumbSchema, getProductListSchema } from "@/lib/seo/schema";
+import { siteConfig } from "@/lib/site-config";
 import { ProductCard } from "@/components/products/product-card";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
+import { buttonStyles } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ProductsPageProps {
@@ -28,8 +30,8 @@ export async function generateMetadata({ searchParams }: ProductsPageProps): Pro
   return buildMetadata({
     title: selectedCategory ? `${selectedCategory} Products` : "Our Products",
     description: selectedCategory
-      ? `Browse ${selectedCategory.toLowerCase()} from Agree Superfoods, with pricing, product details, usage ideas, and enquiry support.`
-      : "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials for everyday wellness.",
+      ? `Browse ${selectedCategory.toLowerCase()} from Agree Superfoods, with pricing, product details, usage ideas, and direct WhatsApp ordering.`
+      : "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials with direct WhatsApp ordering.",
     path: "/products",
     noIndex: hasFilters,
   });
@@ -107,8 +109,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       />
       <PageHero
         eyebrow="Our products"
-        title="Premium pantry products for everyday use, gifting, and wholesale enquiries."
-        description="Browse the Agree Superfoods range by category, compare products clearly, and move into detailed product pages with direct enquiry and wholesale support."
+        title="Premium pantry products with clear pricing and direct ordering."
+        description="Browse the Agree Superfoods range by category, compare products clearly, and move into detailed product pages with direct WhatsApp ordering and wholesale support."
       >
         <div className="space-y-4">
           <Breadcrumbs
@@ -117,6 +119,16 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               { name: "Products", href: "/products" },
             ]}
           />
+          {siteConfig.business.whatsappUrl ? (
+            <div className="flex flex-wrap gap-3">
+              <Link href={siteConfig.business.whatsappUrl} className={buttonStyles({ size: "lg" })}>
+                {siteConfig.business.whatsappLabel}
+              </Link>
+              <Link href="/wholesale" className={buttonStyles({ variant: "secondary", size: "lg" })}>
+                Bulk / Wholesale
+              </Link>
+            </div>
+          ) : null}
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/80 px-4 py-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
@@ -137,7 +149,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 Order support
               </p>
               <p className="mt-2 text-sm leading-6 text-olive-900">
-                Product pages connect to direct contact and wholesale routes
+                Product pages connect directly to WhatsApp ordering and wholesale support
               </p>
             </div>
           </div>
@@ -175,7 +187,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   <p className="mt-3">
                     {sortedProducts.length} products matched this collection view. Use the filters
                     below to compare categories quickly, then open product pages for ingredients,
-                    usage ideas, FAQs, and order support.
+                    usage ideas, FAQs, and direct ordering.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -189,7 +201,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   </div>
                   <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
-                      Bulk enquiries
+                      Bulk support
                     </p>
                     <p className="mt-2 text-sm leading-6 text-olive-900">
                       Trade, gifting, and larger quantity support stays visible throughout the range.

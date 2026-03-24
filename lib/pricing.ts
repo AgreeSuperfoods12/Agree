@@ -7,8 +7,8 @@ import {
 } from "@/lib/markets";
 
 const defaultPricing: ProductPricing = {
-  amount: 980,
-  compareAtAmount: 1160,
+  amount: 149,
+  compareAtAmount: 179,
   currencyCode: "INR",
   variantLabel: "100g",
 };

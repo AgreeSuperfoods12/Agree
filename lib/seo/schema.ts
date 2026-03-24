@@ -24,9 +24,9 @@ export function getOrganizationSchema() {
   const contactPoint = {
     "@type": "ContactPoint",
     contactType: "customer support",
-    email: siteConfig.email,
     areaServed: "IN",
     availableLanguage: ["English"],
+    ...(siteConfig.email ? { email: siteConfig.email } : {}),
     ...(siteConfig.business.records.phone ? { telephone: siteConfig.business.records.phone } : {}),
   };
 

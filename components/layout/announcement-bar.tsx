@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/container";
 
 export function AnnouncementBar() {
   const announcement = defaultHomePageContent.announcement;
+  const isExternalCta = announcement.ctaHref.startsWith("http");
 
   return (
     <div className="border-b border-olive-950/8 bg-[#a6bdb5] text-olive-950">
@@ -12,7 +13,12 @@ export function AnnouncementBar() {
         <p className="leading-4 sm:leading-normal">{announcement.message}</p>
         <div className="flex items-center gap-3 text-olive-900/70 sm:gap-4">
           <span className="hidden sm:inline">{announcement.secondaryMessage}</span>
-          <Link href={announcement.ctaHref} className="text-olive-950 hover:text-olive-800">
+          <Link
+            href={announcement.ctaHref}
+            target={isExternalCta ? "_blank" : undefined}
+            rel={isExternalCta ? "noreferrer" : undefined}
+            className="text-olive-950 hover:text-olive-800"
+          >
             {announcement.ctaLabel}
           </Link>
         </div>

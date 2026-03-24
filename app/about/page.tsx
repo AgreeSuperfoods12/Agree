@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSiteContent } from "@/lib/content/site";
 import { getBreadcrumbSchema } from "@/lib/seo/schema";
+import { siteConfig } from "@/lib/site-config";
 import { Container } from "@/components/layout/container";
 import { JsonLd } from "@/components/seo/json-ld";
 import { CtaBanner } from "@/components/shared/cta-banner";
@@ -62,10 +63,10 @@ export default async function AboutPage() {
         </Container>
       </section>
       <CtaBanner
-        title="Want to know more about the range or the brand?"
-        description="Reach out for product details, gifting interest, retail conversations, or wholesale support."
-        primaryHref="/contact"
-        primaryLabel="Contact Agree"
+        title="Want to move from browsing into ordering?"
+        description="Reach out on WhatsApp for product details, gifting interest, retail buying, or the next step toward placing an order."
+        primaryHref={siteConfig.business.whatsappUrl || "/contact"}
+        primaryLabel="Order on WhatsApp"
         secondaryHref="/compliance"
         secondaryLabel="View compliance"
       />

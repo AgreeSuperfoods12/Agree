@@ -4,11 +4,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import type { Product } from "@/types/product";
 import { Container } from "@/components/layout/container";
 import { ProductPriceGroup } from "@/components/pricing/product-price-group";
 import { buttonStyles } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildProductOrderWhatsAppUrl } from "@/lib/whatsapp";
 
 interface FeaturedProductsSectionProps {
   products: Product[];
@@ -129,6 +131,7 @@ function FeaturedProductCard({
   cardBasis: string;
 }) {
   const image = product.images[0];
+  const orderHref = buildProductOrderWhatsAppUrl(product.name, product.pricing.variantLabel);
   const discount = product.pricing.compareAtAmount
     ? Math.round(
         ((product.pricing.compareAtAmount - product.pricing.amount) /
@@ -197,6 +200,27 @@ function FeaturedProductCard({
             compareAtClassName="text-sm text-olive-500 line-through"
             variantClassName="hidden"
           />
+
+          <div className="mt-4 flex gap-2">
+            <Link
+              href={`/products/${product.slug}`}
+              className={buttonStyles({
+                variant: "secondary",
+                className: "min-h-10 flex-1 px-4 text-sm",
+              })}
+            >
+              Details
+            </Link>
+            <TrackedLink
+              href={orderHref}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonStyles({ className: "min-h-10 flex-1 px-4 text-sm" })}
+              eventData={{ location: "featured_products", label: `Order ${product.name}` }}
+            >
+              Order
+            </TrackedLink>
+          </div>
         </div>
       </div>
     </article>
@@ -286,10 +310,11 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
             id="featured-products-title"
             className="mt-4 text-[2.95rem] leading-[0.95] sm:text-[3.85rem] lg:text-[4.35rem]"
           >
-            Bestsellers for everyday pantry routines.
+            Bestsellers ready to order right away.
           </h2>
           <p className="mt-5 text-base leading-7 text-olive-800 sm:text-lg">
-            Explore a focused edit of our most-requested seeds, spices, teas, and pantry staples.
+            Explore a focused edit of our most-requested seeds, spices, teas, and pantry staples,
+            then jump straight into WhatsApp ordering.
           </p>
         </div>
 

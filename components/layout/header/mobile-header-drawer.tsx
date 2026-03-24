@@ -120,7 +120,7 @@ export function MobileHeaderDrawer({ items }: MobileHeaderDrawerProps) {
         </Link>
         <MarketSelector mobile />
         <Link href="/contact" className={buttonStyles({ variant: "secondary", className: "w-full" })}>
-          Contact Support
+          Order Now
         </Link>
 
         <FeaturedCollections />

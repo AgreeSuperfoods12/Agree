@@ -21,6 +21,7 @@ import { getAllProducts } from "@/lib/content/products";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo/schema";
 import { formatDate } from "@/lib/utils";
+import { siteConfig } from "@/lib/site-config";
 import type { TableOfContentsItem } from "@/types/blog";
 import type { Product } from "@/types/product";
 
@@ -222,7 +223,9 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                   Explore products
                 </TrackedLink>
                 <TrackedLink
-                  href="/contact"
+                  href={siteConfig.business.whatsappUrl || "/contact"}
+                  target={siteConfig.business.whatsappUrl ? "_blank" : undefined}
+                  rel={siteConfig.business.whatsappUrl ? "noreferrer" : undefined}
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
@@ -230,11 +233,11 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                   })}
                   eventData={{
                     location: "blog_sidebar",
-                    label: "Contact support",
+                    label: "Order on WhatsApp",
                     article_slug: post.slug,
                   }}
                 >
-                  Contact Us
+                  Order on WhatsApp
                 </TrackedLink>
               </div>
             </div>

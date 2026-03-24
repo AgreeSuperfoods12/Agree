@@ -87,10 +87,10 @@ export default async function WholesalePage() {
         </Container>
       </section>
       <CtaBanner
-        title="Prefer to start with a general enquiry?"
-        description="If you are still exploring the brand or the product range, the main contact route may be the better first step."
+        title="Need a faster first response on WhatsApp?"
+        description="If you are still exploring the brand or want a quick product shortlist before a bulk discussion, start with the WhatsApp order route first."
         primaryHref="/contact"
-        primaryLabel="Contact Us"
+        primaryLabel="Order on WhatsApp"
         secondaryHref="/compliance"
         secondaryLabel="View compliance"
       />

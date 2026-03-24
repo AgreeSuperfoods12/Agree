@@ -1,23 +1,24 @@
 import type { SiteContent } from "@/types/site";
+import { buildGeneralOrderWhatsAppUrl } from "@/lib/whatsapp";
 
 export const defaultSiteContent: SiteContent = {
   hero: {
     eyebrow: "Agree Superfoods",
-    title: "Goodness in Every Bite.",
+    title: "Order Better Pantry Staples.",
     description:
-      "Explore premium seeds, teas, makhana, and pantry essentials designed for everyday routines, gifting, and serious wholesale enquiries.",
+      "Explore premium seeds, teas, makhana, and pantry essentials with simple pricing and direct WhatsApp ordering for fast support.",
     primaryCta: {
-      label: "Explore Products",
-      href: "/products",
+      label: "Order on WhatsApp",
+      href: buildGeneralOrderWhatsAppUrl(),
     },
     secondaryCta: {
-      label: "Bulk / Wholesale",
-      href: "/wholesale",
+      label: "Browse Products",
+      href: "/products",
     },
     supportingPoints: [
-      "Premium pantry essentials",
-      "Wholesale support",
-      "Everyday wellness staples",
+      "Direct WhatsApp ordering",
+      "Market-aligned pricing",
+      "Bulk support available",
     ],
   },
   homepageIntro: [
@@ -38,7 +39,7 @@ export const defaultSiteContent: SiteContent = {
     {
       title: "A brand you can contact with confidence",
       description:
-        "Agree Superfoods is designed to feel dependable for both households and business buyers, with clear support routes for product and bulk enquiries.",
+        "Agree Superfoods is designed to feel dependable for both households and business buyers, with clear support routes for direct orders and bulk requirements.",
     },
   ],
   wellnessFeatures: [
@@ -81,7 +82,7 @@ export const defaultSiteContent: SiteContent = {
     {
       title: "Support for households and business buyers",
       description:
-        "The same website supports customer discovery, retail introductions, wholesale interest, and serious brand conversations without feeling technical or cluttered.",
+        "The same website supports customer discovery, direct order requests, wholesale interest, and serious brand conversations without feeling technical or cluttered.",
     },
   ],
   brandStory: [
@@ -95,8 +96,8 @@ export const defaultSiteContent: SiteContent = {
   trustMetrics: [
     { value: "9", label: "everyday products across seeds, teas, snacks, and pantry essentials" },
     { value: "3", label: "clear product lanes: seeds, teas, and everyday essentials" },
-    { value: "1 business day", label: "target response time for product and wholesale enquiries" },
-    { value: "Every product", label: "includes ingredients, usage ideas, and FAQ guidance" },
+    { value: "1 business day", label: "target response time for WhatsApp orders and bulk requests" },
+    { value: "Every product", label: "includes pricing, usage ideas, and FAQ guidance" },
   ],
   complianceBadges: [
     {
@@ -109,11 +110,11 @@ export const defaultSiteContent: SiteContent = {
     },
     {
       title: "Business enquiry support",
-      description: "Retail, wholesale, gifting, and distributor discussions can be handled through dedicated enquiry routes.",
+      description: "Retail, wholesale, gifting, and distributor discussions can be handled through direct WhatsApp and bulk support routes.",
     },
     {
       title: "Support you can reach",
-      description: "Email support is available for customer questions, product requests, and business conversations.",
+      description: "WhatsApp support is available for customer questions, product requests, and business conversations.",
     },
   ],
   complianceItems: [
@@ -159,7 +160,7 @@ export const defaultSiteContent: SiteContent = {
     {
       question: "How can I buy Agree Superfoods products?",
       answer:
-        "The website currently supports product discovery and enquiries. Use the contact or wholesale form if you want product details, bulk information, or help finding the right range for your needs.",
+        "You can place an order directly on WhatsApp from the product pages or the main order buttons across the site. Bulk buyers can also use the wholesale route.",
     },
     {
       question: "Does Agree Superfoods make medical claims?",
@@ -169,18 +170,18 @@ export const defaultSiteContent: SiteContent = {
     {
       question: "Can retailers, distributors, or hospitality buyers get in touch?",
       answer:
-        "Yes. The bulk and wholesale enquiry route is designed for trade, gifting, distributor, and hospitality conversations.",
+        "Yes. The bulk and wholesale route is designed for trade, gifting, distributor, and hospitality conversations.",
     },
     {
       question: "How quickly does the team reply?",
       answer:
-        "Agree Superfoods aims to respond to product and wholesale enquiries within one business day.",
+        "Agree Superfoods aims to respond to WhatsApp orders and wholesale requests within one business day.",
     },
   ],
   contactHighlights: [
-    "Questions about products, ingredients, and everyday usage ideas.",
-    "Retail, distributor, gifting, and hospitality enquiries.",
-    "Support for samples, catalogue discussions, and brand introductions.",
+    "Direct WhatsApp ordering for products across seeds, teas, makhana, and pantry essentials.",
+    "Retail, distributor, gifting, and hospitality bulk requirements.",
+    "Support for final pricing, delivery confirmation, and catalogue discussions.",
   ],
   wholesaleBenefits: [
     "A focused product range across seeds, teas, snacks, and pantry essentials.",

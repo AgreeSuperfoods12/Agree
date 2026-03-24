@@ -11,7 +11,7 @@ import { PageHero } from "@/components/shared/page-hero";
 export const metadata: Metadata = buildMetadata({
   title: "FAQ",
   description:
-    "Read frequently asked questions about Agree Superfoods products, enquiries, support, and brand information.",
+    "Read frequently asked questions about Agree Superfoods products, ordering, support, and brand information.",
   path: "/faq",
 });
 
@@ -30,7 +30,7 @@ export default async function FaqPage() {
       <PageHero
         eyebrow="FAQ"
         title="Clear answers for customers, retailers, and wholesale buyers."
-        description="These questions cover how the brand works, how to enquire, and what to expect from Agree Superfoods."
+        description="These questions cover how the brand works, how to order, and what to expect from Agree Superfoods."
       />
       <section className="section-shell pt-0">
         <Container>

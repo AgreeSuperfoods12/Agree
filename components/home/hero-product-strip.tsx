@@ -10,6 +10,7 @@ import { buttonStyles } from "@/components/ui/button";
 import { isPackshotImage } from "@/lib/product-images";
 import { getPricingDisplay } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
+import { buildProductOrderWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types/product";
 
 interface HeroProductStripProps {
@@ -454,23 +455,25 @@ function QuickViewModal({
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <Link
-              href={`/products/${product.slug}`}
+              href={buildProductOrderWhatsAppUrl(product.name, product.variantLabel)}
+              target="_blank"
+              rel="noreferrer"
               onClick={onClose}
               className={buttonStyles({ size: "lg", className: "w-full" })}
             >
-              View product
+              Order on WhatsApp
             </Link>
             <Link
-              href="/wholesale"
+              href={`/products/${product.slug}`}
               onClick={onClose}
               className={buttonStyles({ variant: "secondary", size: "lg", className: "w-full" })}
             >
-              Bulk / Wholesale
+              View product
             </Link>
           </div>
 
           <div className="mt-6 rounded-[1.3rem] border border-olive-950/8 bg-olive-50/70 p-4 text-sm leading-6 text-olive-700">
-            Use the full product page for detailed ingredients, usage ideas, related reading, and enquiry-led next steps.
+            Use the full product page for detailed ingredients, usage ideas, related reading, and a clearer order flow.
             <Link
               href={`/products/${product.slug}`}
               onClick={onClose}

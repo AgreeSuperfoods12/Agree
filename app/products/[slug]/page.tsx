@@ -18,6 +18,7 @@ import { getAllProductSlugs, getProductBySlug, getRelatedProducts } from "@/lib/
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBreadcrumbSchema, getFaqSchema, getProductSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";
+import { buildProductOrderWhatsAppUrl, buildWholesaleWhatsAppUrl } from "@/lib/whatsapp";
 import type { BlogPost } from "@/types/blog";
 
 interface ProductPageProps {
@@ -74,6 +75,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     .map((relatedSlug) => allPosts.find((post) => post.slug === relatedSlug))
     .filter((post): post is BlogPost => Boolean(post))
     .slice(0, 3);
+  const productOrderUrl = buildProductOrderWhatsAppUrl(product.name, product.pricing.variantLabel);
+  const wholesaleUrl = buildWholesaleWhatsAppUrl();
 
   return (
     <>
@@ -126,18 +129,22 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               </div>
               <div className="mt-7 flex flex-col gap-3">
                 <TrackedLink
-                  href="/contact"
+                  href={productOrderUrl}
+                  target="_blank"
+                  rel="noreferrer"
                   className={buttonStyles({ size: "lg" })}
                   eventData={{
                     location: "product_hero",
-                    label: "Enquire to order",
+                    label: "Order on WhatsApp",
                     product_slug: product.slug,
                   }}
                 >
-                  Enquire to Order
+                  Order on WhatsApp
                 </TrackedLink>
                 <TrackedLink
-                  href="/wholesale"
+                  href={wholesaleUrl}
+                  target="_blank"
+                  rel="noreferrer"
                   className={buttonStyles({ variant: "secondary", size: "lg" })}
                   eventData={{
                     location: "product_hero",
@@ -155,7 +162,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
                     This page shows pricing for the {product.pricing.variantLabel} pack so smaller
-                    orders and retail enquiries start with a clear reference point.
+                    orders start with a clear reference point before final confirmation on WhatsApp.
                   </p>
                 </div>
                 <div className="rounded-[1.5rem] border border-olive-950/8 bg-sand-50 px-4 py-4">
@@ -163,8 +170,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     How to order
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Use the contact route for product and retail enquiries, or the wholesale route
-                    for trade, gifting, and larger quantity requests.
+                    Use the WhatsApp order button for retail buying, or the wholesale route for
+                    trade, gifting, and larger quantity requests.
                   </p>
                 </div>
               </div>
@@ -188,7 +195,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     Product support
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Review the product details here, then reach out for order support, gifting
+                    Review the product details here, then use WhatsApp for ordering, gifting
                     needs, samples, or specification requests.
                   </p>
                 </div>
@@ -205,7 +212,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     Bulk route
                   </p>
                   <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Retail, hospitality, distributor, and larger quantity enquiries are welcome
+                    Retail, hospitality, distributor, and larger quantity requests are welcome
                     through the dedicated business route.
                   </p>
                 </div>
@@ -350,23 +357,27 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 Need specifications, business details, or product support?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-sand-100/78">
-                Ask about product details, suggested use, gifting, retail interest, or wholesale quantities. The team aims to reply {siteConfig.business.responseTime.toLowerCase()}.
+                Ask about product details, suggested use, gifting, retail buying, or wholesale quantities. The team aims to reply {siteConfig.business.responseTime.toLowerCase()}.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <TrackedLink
-                href="/contact"
+                href={productOrderUrl}
+                target="_blank"
+                rel="noreferrer"
                 className={buttonStyles({ size: "lg" })}
                 eventData={{
                   location: "product_footer_cta",
-                  label: "Enquire to order",
+                  label: "Order on WhatsApp",
                   product_slug: product.slug,
                 }}
               >
-                Enquire to Order
+                Order on WhatsApp
               </TrackedLink>
               <TrackedLink
-                href="/wholesale"
+                href={wholesaleUrl}
+                target="_blank"
+                rel="noreferrer"
                 className={buttonStyles({
                   variant: "secondary",
                   size: "lg",
@@ -383,6 +394,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               {siteConfig.business.whatsappUrl ? (
                 <TrackedLink
                   href={siteConfig.business.whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
