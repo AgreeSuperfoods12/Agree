@@ -1,0 +1,91 @@
+{
+  "slug": "black-rice",
+  "name": "Black Rice",
+  "category": "Pantry Essentials",
+  "badge": "Whole grain pantry staple",
+  "shortDescription": "Premium black rice for colourful bowls, meal prep, festive serving, and modern everyday pantry use.",
+  "description": "Agree Superfoods Black Rice brings whole-grain depth, naturally dark colour, and a rich nutty profile to daily meals.",
+  "fullDescription": [
+    "Black rice is a naturally pigmented whole grain known for its deep purple-black colour and satisfying bite. The grain keeps a premium yet familiar pantry identity, making it easy to use in everyday lunches, dinner bowls, and special-occasion plating.",
+    "Agree Superfoods presents black rice as a practical pantry essential with clear cooking guidance and versatile meal use. The dark colour is linked to naturally occurring anthocyanin pigments in the outer layer of the grain, while the whole-grain format supports balanced meal planning."
+  ],
+  "benefits": [
+    "Naturally pigmented whole grain with anthocyanin-rich outer bran",
+    "Nutty flavour and pleasant chewy texture for bowls, salads, and rice plates",
+    "A premium pantry option that adds colour and variety to regular meals"
+  ],
+  "ingredients": [
+    "100% black rice"
+  ],
+  "usageIdeas": [
+    "Serve as a base for grain bowls with vegetables, paneer, tofu, or dals",
+    "Use in pulao-style cooking, warm salads, and festive rice platters",
+    "Meal-prep cooked portions for weekday lunch and dinner planning"
+  ],
+  "bestFor": [
+    "Customers looking for a whole-grain rice alternative with visual appeal",
+    "Home kitchens building variety beyond standard white rice routines",
+    "Retail and gifting assortments focused on premium pantry essentials"
+  ],
+  "pricing": {
+    "amount": 199,
+    "compareAtAmount": 239,
+    "currencyCode": "INR",
+    "variantLabel": "500g"
+  },
+  "productDetails": [
+    { "label": "Grain type", "value": "Whole grain black rice (unpolished)" },
+    { "label": "Flavour profile", "value": "Nutty, earthy, and mildly sweet" },
+    { "label": "Cooking guide", "value": "Rinse well and cook 1 cup rice with 2.25 cups water for 30 to 35 minutes" },
+    { "label": "Prep tip", "value": "Optional 20 to 30 minute soak helps softer texture and even cooking" },
+    { "label": "Storage", "value": "Store sealed in a cool, dry place away from moisture and direct sunlight" }
+  ],
+  "images": [
+    {
+      "src": "/images/products/black-rice.png",
+      "alt": "Agree Superfoods black rice product pack"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Grain profile",
+      "value": "Whole grain",
+      "description": "Keeps bran and natural character for a fuller rice experience."
+    },
+    {
+      "title": "Natural colour",
+      "value": "Deep purple-black",
+      "description": "Dark hue comes from naturally occurring anthocyanin pigments."
+    },
+    {
+      "title": "Kitchen use",
+      "value": "Everyday to festive",
+      "description": "Works for meal prep bowls, rice plates, and premium table presentation."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Is black rice the same as wild rice?",
+      "answer": "No. Black rice and wild rice are different grains. This product is true black rice with a naturally dark colour and nutty profile."
+    },
+    {
+      "question": "Do I need to soak black rice before cooking?",
+      "answer": "Soaking is optional, but a short soak can help with softer texture and more even cooking."
+    },
+    {
+      "question": "Why does black rice cooking water turn purple?",
+      "answer": "That colour comes from natural pigments in the grain's outer layer. It is a normal part of black rice cooking."
+    }
+  ],
+  "relatedProducts": ["makhana", "black-pepper", "chia-seeds"],
+  "relatedPosts": ["daily-diet-plan-healthy-body", "balanced-diet-for-fat-loss-indian-plan"],
+  "featured": false,
+  "catalogPriority": 9,
+  "seo": {
+    "title": "Black Rice",
+    "description": "Explore Agree Superfoods Black Rice, a premium whole-grain pantry essential for bowls, rice plates, meal prep, and everyday cooking.",
+    "canonicalPath": "/products/black-rice",
+    "ogImage": "/images/products/black-rice.png",
+    "keywords": ["black rice", "whole grain black rice", "premium rice", "anthocyanin-rich rice", "Agree Superfoods"]
+  }
+}

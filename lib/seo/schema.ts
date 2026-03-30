@@ -9,6 +9,7 @@ const websiteId = absoluteUrl("/#website");
 const organizationId = absoluteUrl("/#organization");
 const aboutPageUrl = absoluteUrl("/about");
 const organizationLogoUrl = absoluteUrl("/images/logo/agreesuperfoods.png");
+const shippingReturnsUrl = absoluteUrl("/shipping-returns");
 
 export function getOrganizationSchema() {
   const sameAs = [
@@ -155,6 +156,40 @@ export function getProductSchema(product: Product) {
       price: pricing.amount.toFixed(2),
       url: productUrl,
       itemCondition: "https://schema.org/NewCondition",
+      availability: "https://schema.org/InStock",
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: 0,
+          currency: pricing.currencyCode,
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: siteConfig.country,
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 0,
+            maxValue: 2,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 7,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: siteConfig.country,
+        returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+        merchantReturnLink: shippingReturnsUrl,
+      },
       seller: {
         "@id": organizationId,
       },
