@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { BrandMark } from "@/components/layout/brand-mark";
@@ -28,8 +28,23 @@ export function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const closeMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeDropdown = hasDropdown(activeMenu);
+
+  function clearCloseMenuTimer() {
+    if (closeMenuTimerRef.current) {
+      clearTimeout(closeMenuTimerRef.current);
+      closeMenuTimerRef.current = null;
+    }
+  }
+
+  function scheduleCloseMenu(delay = 180) {
+    clearCloseMenuTimer();
+    closeMenuTimerRef.current = setTimeout(() => {
+      setActiveMenu(null);
+    }, delay);
+  }
 
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
@@ -41,7 +56,10 @@ export function Header() {
     }
 
     window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+      clearCloseMenuTimer();
+    };
   }, []);
 
   return (
@@ -52,7 +70,11 @@ export function Header() {
       )}
     >
       <Container className="relative">
-        <div className="relative" onMouseLeave={() => setActiveMenu(null)}>
+        <div
+          className="relative"
+          onMouseEnter={clearCloseMenuTimer}
+          onMouseLeave={() => scheduleCloseMenu()}
+        >
           <div className="premium-panel overflow-visible rounded-[1rem] border border-black/5 bg-white/96 px-3 py-1 shadow-[0_24px_70px_-40px_rgba(19,32,24,0.28)] sm:rounded-[1.2rem] sm:px-4">
             {isSearchOpen ? (
               <HeaderSearch
@@ -93,6 +115,7 @@ export function Header() {
                   items={headerNavigation}
                   activeMenu={activeMenu}
                   onMenuOpen={(label) => {
+                    clearCloseMenuTimer();
                     setActiveMenu(label);
                     setIsSearchOpen(false);
                   }}
@@ -101,12 +124,16 @@ export function Header() {
                     setActiveMenu(null);
                   }}
                 />
-              </>
-            )}
-          </div>
+            </>
+          )}
+        </div>
 
-          {!isSearchOpen && activeDropdown ? (
-            <div className="absolute inset-x-0 top-[calc(100%+0.8rem)] z-40 hidden lg:block">
+        {!isSearchOpen && activeDropdown ? (
+            <div
+              className="absolute inset-x-0 top-[calc(100%+0.8rem)] z-40 hidden lg:block"
+              onMouseEnter={clearCloseMenuTimer}
+              onMouseLeave={() => scheduleCloseMenu()}
+            >
               <DesktopMegaMenu item={activeDropdown} />
             </div>
           ) : null}
