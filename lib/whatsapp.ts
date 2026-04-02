@@ -1,3 +1,5 @@
+import type { CartCheckoutLine } from "@/types/cart";
+
 const DEFAULT_WHATSAPP_NUMBER = "918050110271";
 
 function digitsOnly(value: string) {
@@ -40,6 +42,32 @@ export function buildProductOrderWhatsAppUrl(productName: string, packSize?: str
 
   return buildWhatsAppUrl(
     `Hi Agree Superfoods, I want to order ${productName}${packLabel}. Please share the final price, delivery timeline, and payment details.`,
+  );
+}
+
+export function buildCartOrderWhatsAppUrl(
+  lines: CartCheckoutLine[],
+  options?: {
+    estimatedTotal?: string;
+  },
+) {
+  if (lines.length === 0) {
+    return buildGeneralOrderWhatsAppUrl();
+  }
+
+  const lineItems = lines
+    .map((line, index) => {
+      const packLabel = line.packSize ? ` (${line.packSize})` : "";
+
+      return `${index + 1}. ${line.productName}${packLabel} x ${line.quantity}`;
+    })
+    .join("\n");
+  const estimatedTotal = options?.estimatedTotal
+    ? `\nEstimated total: ${options.estimatedTotal}`
+    : "";
+
+  return buildWhatsAppUrl(
+    `Hi Agree Superfoods, I want to place an order for the following items:\n${lineItems}${estimatedTotal}\n\nPlease confirm the final amount (including delivery), payment details, and expected delivery timeline.`,
   );
 }
 

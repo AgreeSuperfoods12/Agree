@@ -17,6 +17,8 @@ interface DesktopNavigationProps {
   activeMenu: string | null;
   onMenuOpen: (label: string) => void;
   onSearchToggle: () => void;
+  onCartToggle: () => void;
+  cartItemCount: number;
 }
 
 function hasDropdown(item: HeaderMenuItem) {
@@ -41,6 +43,8 @@ export function DesktopNavigation({
   activeMenu,
   onMenuOpen,
   onSearchToggle,
+  onCartToggle,
+  cartItemCount,
 }: DesktopNavigationProps) {
   return (
     <div className="hidden lg:grid lg:min-h-[3.5rem] lg:grid-cols-5 lg:items-center lg:gap-5">
@@ -92,8 +96,13 @@ export function DesktopNavigation({
           <UserIcon />
         </HeaderIconButton>
         <span className="h-5 w-px bg-olive-950/12" />
-        <HeaderIconButton href="/wholesale" label="Wholesale support" className="size-8">
+        <HeaderIconButton label="Open cart" onClick={onCartToggle} className="relative size-8">
           <BagIcon />
+          {cartItemCount > 0 ? (
+            <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-olive-950 px-1 text-[10px] font-semibold text-sand-50">
+              {cartItemCount > 99 ? "99+" : cartItemCount}
+            </span>
+          ) : null}
         </HeaderIconButton>
       </div>
     </div>

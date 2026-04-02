@@ -28,6 +28,8 @@ export function BrandMark({ className, inverse = false, compact = false }: Brand
         width={width}
         height={height}
         priority={!compact}
+        loading={compact ? "eager" : undefined}
+        fetchPriority={compact ? "high" : undefined}
         className={cn(
           "h-auto w-auto",
           compact ? "max-w-[7.35rem] sm:max-w-[8.75rem]" : "max-w-[14rem] sm:max-w-[16rem]",

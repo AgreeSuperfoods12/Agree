@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
+import { useCart } from "@/components/cart/cart-provider";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { Container } from "@/components/layout/container";
 import { DesktopMegaMenu } from "@/components/layout/header/desktop-mega-menu";
 import { DesktopNavigation } from "@/components/layout/header/desktop-navigation";
 import { HeaderSearch } from "@/components/layout/header/header-search";
 import {
+  BagIcon,
   CloseIcon,
   HeaderIconButton,
   MenuIcon,
@@ -17,14 +19,21 @@ import {
 import { MobileHeaderDrawer } from "@/components/layout/header/mobile-header-drawer";
 import { headerNavigation } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import type { SearchablePost, SearchableProduct } from "@/types/search";
 
 function hasDropdown(label: string | null) {
   return headerNavigation.find((item) => item.label === label && (item.sections?.length || item.cards?.length));
 }
 
-export function Header() {
+interface HeaderProps {
+  searchProducts: SearchableProduct[];
+  searchPosts: SearchablePost[];
+}
+
+export function Header({ searchProducts, searchPosts }: HeaderProps) {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { openCart, itemCount } = useCart();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -78,6 +87,8 @@ export function Header() {
           <div className="premium-panel overflow-visible rounded-[1rem] border border-black/5 bg-white/96 px-3 py-1 shadow-[0_24px_70px_-40px_rgba(19,32,24,0.28)] sm:rounded-[1.2rem] sm:px-4">
             {isSearchOpen ? (
               <HeaderSearch
+                products={searchProducts}
+                posts={searchPosts}
                 onClose={() => {
                   setIsSearchOpen(false);
                 }}
@@ -100,20 +111,39 @@ export function Header() {
 
                   <BrandMark compact className="justify-self-center" />
 
-                  <HeaderIconButton
-                    label={isSearchOpen ? "Close search" : "Open search"}
-                    onClick={() => {
-                      setIsSearchOpen((value) => !value);
-                      setIsMobileOpen(false);
-                    }}
-                  >
-                    <SearchIcon />
-                  </HeaderIconButton>
+                  <div className="flex items-center justify-end gap-1">
+                    <HeaderIconButton
+                      label={isSearchOpen ? "Close search" : "Open search"}
+                      onClick={() => {
+                        setIsSearchOpen((value) => !value);
+                        setIsMobileOpen(false);
+                      }}
+                    >
+                      <SearchIcon />
+                    </HeaderIconButton>
+                    <HeaderIconButton
+                      label="Open cart"
+                      onClick={() => {
+                        setIsSearchOpen(false);
+                        setIsMobileOpen(false);
+                        openCart();
+                      }}
+                      className="relative"
+                    >
+                      <BagIcon />
+                      {itemCount > 0 ? (
+                        <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-olive-950 px-1 text-[10px] font-semibold text-sand-50">
+                          {itemCount > 99 ? "99+" : itemCount}
+                        </span>
+                      ) : null}
+                    </HeaderIconButton>
+                  </div>
                 </div>
 
                 <DesktopNavigation
                   items={headerNavigation}
                   activeMenu={activeMenu}
+                  cartItemCount={itemCount}
                   onMenuOpen={(label) => {
                     clearCloseMenuTimer();
                     setActiveMenu(label);
@@ -122,6 +152,11 @@ export function Header() {
                   onSearchToggle={() => {
                     setIsSearchOpen(true);
                     setActiveMenu(null);
+                  }}
+                  onCartToggle={() => {
+                    setIsSearchOpen(false);
+                    setActiveMenu(null);
+                    openCart();
                   }}
                 />
             </>

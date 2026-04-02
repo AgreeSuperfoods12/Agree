@@ -93,3 +93,59 @@ export function trackProductView(payload: {
     value: payload.value,
   });
 }
+
+export function trackAddToCart(payload: {
+  slug: string;
+  name: string;
+  category: string;
+  currency: string;
+  value: number;
+  quantity: number;
+}) {
+  if (!hasWindow()) {
+    return;
+  }
+
+  window.gtag?.("event", "add_to_cart", {
+    currency: payload.currency,
+    value: payload.value * payload.quantity,
+    items: [
+      {
+        item_id: payload.slug,
+        item_name: payload.name,
+        item_category: payload.category,
+        price: payload.value,
+        quantity: payload.quantity,
+      },
+    ],
+  });
+  window.fbq?.("track", "AddToCart", {
+    content_ids: [payload.slug],
+    content_name: payload.name,
+    content_category: payload.category,
+    content_type: "product",
+    currency: payload.currency,
+    value: payload.value * payload.quantity,
+  });
+}
+
+export function trackBeginCheckout(payload: {
+  currency: string;
+  value: number;
+  itemCount: number;
+}) {
+  if (!hasWindow()) {
+    return;
+  }
+
+  window.gtag?.("event", "begin_checkout", {
+    currency: payload.currency,
+    value: payload.value,
+    items_count: payload.itemCount,
+  });
+  window.fbq?.("track", "InitiateCheckout", {
+    currency: payload.currency,
+    value: payload.value,
+    num_items: payload.itemCount,
+  });
+}

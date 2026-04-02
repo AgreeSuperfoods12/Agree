@@ -3,15 +3,19 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
+import { CartDrawer } from "@/components/cart/cart-drawer";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Footer } from "@/components/layout/footer/footer";
 import { Header } from "@/components/layout/header/header";
+import type { SearchablePost, SearchableProduct } from "@/types/search";
 
 interface AppShellProps {
   children: ReactNode;
+  searchProducts: SearchableProduct[];
+  searchPosts: SearchablePost[];
 }
 
-export function AppShell({ children }: AppShellProps) {
+export function AppShell({ children, searchProducts, searchPosts }: AppShellProps) {
   const pathname = usePathname();
   const isStudio = pathname.startsWith("/studio");
   const isHome = pathname === "/";
@@ -29,7 +33,8 @@ export function AppShell({ children }: AppShellProps) {
         Skip to content
       </a>
       {!isHome ? <AnnouncementBar /> : null}
-      <Header key={pathname} />
+      <Header key={pathname} searchProducts={searchProducts} searchPosts={searchPosts} />
+      <CartDrawer />
       <main id="main-content" className="flex-1">
         {children}
       </main>

@@ -19,19 +19,161 @@ interface ProductsPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
 
+type ProductSort = "featured" | "name-asc" | "category";
+
+function resolveSelectedSort(sortValue: string | undefined): ProductSort {
+  if (sortValue === "name-asc" || sortValue === "category") {
+    return sortValue;
+  }
+
+  return "featured";
+}
+
+function normalizeText(value: string) {
+  return value.toLowerCase().trim();
+}
+
+function tokenizeQuery(value: string) {
+  return value
+    .split(/\s+/)
+    .map((token) => token.trim())
+    .filter(Boolean);
+}
+
+function scoreProductMatch(
+  product: Awaited<ReturnType<typeof getAllProducts>>[number],
+  normalizedQuery: string,
+) {
+  const tokens = tokenizeQuery(normalizedQuery);
+  if (!tokens.length) {
+    return 0;
+  }
+
+  const name = normalizeText(product.name);
+  const category = normalizeText(product.category);
+  const shortDescription = normalizeText(product.shortDescription);
+  const benefits = product.benefits.map(normalizeText);
+  const ingredients = product.ingredients.map(normalizeText);
+  const usageIdeas = product.usageIdeas.map(normalizeText);
+
+  let score = 0;
+
+  if (name === normalizedQuery) {
+    score += 120;
+  } else if (name.startsWith(normalizedQuery)) {
+    score += 95;
+  } else if (name.includes(normalizedQuery)) {
+    score += 70;
+  }
+
+  if (category.includes(normalizedQuery)) {
+    score += 30;
+  }
+
+  if (shortDescription.includes(normalizedQuery)) {
+    score += 28;
+  }
+
+  if (benefits.some((benefit) => benefit.includes(normalizedQuery))) {
+    score += 22;
+  }
+
+  if (ingredients.some((ingredient) => ingredient.includes(normalizedQuery))) {
+    score += 16;
+  }
+
+  if (usageIdeas.some((usageIdea) => usageIdea.includes(normalizedQuery))) {
+    score += 12;
+  }
+
+  const allFields = [name, category, shortDescription, ...benefits, ...ingredients, ...usageIdeas];
+  const matchedTokens = tokens.filter((token) => allFields.some((field) => field.includes(token))).length;
+
+  if (matchedTokens > 0) {
+    score += Math.round((matchedTokens / tokens.length) * 26);
+  }
+
+  if (tokens.length > 1 && tokens.every((token) => allFields.some((field) => field.includes(token)))) {
+    score += 22;
+  }
+
+  return score;
+}
+
+function compareProducts(
+  left: Awaited<ReturnType<typeof getAllProducts>>[number],
+  right: Awaited<ReturnType<typeof getAllProducts>>[number],
+  selectedSort: ProductSort,
+) {
+  if (selectedSort === "name-asc") {
+    return left.name.localeCompare(right.name);
+  }
+
+  if (selectedSort === "category") {
+    return left.category.localeCompare(right.category) || left.name.localeCompare(right.name);
+  }
+
+  if (left.featured !== right.featured) {
+    return Number(right.featured) - Number(left.featured);
+  }
+
+  if (left.catalogPriority !== right.catalogPriority) {
+    return left.catalogPriority - right.catalogPriority;
+  }
+
+  return left.name.localeCompare(right.name);
+}
+
+function buildProductsHref({
+  category,
+  sort,
+  query,
+}: {
+  category?: string;
+  sort?: ProductSort;
+  query?: string;
+}) {
+  const params = new URLSearchParams();
+
+  if (category) {
+    params.set("category", category);
+  }
+
+  if (sort && sort !== "featured") {
+    params.set("sort", sort);
+  }
+
+  const trimmedQuery = query?.trim();
+  if (trimmedQuery) {
+    params.set("q", trimmedQuery);
+  }
+
+  const queryString = params.toString();
+  return queryString ? `/products?${queryString}` : "/products";
+}
+
 export async function generateMetadata({ searchParams }: ProductsPageProps): Promise<Metadata> {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const selectedCategory =
     typeof resolvedSearchParams.category === "string" ? resolvedSearchParams.category : undefined;
-  const selectedSort =
-    typeof resolvedSearchParams.sort === "string" ? resolvedSearchParams.sort : undefined;
-  const hasFilters = Boolean(selectedCategory || selectedSort);
+  const selectedSort = resolveSelectedSort(
+    typeof resolvedSearchParams.sort === "string" ? resolvedSearchParams.sort : undefined,
+  );
+  const query = typeof resolvedSearchParams.q === "string" ? resolvedSearchParams.q : undefined;
+  const trimmedQuery = query?.trim();
+  const hasFilters = Boolean(selectedCategory || selectedSort !== "featured" || trimmedQuery);
 
   return buildMetadata({
-    title: selectedCategory ? `${selectedCategory} Products` : "Our Products",
-    description: selectedCategory
-      ? `Browse ${selectedCategory.toLowerCase()} from Agree Superfoods, with pricing, product details, usage ideas, and direct WhatsApp ordering.`
-      : "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials with direct WhatsApp ordering.",
+    title: trimmedQuery
+      ? `Search results for "${trimmedQuery}"`
+      : selectedCategory
+        ? `${selectedCategory} Products`
+        : "Our Products",
+    description: trimmedQuery
+      ? `Explore Agree Superfoods products matching "${trimmedQuery}" with direct WhatsApp ordering and wholesale support.`
+      : selectedCategory
+        ? `Browse ${selectedCategory.toLowerCase()} from Agree Superfoods, with pricing, product details, usage ideas, and direct WhatsApp ordering.`
+        : "Explore Agree Superfoods products across seeds, teas, makhana, and pantry essentials with direct WhatsApp ordering.",
     path: "/products",
     noIndex: hasFilters,
   });
@@ -60,37 +202,46 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const selectedCategory =
     typeof resolvedSearchParams.category === "string" ? resolvedSearchParams.category : undefined;
-  const selectedSort =
-    typeof resolvedSearchParams.sort === "string" ? resolvedSearchParams.sort : "featured";
+  const selectedSort = resolveSelectedSort(
+    typeof resolvedSearchParams.sort === "string" ? resolvedSearchParams.sort : undefined,
+  );
+  const query = typeof resolvedSearchParams.q === "string" ? resolvedSearchParams.q : "";
+  const normalizedQuery = normalizeText(query);
 
   const [products, categories, homeContent] = await Promise.all([
     getAllProducts(),
     getProductCategories(),
     getHomePageContent(),
   ]);
-  const filteredProducts = selectedCategory
+
+  const categoryFilteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
     : products;
-  const sortedProducts = [...filteredProducts].sort((left, right) => {
-    if (selectedSort === "name-asc") {
-      return left.name.localeCompare(right.name);
-    }
 
-    if (selectedSort === "category") {
-      return left.category.localeCompare(right.category) || left.name.localeCompare(right.name);
-    }
+  const searchedProducts = normalizedQuery
+    ? categoryFilteredProducts
+        .map((product) => ({
+          product,
+          score: scoreProductMatch(product, normalizedQuery),
+        }))
+        .filter((entry) => entry.score > 0)
+        .sort((left, right) => {
+          if (left.score !== right.score) {
+            return right.score - left.score;
+          }
 
-    if (left.featured !== right.featured) {
-      return Number(right.featured) - Number(left.featured);
-    }
+          return compareProducts(left.product, right.product, selectedSort);
+        })
+        .map((entry) => entry.product)
+    : categoryFilteredProducts;
 
-    if (left.catalogPriority !== right.catalogPriority) {
-      return left.catalogPriority - right.catalogPriority;
-    }
+  const sortedProducts = normalizedQuery
+    ? searchedProducts
+    : [...searchedProducts].sort((left, right) => compareProducts(left, right, selectedSort));
 
-    return left.name.localeCompare(right.name);
-  });
   const collectionImage = mapCollectionImage(selectedCategory, homeContent);
+  const hasQuery = Boolean(normalizedQuery);
+  const queryLabel = query.trim();
 
   return (
     <>
@@ -185,9 +336,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     Collection overview
                   </p>
                   <p className="mt-3">
-                    {sortedProducts.length} products matched this collection view. Use the filters
-                    below to compare categories quickly, then open product pages for ingredients,
-                    usage ideas, FAQs, and direct ordering.
+                    {sortedProducts.length} products matched{" "}
+                    {hasQuery ? <>the search term &ldquo;{queryLabel}&rdquo;</> : "this collection view"}.
+                    Use the filters below to compare categories quickly, then open product pages
+                    for ingredients, usage ideas, FAQs, and direct ordering.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -213,9 +365,13 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
             <form className="mt-6 grid gap-4 rounded-[1.7rem] border border-olive-950/8 bg-white/76 p-4 md:grid-cols-[1fr_auto]">
               {selectedCategory ? <input type="hidden" name="category" value={selectedCategory} /> : null}
+              {hasQuery ? <input type="hidden" name="q" value={queryLabel} /> : null}
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href={`/products${selectedSort !== "featured" ? `?sort=${encodeURIComponent(selectedSort)}` : ""}`}
+                  href={buildProductsHref({
+                    sort: selectedSort,
+                    query: queryLabel,
+                  })}
                   className={cn(
                     "rounded-full border px-4 py-2 text-sm font-medium shadow-[0_14px_28px_-24px_rgba(19,32,24,0.32)] transition",
                     !selectedCategory
@@ -228,7 +384,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 {categories.map((category) => (
                   <Link
                     key={category}
-                    href={`/products?category=${encodeURIComponent(category)}${selectedSort !== "featured" ? `&sort=${encodeURIComponent(selectedSort)}` : ""}`}
+                    href={buildProductsHref({
+                      category,
+                      sort: selectedSort,
+                      query: queryLabel,
+                    })}
                     className={cn(
                       "rounded-full border px-4 py-2 text-sm font-medium shadow-[0_14px_28px_-24px_rgba(19,32,24,0.32)] transition",
                       selectedCategory === category
@@ -274,8 +434,17 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             <div className="card-surface p-8">
               <h2 className="text-2xl">No products matched this view.</h2>
               <p className="mt-4 max-w-2xl leading-7 text-olive-800">
-                Try switching categories or resetting the filters to browse the full Agree
-                Superfoods range.
+                {hasQuery ? (
+                  <>
+                    No products matched &ldquo;{queryLabel}&rdquo; with the current filters. Try a
+                    broader search term or reset filters to browse the full Agree Superfoods range.
+                  </>
+                ) : (
+                  <>
+                    Try switching categories or resetting the filters to browse the full Agree
+                    Superfoods range.
+                  </>
+                )}
               </p>
               <Link
                 href="/products"

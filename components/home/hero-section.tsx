@@ -114,7 +114,7 @@ export async function HeroSection() {
           alt="Wide healthy lifestyle banner for Agree Superfoods"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 1024px) 100vw, 0px"
           className="object-cover object-[72%_50%] brightness-[1.04] saturate-[0.96]"
         />
       </div>
@@ -125,7 +125,7 @@ export async function HeroSection() {
           alt="Healthy lifestyle banner for Agree Superfoods on mobile"
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 1023px) 100vw, 0px"
           className="object-cover object-[56%_42%] brightness-[1.04] saturate-[0.96]"
         />
       </div>

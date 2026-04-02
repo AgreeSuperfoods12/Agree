@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProductViewTracker } from "@/components/analytics/product-view-tracker";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { BlogCard } from "@/components/blog/blog-card";
 import { Container } from "@/components/layout/container";
@@ -15,6 +16,7 @@ import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { buttonStyles } from "@/components/ui/button";
 import { getAllPosts } from "@/lib/content/blog";
 import { getAllProductSlugs, getProductBySlug, getRelatedProducts } from "@/lib/content/products";
+import { toCartProductSnapshot } from "@/lib/cart";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBreadcrumbSchema, getFaqSchema, getProductSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";
@@ -77,6 +79,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     .slice(0, 3);
   const productOrderUrl = buildProductOrderWhatsAppUrl(product.name, product.pricing.variantLabel);
   const wholesaleUrl = buildWholesaleWhatsAppUrl();
+  const cartProduct = toCartProductSnapshot(product);
 
   return (
     <>
@@ -141,6 +144,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 >
                   Order on WhatsApp
                 </TrackedLink>
+                <AddToCartButton product={cartProduct} size="lg" variant="secondary" />
                 <TrackedLink
                   href={wholesaleUrl}
                   target="_blank"

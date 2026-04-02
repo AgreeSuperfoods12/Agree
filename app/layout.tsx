@@ -5,10 +5,13 @@ import { Fraunces, Manrope } from "next/font/google";
 import "@/app/globals.css";
 
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
+import { CartProvider } from "@/components/cart/cart-provider";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { AppShell } from "@/components/layout/app-shell";
 import { JsonLd } from "@/components/seo/json-ld";
 import { MarketProvider } from "@/components/providers/market-provider";
+import { getAllPosts } from "@/lib/content/blog";
+import { getAllProducts } from "@/lib/content/products";
 import { defaultMarketCode, isMarketCode } from "@/lib/markets";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo/schema";
@@ -43,16 +46,49 @@ export default async function RootLayout({
   const initialMarketCode = isMarketCode(requestedMarketCode)
     ? requestedMarketCode
     : defaultMarketCode;
+  const [allProducts, allPosts] = await Promise.all([getAllProducts(), getAllPosts()]);
+
+  const searchProducts = allProducts.map((product) => ({
+    slug: product.slug,
+    name: product.name,
+    category: product.category,
+    badge: product.badge,
+    shortDescription: product.shortDescription,
+    benefits: product.benefits,
+    pricing: product.pricing,
+    images: product.images.slice(0, 1).map((image) => ({
+      src: image.src,
+      alt: image.alt,
+    })),
+  }));
+
+  const searchPosts = allPosts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    tags: post.tags,
+    category: post.category,
+    coverImage: post.coverImage
+      ? {
+          src: post.coverImage.src,
+          alt: post.coverImage.alt,
+        }
+      : undefined,
+  }));
 
   return (
-    <html lang="en-IN">
+    <html lang="en-IN" data-scroll-behavior="smooth">
       <body className={`${fraunces.variable} ${manrope.variable} min-h-screen`}>
         <AnalyticsScripts />
         <JsonLd data={getOrganizationSchema()} />
         <JsonLd data={getWebsiteSchema()} />
         <MarketProvider initialMarketCode={initialMarketCode}>
-          <PageViewTracker />
-          <AppShell>{children}</AppShell>
+          <CartProvider>
+            <PageViewTracker />
+            <AppShell searchProducts={searchProducts} searchPosts={searchPosts}>
+              {children}
+            </AppShell>
+          </CartProvider>
         </MarketProvider>
       </body>
     </html>
