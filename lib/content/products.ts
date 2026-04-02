@@ -14,6 +14,7 @@ import { allProductsQuery } from "@/sanity/lib/queries";
 const productsDirectory = path.join(process.cwd(), "content", "products");
 
 const productSchema = z.object({
+  updatedAt: z.string().optional(),
   slug: z.string(),
   name: z.string(),
   category: z.string(),
@@ -95,11 +96,14 @@ const getLocalProductFileNames = cache(() =>
 );
 
 export const getProductLastModifiedMap = cache(async () => {
-  const sanityProducts = await getSanityProducts();
+  const sanityProducts = await getSanityProductSources();
 
   if (sanityProducts) {
     return Object.fromEntries(
-      sanityProducts.map((product) => [product.slug, new Date().toISOString()]),
+      sanityProducts.map((product) => [
+        product.slug,
+        new Date(product.updatedAt || Date.now()).toISOString(),
+      ]),
     );
   }
 
@@ -127,13 +131,19 @@ function sortProducts(products: Product[]) {
   });
 }
 
-async function getSanityProducts() {
+async function getSanityProductSources() {
   const products = await sanityFetch<ProductSource[]>({
     query: allProductsQuery,
     tags: ["sanity:products"],
   });
 
-  return products ? sortProducts(products.map(normalizeProduct)) : null;
+  return products ? products.map((product) => productSchema.parse(product)) : null;
+}
+
+async function getSanityProducts() {
+  const productSources = await getSanityProductSources();
+
+  return productSources ? sortProducts(productSources.map(normalizeProduct)) : null;
 }
 
 export const getAllProducts = cache(async () => {

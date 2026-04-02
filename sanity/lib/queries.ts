@@ -42,6 +42,7 @@ export const compliancePageQuery = groq`*[_type == "compliancePage"][0]{
 }`;
 
 const productProjection = `{
+  "updatedAt": _updatedAt,
   name,
   "slug": slug.current,
   category,

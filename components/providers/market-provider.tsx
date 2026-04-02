@@ -14,6 +14,7 @@ import {
   MARKET_STORAGE_KEY,
   defaultMarketCode,
   getMarketConfig,
+  isMarketCode,
   supportedMarkets,
   type MarketCode,
 } from "@/lib/markets";
@@ -43,6 +44,41 @@ function persistMarketCode(marketCode: MarketCode) {
   document.cookie = `${MARKET_COOKIE_NAME}=${marketCode}; path=/; max-age=31536000; samesite=lax`;
 }
 
+function getMarketCodeFromCookie() {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const cookieMatch = document.cookie
+    .split(";")
+    .map((item) => item.trim())
+    .find((item) => item.startsWith(`${MARKET_COOKIE_NAME}=`));
+
+  if (!cookieMatch) {
+    return null;
+  }
+
+  return decodeURIComponent(cookieMatch.split("=")[1] ?? "");
+}
+
+function resolveInitialMarketCode(initialMarketCode: MarketCode) {
+  if (typeof window === "undefined") {
+    return initialMarketCode;
+  }
+
+  let storedMarketCode: string | null = null;
+
+  try {
+    storedMarketCode = window.localStorage.getItem(MARKET_STORAGE_KEY);
+  } catch {
+    // Ignore storage access failures.
+  }
+
+  const resolvedMarketCode = storedMarketCode || getMarketCodeFromCookie();
+
+  return isMarketCode(resolvedMarketCode) ? resolvedMarketCode : initialMarketCode;
+}
+
 export function MarketProvider({
   children,
   initialMarketCode = defaultMarketCode,
@@ -50,7 +86,9 @@ export function MarketProvider({
   children: ReactNode;
   initialMarketCode?: MarketCode;
 }) {
-  const [marketCode, setMarketCodeState] = useState<MarketCode>(initialMarketCode);
+  const [marketCode, setMarketCodeState] = useState<MarketCode>(() =>
+    resolveInitialMarketCode(initialMarketCode),
+  );
 
   useEffect(() => {
     persistMarketCode(marketCode);

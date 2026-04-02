@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProductViewTracker } from "@/components/analytics/product-view-tracker";
-import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { BlogCard } from "@/components/blog/blog-card";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { Container } from "@/components/layout/container";
 import { ProductPriceGroup } from "@/components/pricing/product-price-group";
 import { ProductGallery } from "@/components/products/product-gallery";
@@ -73,13 +73,39 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     getRelatedProducts(product.slug, 3),
     getAllPosts(),
   ]);
+
   const relatedPosts = product.relatedPosts
     .map((relatedSlug) => allPosts.find((post) => post.slug === relatedSlug))
     .filter((post): post is BlogPost => Boolean(post))
     .slice(0, 3);
+
   const productOrderUrl = buildProductOrderWhatsAppUrl(product.name, product.pricing.variantLabel);
   const wholesaleUrl = buildWholesaleWhatsAppUrl();
   const cartProduct = toCartProductSnapshot(product);
+
+  const savingsPercentage =
+    typeof product.pricing.compareAtAmount === "number" &&
+    product.pricing.compareAtAmount > product.pricing.amount
+      ? Math.round(
+          ((product.pricing.compareAtAmount - product.pricing.amount) /
+            product.pricing.compareAtAmount) *
+            100,
+        )
+      : null;
+
+  const formatDetail = product.productDetails.find((item) =>
+    item.label.toLowerCase().includes("format"),
+  )?.value;
+  const storageDetail = product.productDetails.find((item) =>
+    item.label.toLowerCase().includes("storage"),
+  )?.value;
+  const sectionLinks = [
+    { href: "#overview", label: "Overview" },
+    { href: "#details", label: "Specs" },
+    { href: "#usage", label: "How to use" },
+    ...(relatedPosts.length > 0 ? [{ href: "#reading", label: "Reading" }] : []),
+    { href: "#faq", label: "FAQ" },
+  ];
 
   return (
     <>
@@ -93,132 +119,189 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         pricing={product.pricing}
       />
 
-      <section className="section-shell">
-        <Container className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
-          <div className="space-y-6">
-            <Breadcrumbs items={breadcrumbItems} />
+      <section className="section-shell pb-12 md:pb-16">
+        <Container className="space-y-6">
+          <Breadcrumbs items={breadcrumbItems} />
+
+          <div className="grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-start">
             <ProductGallery
               name={product.name}
               images={product.images}
               highlights={product.highlights}
             />
-          </div>
-          <div className="lg:sticky lg:top-28">
-            <div className="premium-panel p-7 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-olive-700">
-                {product.category}
-              </p>
-              <h1 className="mt-4 text-4xl sm:text-5xl">{product.name}</h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-olive-800">{product.description}</p>
-              <ProductPriceGroup
-                pricing={product.pricing}
-                className="mt-6 items-end gap-x-4 gap-y-3"
-                currentClassName="text-3xl font-semibold text-olive-950 sm:text-4xl"
-                compareAtClassName="pb-1 text-lg text-olive-500 line-through"
-                variantClassName="rounded-full border border-olive-950/10 bg-sand-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-olive-700"
-              />
-              <div className="mt-5 flex flex-wrap gap-3">
-                <span className="rounded-full bg-olive-50 px-4 py-2 text-sm font-medium text-olive-900">
-                  {product.badge}
-                </span>
-                {product.highlights.slice(0, 2).map((item) => (
-                  <span
-                    key={item.title}
-                    className="rounded-full bg-gold-300/30 px-4 py-2 text-sm font-medium text-olive-900"
-                  >
-                    {item.title}: {item.value}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-7 flex flex-col gap-3">
-                <TrackedLink
-                  href={productOrderUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={buttonStyles({ size: "lg" })}
-                  eventData={{
-                    location: "product_hero",
-                    label: "Order on WhatsApp",
-                    product_slug: product.slug,
-                  }}
-                >
-                  Order on WhatsApp
-                </TrackedLink>
-                <AddToCartButton product={cartProduct} size="lg" variant="secondary" />
-                <TrackedLink
-                  href={wholesaleUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={buttonStyles({ variant: "secondary", size: "lg" })}
-                  eventData={{
-                    location: "product_hero",
-                    label: "Bulk / Wholesale",
-                    product_slug: product.slug,
-                  }}
-                >
-                  Bulk / Wholesale
-                </TrackedLink>
-              </div>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] border border-olive-950/8 bg-sand-50 px-4 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
-                    Pack size
+
+            <div className="xl:sticky xl:top-24">
+              <div className="premium-panel relative overflow-hidden p-7 sm:p-8">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(236,215,155,0.38),transparent_72%)]" />
+                <div className="relative">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-olive-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-olive-800">
+                      {product.category}
+                    </span>
+                    <span className="rounded-full bg-gold-300/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-olive-900">
+                      {product.badge}
+                    </span>
+                    {savingsPercentage ? (
+                      <span className="rounded-full bg-olive-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-sand-50">
+                        Save {savingsPercentage}%
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <h1 className="mt-4 text-4xl sm:text-5xl">{product.name}</h1>
+                  <p className="mt-4 max-w-2xl text-lg leading-8 text-olive-800">
+                    {product.description}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-olive-900">
-                    This page shows pricing for the {product.pricing.variantLabel} pack so smaller
-                    orders start with a clear reference point before final confirmation on WhatsApp.
-                  </p>
-                </div>
-                <div className="rounded-[1.5rem] border border-olive-950/8 bg-sand-50 px-4 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
-                    How to order
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Use the WhatsApp order button for retail buying, or the wholesale route for
-                    trade, gifting, and larger quantity requests.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                <Link href="#overview" className="rounded-full border border-olive-950/8 bg-white px-4 py-2 text-sm font-medium text-olive-900">
-                  Overview
-                </Link>
-                <Link href="#details" className="rounded-full border border-olive-950/8 bg-white px-4 py-2 text-sm font-medium text-olive-900">
-                  Details
-                </Link>
-                <Link href="#usage" className="rounded-full border border-olive-950/8 bg-white px-4 py-2 text-sm font-medium text-olive-900">
-                  Usage
-                </Link>
-                <Link href="#faq" className="rounded-full border border-olive-950/8 bg-white px-4 py-2 text-sm font-medium text-olive-900">
-                  FAQ
-                </Link>
-              </div>
-              <div className="mt-7 grid gap-3">
-                <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
-                    Product support
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Review the product details here, then use WhatsApp for ordering, gifting
-                    needs, samples, or specification requests.
-                  </p>
-                </div>
-                <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
-                    Response time
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Agree Superfoods aims to respond {siteConfig.business.responseTime.toLowerCase()}.
-                  </p>
-                </div>
-                <div className="rounded-[1.5rem] border border-olive-950/8 bg-white/75 px-4 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
-                    Bulk route
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-olive-900">
-                    Retail, hospitality, distributor, and larger quantity requests are welcome
-                    through the dedicated business route.
-                  </p>
+
+                  <ProductPriceGroup
+                    pricing={product.pricing}
+                    className="mt-6 items-end gap-x-4 gap-y-3"
+                    currentClassName="text-3xl font-semibold text-olive-950 sm:text-4xl"
+                    compareAtClassName="pb-1 text-lg text-olive-500 line-through"
+                    variantClassName="rounded-full border border-olive-950/12 bg-sand-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-olive-700"
+                  />
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-2xl border border-olive-950/10 bg-white/75 px-4 py-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
+                        Pack
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-olive-900">
+                        {product.pricing.variantLabel}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-olive-950/10 bg-white/75 px-4 py-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
+                        Response
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-olive-900">
+                        {siteConfig.business.responseTime}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-olive-950/10 bg-white/75 px-4 py-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-olive-700">
+                        Support
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-olive-900">Retail + Bulk</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                    <AddToCartButton
+                      product={cartProduct}
+                      size="lg"
+                      variant="primary"
+                      className="w-full"
+                    />
+                    <TrackedLink
+                      href={productOrderUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={buttonStyles({
+                        variant: "secondary",
+                        size: "lg",
+                        className: "w-full",
+                      })}
+                      eventData={{
+                        location: "product_hero",
+                        label: "Order on WhatsApp",
+                        product_slug: product.slug,
+                      }}
+                    >
+                      Order on WhatsApp
+                    </TrackedLink>
+                  </div>
+
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <TrackedLink
+                      href={wholesaleUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={buttonStyles({ variant: "secondary", size: "lg", className: "w-full" })}
+                      eventData={{
+                        location: "product_hero",
+                        label: "Bulk / Wholesale",
+                        product_slug: product.slug,
+                      }}
+                    >
+                      Bulk / Wholesale
+                    </TrackedLink>
+                    {siteConfig.business.whatsappUrl ? (
+                      <TrackedLink
+                        href={siteConfig.business.whatsappUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={buttonStyles({
+                          variant: "secondary",
+                          size: "lg",
+                          className: "w-full",
+                        })}
+                        eventData={{
+                          location: "product_hero",
+                          label: siteConfig.business.whatsappLabel,
+                          product_slug: product.slug,
+                        }}
+                      >
+                        {siteConfig.business.whatsappLabel}
+                      </TrackedLink>
+                    ) : (
+                      <Link
+                        href="/contact"
+                        className={buttonStyles({
+                          variant: "secondary",
+                          size: "lg",
+                          className: "w-full",
+                        })}
+                      >
+                        Ask a question
+                      </Link>
+                    )}
+                  </div>
+
+                  <div className="mt-7 rounded-[1.5rem] border border-olive-950/10 bg-white/75 p-5">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
+                      What you get
+                    </p>
+                    <dl className="mt-4 grid gap-3 text-sm leading-6 text-olive-900 sm:grid-cols-2">
+                      <div className="rounded-xl border border-olive-950/8 bg-sand-50 px-4 py-3">
+                        <dt className="text-[10px] font-semibold uppercase tracking-[0.22em] text-olive-600">
+                          Ingredient
+                        </dt>
+                        <dd className="mt-1 font-medium">
+                          {product.ingredients[0] ?? "Carefully sourced ingredients"}
+                        </dd>
+                      </div>
+                      <div className="rounded-xl border border-olive-950/8 bg-sand-50 px-4 py-3">
+                        <dt className="text-[10px] font-semibold uppercase tracking-[0.22em] text-olive-600">
+                          Format
+                        </dt>
+                        <dd className="mt-1 font-medium">{formatDetail ?? "Ready for everyday use"}</dd>
+                      </div>
+                      <div className="rounded-xl border border-olive-950/8 bg-sand-50 px-4 py-3 sm:col-span-2">
+                        <dt className="text-[10px] font-semibold uppercase tracking-[0.22em] text-olive-600">
+                          Storage
+                        </dt>
+                        <dd className="mt-1 font-medium">
+                          {storageDetail ?? "Keep sealed in a cool, dry place"}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    {product.highlights.slice(0, 2).map((item) => (
+                      <div
+                        key={item.title}
+                        className="rounded-[1.35rem] border border-olive-950/10 bg-white/70 px-4 py-4"
+                      >
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-olive-700">
+                          {item.title}
+                        </p>
+                        <p className="mt-1.5 text-base font-semibold text-olive-950">{item.value}</p>
+                        <p className="mt-1.5 text-sm leading-6 text-olive-800">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -226,85 +309,147 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </Container>
       </section>
 
-      <section className="section-shell pt-0">
-        <Container id="overview" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="card-surface p-8 sm:p-10">
-            <h2 className="text-3xl">Product overview</h2>
-            <p className="mt-4 text-base leading-8 text-olive-800">{product.shortDescription}</p>
+      <section className="section-shell py-0">
+        <Container>
+          <nav
+            aria-label="Product sections"
+            className="card-surface flex flex-wrap items-center gap-2 p-3 sm:p-4"
+          >
+            {sectionLinks.map((section) => (
+              <Link
+                key={section.href}
+                href={section.href}
+                className="rounded-full border border-olive-950/10 bg-white px-4 py-2 text-sm font-medium text-olive-900 transition hover:bg-olive-50"
+              >
+                {section.label}
+              </Link>
+            ))}
+          </nav>
+        </Container>
+      </section>
+
+      <section id="overview" className="section-shell">
+        <Container className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
+          <article className="premium-panel p-8 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive-700">
+              Product overview
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl">{product.name} for everyday routines</h2>
+            <p className="mt-5 text-base leading-8 text-olive-800">{product.shortDescription}</p>
             <div className="mt-6 space-y-5 text-base leading-8 text-olive-800">
               {product.fullDescription.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </div>
-          <div className="grid gap-5">
-            <article id="details" className="dark-panel p-6">
-              <h2 className="text-2xl">Product details</h2>
-              <dl className="mt-5 space-y-4 text-sm leading-7 text-sand-100/80">
+
+            <div className="mt-8 rounded-[1.75rem] border border-olive-950/10 bg-white/72 p-5 sm:p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
+                Best for
+              </p>
+              <ul className="mt-4 grid gap-3 text-sm leading-6 text-olive-900 sm:grid-cols-2">
+                {product.bestFor.map((item) => (
+                  <li key={item} className="rounded-2xl border border-olive-950/8 bg-sand-50 px-4 py-3">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+
+          <div className="grid gap-6">
+            <article id="details" className="card-surface p-6 sm:p-8">
+              <h2 className="text-2xl">Product specs</h2>
+              <dl className="mt-5 grid gap-4 text-sm leading-7 text-olive-800">
                 {product.productDetails.map((item) => (
                   <div
                     key={item.label}
-                    className="flex flex-col gap-1 border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
+                    className="rounded-[1.3rem] border border-olive-950/8 bg-white/70 px-4 py-4"
                   >
-                    <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-sand-100/60">
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.24em] text-olive-700">
                       {item.label}
                     </dt>
-                    <dd>{item.value}</dd>
+                    <dd className="mt-2">{item.value}</dd>
                   </div>
                 ))}
               </dl>
             </article>
-            <article className="card-surface p-6">
-              <h2 className="text-2xl">Best for</h2>
-              <ul className="mt-5 space-y-3 text-sm leading-7 text-olive-800">
-                {product.bestFor.map((item) => (
-                  <li key={item}>{item}</li>
+
+            <article className="dark-panel p-6 sm:p-8">
+              <h2 className="text-2xl">Highlights</h2>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {product.highlights.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sand-100/65">
+                      {item.title}
+                    </p>
+                    <p className="mt-2 text-xl text-sand-50">{item.value}</p>
+                    <p className="mt-2 text-sm leading-6 text-sand-100/78">{item.description}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </article>
           </div>
         </Container>
       </section>
 
-      <section className="section-shell pt-0">
-        <Container id="usage" className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="grid gap-6 md:grid-cols-2">
-            <article className="card-surface p-6 sm:p-8">
-              <h2 className="text-2xl">Benefits</h2>
-              <ul className="mt-5 space-y-3 text-sm leading-7 text-olive-800">
-                {product.benefits.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-            <article className="card-surface p-6 sm:p-8">
-              <h2 className="text-2xl">Ingredients</h2>
-              <ul className="mt-5 space-y-3 text-sm leading-7 text-olive-800">
-                {product.ingredients.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          </div>
+      <section id="usage" className="section-shell pt-0">
+        <Container className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
+          <article className="card-surface p-6 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-olive-700">Usage flow</p>
+            <h2 className="mt-3 text-3xl">How to use {product.name}</h2>
+            <ol className="mt-6 space-y-4">
+              {product.usageIdeas.map((item, index) => (
+                <li
+                  key={item}
+                  className="flex gap-4 rounded-[1.4rem] border border-olive-950/8 bg-white/72 px-4 py-4"
+                >
+                  <span className="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-olive-950 text-xs font-semibold text-sand-50">
+                    {index + 1}
+                  </span>
+                  <p className="text-sm leading-7 text-olive-900">{item}</p>
+                </li>
+              ))}
+            </ol>
+          </article>
+
           <div className="grid gap-6">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <article className="card-surface p-6">
+                <h2 className="text-2xl">Benefits</h2>
+                <ul className="mt-5 space-y-3 text-sm leading-7 text-olive-800">
+                  {product.benefits.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+
+              <article className="card-surface p-6">
+                <h2 className="text-2xl">Ingredients</h2>
+                <ul className="mt-5 space-y-3 text-sm leading-7 text-olive-800">
+                  {product.ingredients.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+
             <article className="premium-panel p-6 sm:p-8">
-              <h2 className="text-2xl">Usage ideas</h2>
-              <ol className="mt-5 list-decimal space-y-3 pl-5 text-sm leading-7 text-olive-800">
-                {product.usageIdeas.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ol>
-            </article>
-            <article className="dark-panel p-6 sm:p-8">
-              <h2 className="text-2xl">Highlights</h2>
-              <div className="mt-5 grid gap-4 md:grid-cols-3">
-                {product.highlights.map((item) => (
-                  <div key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sand-100/60">
-                      {item.title}
-                    </p>
-                    <p className="mt-3 text-xl text-sand-50">{item.value}</p>
-                    <p className="mt-2 text-sm leading-6 text-sand-100/76">{item.description}</p>
+              <h2 className="text-2xl">Made for consistent routines</h2>
+              <p className="mt-4 text-sm leading-7 text-olive-800">
+                This {product.category.toLowerCase()} product is designed to feel simple and repeatable
+                for homes, gifting, and growing pantry demand. The team aims to respond{" "}
+                {siteConfig.business.responseTime.toLowerCase()} for product questions.
+              </p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {product.bestFor.slice(0, 4).map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-olive-950/8 bg-white/76 px-4 py-3 text-sm text-olive-900"
+                  >
+                    {item}
                   </div>
                 ))}
               </div>
@@ -361,7 +506,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 Need specifications, business details, or product support?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-sand-100/78">
-                Ask about product details, suggested use, gifting, retail buying, or wholesale quantities. The team aims to reply {siteConfig.business.responseTime.toLowerCase()}.
+                Ask about product details, suggested use, gifting, retail buying, or wholesale
+                quantities. The team aims to reply {siteConfig.business.responseTime.toLowerCase()}.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

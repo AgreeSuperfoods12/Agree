@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
 import { Fraunces, Manrope } from "next/font/google";
+import { Suspense } from "react";
 
 import "@/app/globals.css";
 
@@ -12,7 +12,6 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { MarketProvider } from "@/components/providers/market-provider";
 import { getAllPosts } from "@/lib/content/blog";
 import { getAllProducts } from "@/lib/content/products";
-import { defaultMarketCode, isMarketCode } from "@/lib/markets";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo/schema";
 
@@ -41,11 +40,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const requestedMarketCode = cookieStore.get("agree-market")?.value;
-  const initialMarketCode = isMarketCode(requestedMarketCode)
-    ? requestedMarketCode
-    : defaultMarketCode;
   const [allProducts, allPosts] = await Promise.all([getAllProducts(), getAllPosts()]);
 
   const searchProducts = allProducts.map((product) => ({
@@ -82,9 +76,11 @@ export default async function RootLayout({
         <AnalyticsScripts />
         <JsonLd data={getOrganizationSchema()} />
         <JsonLd data={getWebsiteSchema()} />
-        <MarketProvider initialMarketCode={initialMarketCode}>
+        <MarketProvider>
           <CartProvider>
-            <PageViewTracker />
+            <Suspense fallback={null}>
+              <PageViewTracker />
+            </Suspense>
             <AppShell searchProducts={searchProducts} searchPosts={searchPosts}>
               {children}
             </AppShell>
