@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { getFeaturedPosts } from "@/lib/content/blog";
 import { getHomePageContent } from "@/lib/content/home";
 import { getAllProducts } from "@/lib/content/products";
@@ -12,6 +14,12 @@ import { HeroSection } from "@/components/home/hero-section";
 import { ProductSpotlightSection } from "@/components/home/product-spotlight-section";
 import { TrustIconsRow } from "@/components/home/trust-icons-row";
 import { JsonLd } from "@/components/seo/json-ld";
+
+export const metadata: Metadata = {
+  title: "Healthy Morning Drinks for Energy, Digestion & Weight Loss",
+  description:
+    "Discover healthy morning drinks for energy, digestion, hydration, and weight loss. Learn how chia, amla, coconut, ginger, and lemon support a fresh start.",
+};
 
 function pickProducts(slugs: string[], allProducts: Awaited<ReturnType<typeof getAllProducts>>) {
   const productsBySlug = new Map(allProducts.map((product) => [product.slug, product]));

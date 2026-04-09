@@ -4,9 +4,9 @@ import { buildGeneralOrderWhatsAppUrl } from "@/lib/whatsapp";
 export const defaultSiteContent: SiteContent = {
   hero: {
     eyebrow: "Agree Superfoods",
-    title: "Order Better Pantry Staples.",
+    title: "Healthy Morning Drinks for Energy, Digestion, and Hydration | Agree Superfoods",
     description:
-      "Explore premium seeds, teas, makhana, and pantry essentials with simple pricing and direct WhatsApp ordering for fast support.",
+      "Discover natural morning drink ideas with chia, amla, coconut, ginger, and lemon to support hydration, digestion, and steady daily energy.",
     primaryCta: {
       label: "Order on WhatsApp",
       href: buildGeneralOrderWhatsAppUrl(),
