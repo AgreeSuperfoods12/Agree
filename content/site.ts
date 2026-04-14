@@ -4,7 +4,7 @@ import { buildGeneralOrderWhatsAppUrl } from "@/lib/whatsapp";
 export const defaultSiteContent: SiteContent = {
   hero: {
     eyebrow: "Agree Superfoods",
-    title: "Healthy Morning Drinks for Energy, Digestion, and Hydration | Agree Superfoods",
+    title: "Fresh Day Start",
     description:
       "Discover natural morning drink ideas with chia, amla, coconut, ginger, and lemon to support hydration, digestion, and steady daily energy.",
     primaryCta: {

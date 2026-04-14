@@ -142,7 +142,7 @@ export async function HeroSection() {
             <p className="text-xs font-semibold uppercase tracking-[0.34em] text-olive-700">
               {siteContent.hero.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-[10ch] break-words text-[3.6rem] font-semibold leading-[0.9] text-olive-950 sm:max-w-[12ch] sm:text-6xl lg:text-[5rem] xl:text-[5.6rem]">
+            <h1 className="mt-5 max-w-none whitespace-nowrap text-[2.2rem] font-semibold leading-[0.95] text-olive-950 sm:text-[2.8rem] lg:text-[3.2rem] xl:text-[3.6rem]">
               <HeroTitle title={siteContent.hero.title} />
             </h1>
             <p className="mt-5 max-w-[35rem] text-[1.04rem] leading-7 text-olive-800 sm:mt-6 sm:text-lg sm:leading-8 lg:max-w-[31rem]">
